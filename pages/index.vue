@@ -2,12 +2,8 @@
   <section class="container">
     <div>
       <logo/>
-      <h1 class="title">
-        NUXT
-      </h1>
-      <h2 class="subtitle">
-        PWA Vue.js Application
-      </h2>
+      <h1 class="title">NUXT</h1>
+      <h2 class="subtitle">PWA Vue.js Application</h2>
       <div :class="['network',online ? 'online' : 'offline']">
         <div class="circle"></div>
         {{ online ? 'online' : 'offline' }}
@@ -21,7 +17,7 @@
 </template>
 
 <script>
-  import Logo from '~/components/Logo.vue'
+  import Logo from '@/components/Logo.vue'
 
   export default {
     components: {Logo},
