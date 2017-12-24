@@ -9,6 +9,7 @@ describe('Index', () => {
   })
 
   it('is a Vue instance', () => {
+    expect(wrapper.exists()).toBeTruthy()
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
 })
