@@ -11,9 +11,9 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint-staged": "lint-staged",
-    "test": "jest",
-    "test:tdd": "jest --watch --coverage",
-    "test:coverage": "jest --coverage"
+    "test": "jest --config jest.config.json",
+    "test:tdd": "yarn run test --watchAll --coverage",
+    "test:coverage": "yarn run test --coverage"
   },
   "pre-commit": "lint-staged, test",
   "lint-staged": {
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.0.3",
+    "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "eslint": "^4.13.1",
     "eslint-config-standard": "^11.0.0-beta.0",
@@ -41,25 +42,11 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.4.1",
     "eslint-plugin-standard": "^3.0.1",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^22.0.4",
     "lint-staged": "^6.0.0",
     "pre-commit": "^1.2.2",
     "vue-jest": "^1.4.0",
     "vue-test-utils": "^1.0.0-beta.8"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "vue"
-    ],
-    "transform": {
-      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest",
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
-    },
-    "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/$1"
-    },
-    "mapCoverage": true
   }
 }
