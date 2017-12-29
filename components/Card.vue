@@ -1,0 +1,76 @@
+<template lang="pug">
+  .card.is-radius
+    .card-image
+      figure.image
+        img(:src="`/products/${item.img}`"
+             :alt="`Image of ${item.name}`")
+    .card-content
+      .media
+        .media-content
+          p.title.is-5 {{ item.name }}
+          //p.subtitle.is-6 @johnsmith
+          p.item-price {{ item.price | usdollar }}
+        .media-right
+          p.field
+            button.button.icon.is-large.add(@click="addItem(item)")
+              span.fa-stack
+                i.fa.fa-circle.fa-stack-2x
+                i.fa.fa-cart-plus.fa-stack-1x.fa-inverse
+</template>
+
+<script>
+import { createNamespacedHelpers } from 'vuex'
+const { mapActions } = createNamespacedHelpers('cart')
+
+export default {
+  props: {
+    item: {
+      type: Object,
+      required: true
+    },
+    index: {
+      type: Number,
+      required: true
+    }
+  },
+  filters: {
+    usdollar: function(value) {
+      return `$${value}`
+    }
+  },
+  methods: {
+    ...mapActions(['addItem'])
+  }
+}
+</script>
+
+<style scoped lang="stylus">
+  .card
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+    //position relative
+
+    &.is-radius
+      .image
+        img
+          padding-top 1.5rem
+          border-top-left-radius $card-radius
+          border-top-right-radius $card-radius
+
+    .title,
+    .subtitle
+      color inherit
+    .title
+      margin-bottom .5rem
+    .button
+      border 0
+      padding 0
+
+      &.icon
+        cursor pointer
+
+      // .fa-circle
+      //   color #f5f5f5
+</style>
