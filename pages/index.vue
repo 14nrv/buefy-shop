@@ -1,11 +1,40 @@
 <template lang="pug">
-  app-hero
+  div.container
+    .section
+      app-hero
+    .section.capsule
+      app-sidebar(:pricerange.sync="highprice")
+      transition-group.content(name="items" tag="div")
+        app-card(v-for="(item, index) in products"
+          :key="index"
+          :item="item"
+          :index="index")
 </template>
 
 <script>
+  import { createNamespacedHelpers } from 'vuex'
   import AppHero from '@/components/Hero.vue'
+  import AppCard from '@/components/Card.vue'
+  import AppSidebar from '@/components/Sidebar.vue'
+
+  const { mapGetters } = createNamespacedHelpers('product')
 
   export default {
-    components: { AppHero }
+    components: { AppHero, AppCard, AppSidebar },
+    computed: {
+      ...mapGetters(['products', 'highprice'])
+    }
   }
 </script>
+
+<style lang="stylus" scoped>
+  .content
+    /*no grid support*/
+    float right
+    width 79.7872%
+    /* grid */
+    display grid
+    grid-template-columns repeat(3, 1fr)
+    grid-gap 10px
+    padding 0 !important
+</style>

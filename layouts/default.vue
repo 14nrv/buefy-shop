@@ -19,6 +19,7 @@ export default {
 </script>
 
 <style lang="stylus">
+  @require './css/_transition'
   @require './css/_slider'
 
   .section
