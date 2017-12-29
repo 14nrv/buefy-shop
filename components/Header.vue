@@ -1,5 +1,6 @@
 <template lang="pug">
-  header.navbar
+  header.navbar.is-fixed-top.is-light(role="navigation"
+                aria-label="main navigation")
     .container
       .navbar-brand
         nuxt-link.navbar-item(exact, :to="{name: 'index'}")
@@ -16,38 +17,80 @@
         .navbar-start
           .navbar-item.has-dropdown.is-hoverable
             a.navbar-link(href="/documentation/overview/start/") Products
-            div.navbar-dropdown.is-boxed.is-inverted.is-success
+            div.navbar-dropdown.is-boxed.is-inverted.is-light
               a.navbar-item(href="/documentation/overview/start/") Women
               a.navbar-item(href="https://bulma.io/documentation/modifiers/syntax/") Men
               hr.navbar-divider
               a.navbar-item(href="https://bulma.io/documentation/columns/basics/") Sale
-          a.navbar-item(href="https://bulma.io/") Contact
+          nuxt-link.navbar-item(exact, :to="{name: 'contact'}") Contact
 
         .navbar-end
           .navbar-item
             .field.is-grouped
               p.control
-                a.button.is-success(target="_blank"
-                                      href="https://twitter.com/")
+                a.button.is-light(target="_blank"
+                                      href="https://github.com/")
                   span.icon
                     i.fa.fa-github
                   span Fork
               p.control
-                a.button.is-success(href="https://github.com/jgthms/bulma/archive/0.5.1.zip")
+                nuxt-link.button.is-light(exact, :to="{name: 'login'}")
                   span.icon
+                    i.fa.fa-sign-in
+                  span Login / Sign in
+              p.control
+                nuxt-link.button.is-light(exact, :to="{name: 'cart'}")
+                  span.icon.cartitem
+                    .cartcount(v-if="total > 0") {{ total }}
                     i.fa.fa-shopping-cart
+                  span Cart
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapGetters } = createNamespacedHelpers('cart')
+
 export default {
   data() {
     return {
       isBurgerMenuActive: false
     }
+  },
+  head () {
+    return {
+      htmlAttrs: {
+        class: 'has-navbar-fixed-top'
+      }
+    }
+  },
+  computed: {
+    ...mapGetters(['total'])
   }
 }
 </script>
 
-<style>
+<style lang="stylus">
+  .hero
+    .navbar
+      &.is-light
+        background-color #f5f5f5
 
+  .cartitem
+    position relative
+    float right
+
+  .cartcount
+    font-family 'Barlow', sans-serif
+    position absolute
+    background #ff2211
+    color white
+    text-align center
+    padding-top 2px
+    width 18px
+    height 18px
+    font-size 10px
+    margin -8px 0 0 8px
+    border-radius 50%
+    font-weight 700
 </style>
