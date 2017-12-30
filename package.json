@@ -5,15 +5,15 @@
   "author": "nRV <contact@styro.fr>",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
+    "dev": "cross-env NODE_ENV=development nuxt",
+    "build": "cross-env NODE_ENV=production nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint-staged": "lint-staged",
-    "test": "jest --config jest.config.json",
-    "test:tdd": "yarn run test --watchAll --coverage",
-    "test:coverage": "yarn run test --coverage"
+    "test": "cross-env NODE_ENV=test jest --config jest.config.json",
+    "test:tdd": "cross-env NODE_ENV=test yarn run test --watchAll --coverage",
+    "test:coverage": "cross-env NODE_ENV=test yarn run test --coverage"
   },
   "pre-commit": "lint-staged, test",
   "lint-staged": {
@@ -24,6 +24,7 @@
     "@nuxtjs/pwa": "latest",
     "buefy": "^0.6.2",
     "bulma-steps": "^0.1.2",
+    "firebase": "^4.8.1",
     "font-awesome": "^4.7.0",
     "nuxt": "^1.0.0-rc11",
     "pug": "^2.0.0-rc.4",
@@ -32,9 +33,11 @@
     "vuexfire": "^2.3.0"
   },
   "devDependencies": {
+    "@nuxtjs/dotenv": "^1.1.0",
     "babel-eslint": "^8.0.3",
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "cross-env": "^5.1.3",
     "css-loader": "^0.28.7",
     "eslint": "^4.13.1",
     "eslint-config-standard": "^11.0.0-beta.0",

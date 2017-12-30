@@ -12,6 +12,7 @@
 </template>
 
 <script>
+  import { db } from '@/plugins/firebase'
   import { createNamespacedHelpers } from 'vuex'
   import Hero from '@/components/Hero.vue'
   import Card from '@/components/Card.vue'
@@ -27,6 +28,9 @@
     },
     computed: {
       ...mapGetters(['products', 'highprice'])
+    },
+    created () {
+      process.env.NODE_ENV !== 'test' && this.$store.dispatch('product/setProductsRef', db.ref('products'))
     }
   }
 </script>

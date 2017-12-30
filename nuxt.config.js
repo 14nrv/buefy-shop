@@ -9,6 +9,11 @@ module.exports = {
           customProperties: false
         }
       })
+    ],
+    analyze: true,
+    vendor: [
+      'buefy',
+      'firebase'
     ]
   },
   /*
@@ -30,9 +35,11 @@ module.exports = {
   ** Modules
   */
   modules: [
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/dotenv'
   ],
   plugins: [
-    '~plugins/buefy'
+    '~plugins/buefy',
+    '~plugins/firebase'
   ]
 }

@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import { firebaseMutations } from 'vuexfire'
 import pkg from '@/store/modules/package'
 import cart from '@/store/modules/cart'
 import product from '@/store/modules/product'
@@ -10,6 +11,9 @@ const store = () => {
       cart,
       product,
       pkg
+    },
+    mutations: {
+      ...firebaseMutations
     }
   })
 }
