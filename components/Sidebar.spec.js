@@ -1,35 +1,32 @@
-import { shallow, createLocalVue } from 'vue-test-utils'
 import Vuex from 'vuex'
+import Helpers from 'mwangaben-vthelpers'
+import { shallow, createLocalVue } from 'vue-test-utils'
 import { fakeStore } from '@/store/__mocks__/fakeStore'
 import Sidebar from './Sidebar'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-let wrapper
-let store
+let wrapper, store, b
 
 describe('Sidebar', () => {
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
     wrapper = shallow(Sidebar, { localVue, store })
+    b = new Helpers(wrapper, expect)
   })
 
   it('is a Vue instance', () => {
+    expect(wrapper.exists()).toBeTruthy()
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
 
   it('show an input #pricerange', () => {
-    expect(wrapper.contains('#pricerange')).toBeTruthy()
+    b.domHas('#pricerange')
   })
 
   it('call updateHighPrice when change value of price range', () => {
     const highPrice = 20
-
-    const $pricerange = wrapper.find('#pricerange')
-    $pricerange.element.value = highPrice
-    $pricerange.trigger('input')
-
-    expect(fakeStore.modules.product.actions.updateHighprice).toHaveBeenCalledTimes(1)
+    b.type(highPrice, '#pricerange')
   })
 })

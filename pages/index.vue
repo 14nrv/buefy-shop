@@ -13,14 +13,18 @@
 
 <script>
   import { createNamespacedHelpers } from 'vuex'
-  import AppHero from '@/components/Hero.vue'
-  import AppCard from '@/components/Card.vue'
-  import AppSidebar from '@/components/Sidebar.vue'
+  import Hero from '@/components/Hero.vue'
+  import Card from '@/components/Card.vue'
+  import Sidebar from '@/components/Sidebar.vue'
 
   const { mapGetters } = createNamespacedHelpers('product')
 
   export default {
-    components: { AppHero, AppCard, AppSidebar },
+    components: {
+      AppHero: Hero,
+      AppCard: Card,
+      AppSidebar: Sidebar
+    },
     computed: {
       ...mapGetters(['products', 'highprice'])
     }

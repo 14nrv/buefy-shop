@@ -1,23 +1,23 @@
 import Vuex from 'vuex'
+import Helpers from 'mwangaben-vthelpers'
 import { mount, createLocalVue } from 'vue-test-utils'
 import { fakeStore } from '@/store/__mocks__/fakeStore'
 import pkg from '@/package.json'
 import Index from './index'
 import Card from '@/components/Card.vue'
-import Header from '@/components/Header.vue'
 import Sidebar from '@/components/Sidebar.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
 const ITEM_CLASS_NAME = '.card'
-let wrapper
-let store
+let wrapper, store, b
 
 describe('Index', () => {
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
     wrapper = mount(Index, { localVue, store })
+    b = new Helpers(wrapper, expect)
   })
 
   it('is a Vue instance', () => {
@@ -26,9 +26,8 @@ describe('Index', () => {
   })
 
   it('have a card & header components', () => {
-    expect(wrapper.contains(Card)).toBeTruthy()
-    expect(wrapper.contains(Header)).toBeTruthy()
-    expect(wrapper.contains(Sidebar)).toBeTruthy()
+    b.domHas(Card)
+    b.domHas(Sidebar)
 
     const $Sidebar = wrapper.find(Sidebar)
     expect($Sidebar.is(Sidebar)).toBe(true)
@@ -41,43 +40,49 @@ describe('Index', () => {
 
   describe('> card', () => {
     it('show all products', () => {
-      const $products = wrapper.findAll(ITEM_CLASS_NAME)
-      const products = wrapper.vm.$store.getters['product/products']
-      const allProducts = wrapper.vm.$store.getters['product/allProducts']
+      const $products = wrapper.findAll(ITEM_CLASS_NAME).length
+      const products = wrapper.vm.$store.getters['product/products'].length
+      const allProducts = wrapper.vm.$store.getters['product/allProducts'].length
 
-      expect(wrapper.contains(ITEM_CLASS_NAME)).toBeTruthy()
-      expect($products.length).toBe(products.length)
-      expect($products.length).toBe(allProducts.length)
+      b.domHas(ITEM_CLASS_NAME)
+
+      expect($products).toBe(products)
+      expect($products).toBe(allProducts)
     })
 
     it('don t show .cartcount by default', () => {
-      const cartTotalInStore = wrapper.vm.$store.getters['cart/total']
+      const cartTotalInStore = wrapper.vm.$store.state.cart.total
       expect(cartTotalInStore).toBeFalsy()
-      expect(wrapper.contains('.cartcount')).toBeFalsy()
+      b.domHasNot('.cartcount')
     })
 
     it('update cart when click on btn add to cart', () => {
-      const cartTotalInStore = wrapper.vm.$store.getters['cart/total']
-      expect(cartTotalInStore).toBeFalsy()
+      const getCartTotalInStore = () => wrapper.vm.$store.getters['cart/total']
+      expect(getCartTotalInStore()).toBeFalsy()
 
-      const firstProduct = wrapper.findAll(ITEM_CLASS_NAME).at(0)
-      const $btn = firstProduct.find('.add')
-      $btn.trigger('click')
-      $btn.trigger('click')
+      b.click(`${ITEM_CLASS_NAME}:first-of-type .add`)
+      b.click(`${ITEM_CLASS_NAME}:first-of-type .add`)
 
-      expect(fakeStore.modules.cart.actions.addItem).toHaveBeenCalledTimes(2)
-      expect(fakeStore.modules.cart.state.total).toBe(2)
+      expect(getCartTotalInStore()).toBe(2)
     })
 
     it('update when is sale or not', () => {
-      wrapper.find('.can-toggle input').trigger('click')
+      const getProductsInDom = () => wrapper.findAll(ITEM_CLASS_NAME).length
+      const getProductsInStore = () => wrapper.vm.$store.getters['product/products'].length
+      const productsInDomBefore = getProductsInDom()
+
+      expect(getProductsInStore()).toBe(productsInDomBefore)
+
+      b.click('.can-toggle input')
       const highPrice = 20
+      b.type(highPrice, '#pricerange')
 
-      const $pricerange = wrapper.find('#pricerange')
-      $pricerange.element.value = highPrice
-      $pricerange.trigger('input')
+      const productsInDomAfter = getProductsInDom()
+      expect(productsInDomBefore).not.toBe(productsInDomAfter)
 
-      expect(fakeStore.modules.product.actions.updateHighprice).toHaveBeenCalledTimes(1)
+      const productsUnderPrice = 1
+      expect(productsInDomAfter).toBe(productsUnderPrice)
+      expect(getProductsInStore()).toBe(productsUnderPrice)
     })
   })
 })

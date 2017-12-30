@@ -23,6 +23,7 @@ import { createNamespacedHelpers } from 'vuex'
 const { mapActions } = createNamespacedHelpers('cart')
 
 export default {
+  name: 'Card',
   props: {
     item: {
       type: Object,

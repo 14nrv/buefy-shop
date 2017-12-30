@@ -52,6 +52,7 @@ import { createNamespacedHelpers } from 'vuex'
 const { mapGetters } = createNamespacedHelpers('cart')
 
 export default {
+  name: 'Header',
   data() {
     return {
       isBurgerMenuActive: false

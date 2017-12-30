@@ -22,7 +22,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-import AppSwitch from './Switch.vue'
+import Switch from './Switch.vue'
 
 const { mapActions } = createNamespacedHelpers('product')
 
@@ -45,7 +45,7 @@ export default {
     }
   },
   components: {
-    AppSwitch
+    AppSwitch: Switch
   },
   methods: {
     ...mapActions(['updateHighprice'])

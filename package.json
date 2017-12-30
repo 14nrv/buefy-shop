@@ -51,6 +51,6 @@
     "pre-commit": "^1.2.2",
     "stylus-loader": "^3.0.1",
     "vue-jest": "^1.4.0",
-    "vue-test-utils": "^1.0.0-beta.8"
+    "vue-test-utils": "^1.0.0-beta.9"
   }
 }

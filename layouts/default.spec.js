@@ -1,8 +1,8 @@
+import Helpers from 'mwangaben-vthelpers'
 import { shallow } from 'vue-test-utils'
 import Default from './default'
-import Header from '@/components/Header'
 
-let wrapper
+let wrapper, b
 
 const isExists = selector => {
   const el = selector ? wrapper.find(selector) : wrapper
@@ -12,6 +12,7 @@ const isExists = selector => {
 describe('Default', () => {
   beforeEach(() => {
     wrapper = shallow(Default)
+    b = new Helpers(wrapper, expect)
   })
 
   it('is a Vue instance', () => {
@@ -19,14 +20,10 @@ describe('Default', () => {
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
 
-  it('have a header component', () => {
-    expect(wrapper.contains(Header)).toBeTruthy()
-  })
-
   it('have a hero style', () => {
-    isExists('.hero')
-    isExists('.hero-head')
-    isExists('.hero-body')
-    isExists('.hero-footer')
+    b.domHas('.hero')
+    b.domHas('.hero-head')
+    b.domHas('.hero-body')
+    b.domHas('.hero-footer')
   })
 })

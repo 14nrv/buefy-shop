@@ -1,25 +1,23 @@
-import { shallow, createLocalVue } from 'vue-test-utils'
 import Vuex from 'vuex'
+import Helpers from 'mwangaben-vthelpers'
+import { shallow, createLocalVue } from 'vue-test-utils'
 import { fakeStore } from '@/store/__mocks__/fakeStore'
 import Switch from './Switch'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-let wrapper
-let store
-
-// fakeStore.modules.product.actions = {
-
-// }
+let wrapper, store, b
 
 describe('Switch', () => {
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
     wrapper = shallow(Switch, { localVue, store })
+    b = new Helpers(wrapper, expect)
   })
 
   it('is a Vue instance', () => {
+    expect(wrapper.exists()).toBeTruthy()
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
 
@@ -29,14 +27,14 @@ describe('Switch', () => {
   })
 
   it('show a input with a class of .can-toggle', () => {
-    expect(wrapper.contains('.can-toggle input')).toBe(true)
+    b.domHas('.can-toggle input')
   })
 
   it('call switchSale actions when trigger .can-toggle input', () => {
     expect(fakeStore.modules.product.state.sale).toBeFalsy()
 
-    wrapper.find('.can-toggle input').trigger('click')
-    expect(fakeStore.modules.product.actions.switchSale).toHaveBeenCalledTimes(1)
+    b.click('.can-toggle input')
+
     expect(fakeStore.modules.product.state.sale).toBeTruthy()
     expect(wrapper.vm.$store.getters['product/showSale']).toBeTruthy()
   })
