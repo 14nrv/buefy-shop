@@ -1,13 +1,13 @@
 <template lang="pug">
   .sidearea
-    h4.subtitle.is-5 Only Show Sale Items
-    .can-toggle.demo-rebrand-2
-      input#e(type="checkbox" v-model="trigger")
-      label(for="e")
-        .can-toggle__switch(data-checked="Yes" data-unchecked="No")
+    .can-toggle.demo-rebrand-2.field
+      input#e.switch.is-rtl(type="checkbox" name="e" v-model="trigger")
+      label(for="e") Only Sale
 </template>
 
 <script>
+import 'bulma-switch/bulma-switch.min.css'
+
 export default {
   computed: {
     trigger: {

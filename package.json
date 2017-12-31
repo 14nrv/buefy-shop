@@ -24,6 +24,7 @@
     "@nuxtjs/pwa": "latest",
     "buefy": "^0.6.2",
     "bulma-steps": "^0.1.2",
+    "bulma-switch": "^0.1.2",
     "firebase": "^4.8.1",
     "font-awesome": "^4.7.0",
     "nuxt": "^1.0.0-rc11",
