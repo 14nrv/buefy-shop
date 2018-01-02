@@ -1,0 +1,30 @@
+machine:
+  environment:
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+  node:
+    version: 7.10.0
+
+dependencies:
+  override:
+    - yarn
+  cache_directories:
+    - ~/.cache/yarn
+  pre:
+    - yarn global add now
+
+test:
+  override:
+    - yarn test
+    - yarn run lint
+
+deployment:
+  development:
+    branch: dev
+    commands:
+      - URL=$(now -t ${NOW_TOKEN})
+      - now -t ${NOW_TOKEN} alias set ${URL} buefy-shop-dev.now.sh
+  production:
+    branch: master
+    commands:
+      - URL=$(now -t ${NOW_TOKENaa})
+      - now -t ${NOW_TOKEN} alias set ${URL} buefy-shop.now.sh
