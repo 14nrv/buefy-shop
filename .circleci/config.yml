@@ -1,30 +1,35 @@
-machine:
-  environment:
-    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
-  node:
-    version: 7.10.0
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:latest-browsers
 
-dependencies:
-  override:
-    - yarn
-  cache_directories:
-    - ~/.cache/yarn
-  pre:
-    - yarn global add now
+    working_directory: ~/repo
 
-test:
-  override:
-    - yarn test
-    - yarn run lint
+    steps:
+      - checkout
 
-deployment:
-  development:
-    branch: dev
-    commands:
-      - URL=$(now -t ${NOW_TOKEN})
-      - now -t ${NOW_TOKEN} alias set ${URL} buefy-shop-dev.now.sh
-  production:
-    branch: master
-    commands:
-      - URL=$(now -t ${NOW_TOKENaa})
-      - now -t ${NOW_TOKEN} alias set ${URL} buefy-shop.now.sh
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: npm install
+
+      # run tests!
+      - run: npm run lint && npm test
+      - store_artifacts:
+          path: test/unit/coverage
+          prefix: tests
