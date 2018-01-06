@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/14nrv/buefy-shop/tree/master.svg?style=shield)](https://circleci.com/gh/14nrv/buefy-shop/tree/master)
+
 # buefy-shop
 
 > Nuxt.js project
