@@ -4,6 +4,7 @@
   "description": "Nuxt.js project",
   "author": "nRV <contact@styro.fr>",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nuxt",
     "build": "cross-env NODE_ENV=production nuxt build",
@@ -11,7 +12,7 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint-staged": "lint-staged",
-    "test": "cross-env NODE_ENV=test jest --config jest.config.json",
+    "test": "cross-env NODE_ENV=test jest",
     "test:tdd": "cross-env NODE_ENV=test yarn run test --watchAll --coverage",
     "test:coverage": "cross-env NODE_ENV=test yarn run test --coverage"
   },
@@ -42,6 +43,7 @@
     "css-loader": "^0.28.7",
     "eslint": "^4.13.1",
     "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-junit": "^1.0.1",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-html": "^4.0.1",
     "eslint-plugin-import": "^2.8.0",
@@ -51,11 +53,18 @@
     "eslint-plugin-standard": "^3.0.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.0.4",
+    "jest-junit": "^3.4.1",
     "lint-staged": "^6.0.0",
     "mwangaben-vthelpers": "^1.1.3",
     "pre-commit": "^1.2.2",
     "stylus-loader": "^3.0.1",
     "vue-jest": "^1.4.0",
     "vue-test-utils": "^1.0.0-beta.9"
+  },
+  "jest-junit": {
+    "output": "coverage/junit/js-test-results.xml"
+  },
+  "eslint-junit": {
+    "output": "coverage/junit/js-eslint-results.xml"
   }
 }
