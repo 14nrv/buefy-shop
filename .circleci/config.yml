@@ -16,23 +16,23 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run:
-        name: Setup Code Climate test reporter
-        command: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
+          name: Setup Code Climate test reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
       - run:
           name: JavaScript Linter
           command: yarn lint -f ./node_modules/eslint-junit/index.js
           environment:
             ESLINT_JUNIT_OUTPUT: "coverage/junit/js-eslint-results.xml"
       - run:
-        name: Unit tests with coverage
-        command: |
-          ./cc-test-reporter before-build
-          yarn test --coverage --ci --testResultsProcessor="./node_modules/jest-junit"
-          ./cc-test-reporter after-build --exit-code $?
-        environment:
-          JEST_JUNIT_OUTPUT: "coverage/junit/js-test-results.xml"
+          name: Unit tests with coverage
+          command: |
+            ./cc-test-reporter before-build
+            yarn test --coverage --ci --testResultsProcessor="./node_modules/jest-junit"
+            ./cc-test-reporter after-build --exit-code $?
+          environment:
+            JEST_JUNIT_OUTPUT: "coverage/junit/js-test-results.xml"
       - store_test_results:
           path: coverage/junit
       - store_artifacts:
