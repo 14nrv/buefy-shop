@@ -149,11 +149,11 @@
   dependencies:
     dotenv "^4.0.0"
 
-"@nuxtjs/icon@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/icon/-/icon-2.0.1.tgz#c770a487d265e86bd1253d9caf119f1d1386b49b"
+"@nuxtjs/icon@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/icon/-/icon-2.0.2.tgz#a560ea96644e575c2a51ae320aa31af025c4e2ad"
   dependencies:
-    fs-extra "^4.0.2"
+    fs-extra "^5.0.0"
     hash-sum "^1.0.2"
     jimp "^0.2.28"
 
@@ -163,17 +163,17 @@
   dependencies:
     hash-sum "^1.0.2"
 
-"@nuxtjs/meta@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/meta/-/meta-2.0.1.tgz#9262fe5a32c7d143b3595abe4f22733db7dd278e"
+"@nuxtjs/meta@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/meta/-/meta-2.0.2.tgz#48f450913f638ae16711d0c8a8798f5f80376d21"
 
-"@nuxtjs/pwa@latest":
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/pwa/-/pwa-2.0.4.tgz#df1ab5f38d55cd2e6a9d391a5c16103dcb9fbf1b"
+"@nuxtjs/pwa@^2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/pwa/-/pwa-2.0.5.tgz#2685ad7ba95184b30750143f085819b06b45aee0"
   dependencies:
-    "@nuxtjs/icon" "^2.0.1"
+    "@nuxtjs/icon" "^2.0.2"
     "@nuxtjs/manifest" "^2.1.0"
-    "@nuxtjs/meta" "^2.0.1"
+    "@nuxtjs/meta" "^2.0.2"
     "@nuxtjs/workbox" "^2.1.1"
 
 "@nuxtjs/workbox@^2.1.1":
@@ -3110,9 +3110,17 @@ fs-extra@^3.0.1:
     jsonfile "^3.0.0"
     universalify "^0.1.0"
 
-fs-extra@^4.0.1, fs-extra@^4.0.2:
+fs-extra@^4.0.1:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-4.0.3.tgz#0d852122e5bc5beb453fb028e9c0c9bf36340c94"
+  dependencies:
+    graceful-fs "^4.1.2"
+    jsonfile "^4.0.0"
+    universalify "^0.1.0"
+
+fs-extra@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-5.0.0.tgz#414d0110cdd06705734d055652c5411260c31abd"
   dependencies:
     graceful-fs "^4.1.2"
     jsonfile "^4.0.0"
