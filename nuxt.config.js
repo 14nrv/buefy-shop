@@ -2,7 +2,20 @@ module.exports = {
   /*
   ** Build configuration
   */
-  build: {},
+  build: {
+    postcss: [// will fix bulma warning about column
+      require('postcss-cssnext')({
+        features: {
+          customProperties: false
+        }
+      })
+    ],
+    analyze: true,
+    vendor: [
+      'buefy',
+      'firebase'
+    ]
+  },
   /*
   ** Headers
   ** Common headers are already provided by @nuxtjs/pwa preset
@@ -22,6 +35,11 @@ module.exports = {
   ** Modules
   */
   modules: [
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/dotenv'
+  ],
+  plugins: [
+    '~plugins/buefy',
+    '~plugins/firebase'
   ]
 }

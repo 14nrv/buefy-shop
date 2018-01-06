@@ -1,53 +1,49 @@
-<template>
-  <div>
-    <nuxt/>
-  </div>
+<template lang="pug">
+  section.hero.is-fullheight
+    .hero-head
+      app-header
+    .hero-body
+      nuxt
+    .hero-footer
+      .container
+        p Made with love from Paris
+    </nav>
 </template>
 
-<style>
-html
-{
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+<script>
+import Header from '@/components/Header.vue'
+
+export default {
+  components: { AppHeader: Header }
 }
-*, *:before, *:after
-{
-  box-sizing: border-box;
-  margin: 0;
-}
-.button--green
-{
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-.button--green:hover
-{
-  color: #fff;
-  background-color: #3b8070;
-}
-.button--grey
-{
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-.button--grey:hover
-{
-  color: #fff;
-  background-color: #35495e;
-}
+</script>
+
+<style lang="stylus">
+  @require './css/_transition'
+  @require './css/_slider'
+
+  .section
+    padding 3rem 0
+  .is-light
+    background-color #f5f5f5
+    color #363636
+
+  $card-radius = 5px
+  .is-radius
+    border-radius $card-radius
+
+
+  @media (max-width: 600px)
+    aside
+      width 100% !important
+      margin-bottom 10px !important
+
+    .content
+      width 100% !important
+      grid-template-columns 1fr !important
+
+  @media (min-width: 601px) and (max-width: 900px)
+    .content
+      grid-template-columns repeat(2, 1fr) !important
+
 </style>
