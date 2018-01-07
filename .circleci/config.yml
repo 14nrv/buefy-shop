@@ -52,7 +52,7 @@ jobs:
           command: |
             export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
             URL=$(now -t ${NOW_TOKEN})
-            now -t ${NOW_TOKEN} alias set ${URL} buefy-shop.now.sh
+            now -t ${NOW_TOKEN} alias set ${URL} buefy-shop.now.sh -d -e NODE_ENV=production
 
   deploy-dev:
     docker:
@@ -67,7 +67,7 @@ jobs:
           command: |
             export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
             URL=$(now -t ${NOW_TOKEN})
-            now -t ${NOW_TOKEN} alias set ${URL} buefy-shop-dev.now.sh
+            now -t ${NOW_TOKEN} alias set ${URL} buefy-shop-dev.now.sh -d -e NODE_ENV=production
 
 workflows:
   version: 2
