@@ -30,6 +30,7 @@
     "font-awesome": "^4.7.0",
     "nuxt": "^1.0.0-rc11",
     "pug": "^2.0.0-rc.4",
+    "stylus": "^0.54.5",
     "vue-server-renderer": "2.5.13",
     "vue-template-compiler": "2.5.13",
     "vuexfire": "^2.3.0"
