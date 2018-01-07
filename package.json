@@ -10,7 +10,7 @@
     "build": "cross-env NODE_ENV=production nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "lint": "./node_modules/eslint/bin/eslint.js --ext .js,.vue --ignore-path .gitignore .",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint-staged": "lint-staged",
     "test": "cross-env NODE_ENV=test jest",
     "test:tdd": "cross-env NODE_ENV=test yarn run test --watchAll --coverage",
