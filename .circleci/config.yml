@@ -1,9 +1,10 @@
 version: 2
+
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/node:latest-browsers
-    working_directory: ~/repo
+    working_directory: /tmp/buefy-shop
     steps:
       - checkout
       - restore_cache:
@@ -37,3 +38,49 @@ jobs:
           path: coverage/junit
       - store_artifacts:
           path: coverage/junit
+
+  deploy:
+    docker:
+      - image: circleci/node:latest-browsers
+    working_directory: /tmp/buefy-shop
+    steps:
+      - run:
+          name: Install now globally with yarn
+          command: yarn global add now
+      - run:
+          name: Deploy if tests pass and branch is Master
+          command: |
+            URL=$(now -t ${NOW_TOKEN})
+            now -t ${NOW_TOKEN} alias set ${URL} buefy-shop.now.sh
+
+  deploy-dev:
+    docker:
+      - image: circleci/node:latest-browsers
+    working_directory: /tmp/buefy-shop
+    steps:
+      - run:
+          name: Install now globally with yarn
+          command: yarn global add now
+      - run:
+          name: Deploy if tests pass and branch start with dev-
+          command: |
+            URL=$(now -t ${NOW_TOKEN})
+            now -t ${NOW_TOKEN} alias set ${URL} buefy-shop-dev.now.sh
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
+      - deploy-dev:
+          requires:
+            - test
+          filters:
+            branches:
+              only: /^dev-.*/
