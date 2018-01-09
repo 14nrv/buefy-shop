@@ -10,7 +10,7 @@ module.exports = {
         }
       })
     ],
-    analyze: true,
+    analyze: process.env.NODE_ENV !== 'production',
     vendor: [
       'buefy',
       'firebase'
