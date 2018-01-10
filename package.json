@@ -23,6 +23,7 @@
     "*.vue": "eslint --ext .vue"
   },
   "dependencies": {
+    "@nuxtjs/dotenv": "^1.1.0",
     "@nuxtjs/pwa": "^2.0.5",
     "buefy": "^0.6.2",
     "bulma-steps": "^0.1.2",
@@ -37,7 +38,6 @@
     "vuexfire": "^2.3.0"
   },
   "devDependencies": {
-    "@nuxtjs/dotenv": "^1.1.0",
     "babel-eslint": "^8.0.3",
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",

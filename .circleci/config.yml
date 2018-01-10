@@ -68,7 +68,7 @@ jobs:
           name: Deploy if tests pass and branch start with dev-
           command: |
             export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
-            now --public -t ${NOW_TOKEN} -e NODE_ENV=production
+            now --public -t ${NOW_TOKEN}
 
 workflows:
   version: 2
