@@ -1,0 +1,4 @@
+{
+  "name": "buefy-shop",
+  "dotenv": ".env.production"
+}
