@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nuxt",
-    "build": "cross-env NODE_ENV=production nuxt build",
+    "build": "nuxt build",
     "analyze": "cross-env NODE_ENV=development nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
