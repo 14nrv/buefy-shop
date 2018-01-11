@@ -8,5 +8,8 @@
     "FB_AUTH_DOMAIN":"@fb_auth_domain",
     "FB_STORAGE_BUCKET":"@fb_storage_bucket",
     "FB_MESSAGE_SENDER_ID":"@fb_message_sender_id"
-  }
+  },
+  "forwardNpm": true,
+  "public": true,
+  "type": "node"
 }
