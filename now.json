@@ -11,5 +11,5 @@
   },
   "forwardNpm": true,
   "public": true,
-  "type": "node"
+  "type": "npm"
 }
