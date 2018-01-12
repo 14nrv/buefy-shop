@@ -36,7 +36,7 @@ module.exports = {
   */
   modules: [
     '@nuxtjs/pwa',
-    '@nuxtjs/dotenv'
+    process.env.NODE_ENV !== 'production' && '@nuxtjs/dotenv'
   ],
   plugins: [
     '~plugins/buefy',
