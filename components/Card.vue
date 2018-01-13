@@ -2,13 +2,12 @@
   .card.is-radius
     .card-image
       figure.image
-        img(:src="`/products/${item.img}`"
-             :alt="`Image of ${item.name}`")
+        img(:src="`products/${item.img}`",
+            :alt="`Image of ${item.name}`")
     .card-content
       .media
         .media-content
           p.title.is-5 {{ item.name }}
-          //p.subtitle.is-6 @johnsmith
           p.item-price {{ item.price | usdollar }}
         .media-right
           p.field
