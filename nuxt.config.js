@@ -1,3 +1,5 @@
+const dotenv = process.env.NODE_ENV !== 'production' && '@nuxtjs/dotenv'
+
 module.exports = {
   /*
   ** Build configuration
@@ -36,7 +38,7 @@ module.exports = {
   */
   modules: [
     '@nuxtjs/pwa',
-    process.env.NODE_ENV !== 'production' && '@nuxtjs/dotenv'
+    dotenv
   ],
   plugins: [
     '~plugins/buefy',

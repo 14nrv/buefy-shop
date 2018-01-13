@@ -6,16 +6,16 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nuxt",
-    "build": "nuxt build",
-    "analyze": "cross-env ANALYZE=true nuxt build",
-    "start": "nuxt start",
+    "dev": "NODE_ENV=development nuxt",
+    "build": "NODE_ENV=production nuxt build",
+    "analyze": "ANALYZE=true nuxt build",
+    "start": "NODE_ENV=production nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint-staged": "lint-staged",
-    "test": "cross-env NODE_ENV=test jest",
-    "test:tdd": "cross-env NODE_ENV=test yarn run test --watchAll --coverage",
-    "test:coverage": "cross-env NODE_ENV=test yarn run test --coverage"
+    "test": "NODE_ENV=test jest",
+    "test:tdd": "NODE_ENV=test yarn run test --watchAll --coverage",
+    "test:coverage": "NODE_ENV=test yarn run test --coverage"
   },
   "pre-commit": "lint-staged, test",
   "lint-staged": {
@@ -41,7 +41,6 @@
     "babel-eslint": "^8.0.3",
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "cross-env": "^5.1.3",
     "css-loader": "^0.28.7",
     "eslint": "^4.13.1",
     "eslint-config-standard": "^11.0.0-beta.0",
