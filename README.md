@@ -3,6 +3,8 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/7b17e6d369ffa56c3c46/maintainability)](https://codeclimate.com/github/14nrv/buefy-shop/maintainability)
 [![dependencies Status](https://david-dm.org/14nrv/buefy-shop/status.svg)](https://david-dm.org/14nrv/buefy-shop)
 [![devDependencies Status](https://david-dm.org/14nrv/buefy-shop/dev-status.svg)](https://david-dm.org/14nrv/buefy-shop?type=dev)
+[![Known Vulnerabilities](https://snyk.io/test/github/14nrv/buefy-shop/badge.svg?targetFile=package.json)](https://snyk.io/test/github/14nrv/buefy-shop?targetFile=package.json)
+
 # buefy-shop
 
 > Nuxt.js project
