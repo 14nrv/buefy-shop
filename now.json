@@ -10,5 +10,9 @@
   },
   "forwardNpm": true,
   "public": true,
-  "type": "npm"
+  "type": "npm",
+  "alias": [
+    "buefy-shop",
+    "buefy-shop-dev"
+  ]
 }
