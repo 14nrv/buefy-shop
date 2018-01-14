@@ -8,14 +8,14 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
-      - run: yarn install
+          key: yarn-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install all dependencies
+          command: yarn install
       - save_cache:
+          key: yarn-{{ checksum "yarn.lock" }}
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+            - "node_modules"
       - run:
           name: Setup Code Climate test reporter
           command: |
