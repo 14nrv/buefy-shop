@@ -1,35 +1,88 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
+
 jobs:
-  build:
+  test:
     docker:
-      # specify the version you desire here
       - image: circleci/node:latest-browsers
-
     working_directory: ~/repo
-
     steps:
       - checkout
-
-      # Download and cache dependencies
       - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
+          key: yarn-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install all dependencies
+          command: yarn install
       - save_cache:
+          key: yarn-{{ checksum "yarn.lock" }}
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run: npm install
-
-      # run tests!
-      - run: npm run lint && npm test
+            - "node_modules"
+      - run:
+          name: Setup Code Climate test reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - run:
+          name: JavaScript Linter
+          command: yarn lint -f ./node_modules/eslint-junit/index.js
+          environment:
+            ESLINT_JUNIT_OUTPUT: "coverage/junit/js-eslint-results.xml"
+      - run:
+          name: Unit tests with coverage
+          command: |
+            ./cc-test-reporter before-build
+            yarn test --coverage --ci --testResultsProcessor="./node_modules/jest-junit"
+            ./cc-test-reporter after-build --exit-code $?
+          environment:
+            JEST_JUNIT_OUTPUT: "coverage/junit/js-test-results.xml"
+      - store_test_results:
+          path: coverage/junit
       - store_artifacts:
-          path: test/unit/coverage
-          prefix: tests
+          path: coverage/junit
+
+  deploy:
+    docker:
+      - image: circleci/node:latest-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Install now globally with yarn
+          command: yarn global add now
+      - run:
+          name: Deploy if tests pass and branch is Master
+          command: |
+            export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
+            now -t ${NOW_TOKEN} alias buefy-shop
+
+  deploy-dev:
+    docker:
+      - image: circleci/node:latest-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Install now globally with yarn
+          command: yarn global add now
+      - run:
+          name: Deploy if tests pass and branch start with dev-
+          command: |
+            export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
+            now -t ${NOW_TOKEN} alias buefy-shop-dev
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
+      - deploy-dev:
+          requires:
+            - test
+          filters:
+            branches:
+              only: /^dev-.*/

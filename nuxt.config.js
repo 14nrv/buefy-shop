@@ -1,3 +1,5 @@
+const dotenv = process.env.NODE_ENV !== 'production' && '@nuxtjs/dotenv'
+
 module.exports = {
   /*
   ** Build configuration
@@ -10,7 +12,7 @@ module.exports = {
         }
       })
     ],
-    analyze: true,
+    analyze: process.env.ANALYZE,
     vendor: [
       'buefy',
       'firebase'
@@ -36,7 +38,7 @@ module.exports = {
   */
   modules: [
     '@nuxtjs/pwa',
-    '@nuxtjs/dotenv'
+    dotenv
   ],
   plugins: [
     '~plugins/buefy',
