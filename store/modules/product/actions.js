@@ -1,4 +1,5 @@
 import { firebaseAction } from 'vuexfire'
+import { db } from '@/plugins/firebase'
 
 export default {
   switchSale({ commit }) {
@@ -7,7 +8,7 @@ export default {
   updateHighprice({ commit }, value) {
     commit('UPDATE_HIGH_PRICE', value)
   },
-  setProductsRef: firebaseAction(({ bindFirebaseRef }, ref) => {
-    bindFirebaseRef('products', ref)
+  setProductsRef: firebaseAction(({ bindFirebaseRef }) => {
+    bindFirebaseRef('products', db.ref('products'))
   })
 }

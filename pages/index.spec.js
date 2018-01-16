@@ -38,6 +38,10 @@ describe('Index', () => {
     expect(pkgVersionInStore).toBe(pkg.version)
   })
 
+  it('call setProductsRef', () => {
+    expect(fakeStore.modules.product.actions.setProductsRef).toHaveBeenCalled()
+  })
+
   describe('> card', () => {
     it('show all products', () => {
       const $products = wrapper.findAll(ITEM_CLASS_NAME).length

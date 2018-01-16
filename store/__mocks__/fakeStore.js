@@ -7,7 +7,13 @@ import product from '@/store/modules/product'
 export const fakeStore = {
   modules: {
     cart,
-    product,
+    product: {
+      ...product,
+      actions: {
+        ...product.actions,
+        setProductsRef: jest.fn()
+      }
+    },
     pkg
   },
   strict: false
