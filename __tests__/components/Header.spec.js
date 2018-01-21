@@ -1,8 +1,10 @@
 import Vuex from 'vuex'
 import Helpers from 'mwangaben-vthelpers'
 import { shallow, createLocalVue } from 'vue-test-utils'
-import { fakeStore } from '@/store/__mocks__/fakeStore'
+import fakeStore from '@/__tests__/__mocks__/fakeStore'
 import Header from '@/components/Header.vue'
+
+jest.mock('@/plugins/firebase', () => jest.fn())
 
 const localVue = createLocalVue()
 localVue.use(Vuex)

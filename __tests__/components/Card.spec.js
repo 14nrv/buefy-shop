@@ -1,18 +1,20 @@
 import Vuex from 'vuex'
 import Helpers from 'mwangaben-vthelpers'
 import { shallow, createLocalVue } from 'vue-test-utils'
-import { fakeStore } from '@/store/__mocks__/fakeStore'
-import products from '@/store/modules/product'
-import Card from './Card'
+import fakeStore from '@/__tests__/__mocks__/fakeStore'
+import products from '@/__tests__/__mocks__/products.json'
+import Card from '@/components/Card'
 
-const firstProduct = products.state.products[0]
+jest.mock('@/plugins/firebase', () => jest.fn())
+
+const firstProduct = products[0]
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let wrapper, store, b
 
-describe('Card', () => {
+describe.only('Card', () => {
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
     wrapper = shallow(Card, {

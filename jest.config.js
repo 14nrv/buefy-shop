@@ -16,5 +16,6 @@ module.exports = {
     '\\.(css|less)$': 'identity-obj-proxy'
   },
   mapCoverage: true,
-  testResultsProcessor: process.env.CI ? 'jest-junit' : null
+  testResultsProcessor: process.env.CI ? 'jest-junit' : undefined,
+  testPathIgnorePatterns: ['<rootDir>/__tests__/__mocks__']
 }

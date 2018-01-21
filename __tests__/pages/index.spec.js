@@ -1,11 +1,13 @@
 import Vuex from 'vuex'
 import Helpers from 'mwangaben-vthelpers'
 import { mount, createLocalVue } from 'vue-test-utils'
-import { fakeStore } from '@/store/__mocks__/fakeStore'
+import fakeStore from '@/__tests__/__mocks__/fakeStore'
 import pkg from '@/package.json'
-import Index from './index'
+import Index from '@/pages/index'
 import Card from '@/components/Card.vue'
 import Sidebar from '@/components/Sidebar.vue'
+
+jest.mock('@/plugins/firebase', () => jest.fn())
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -18,6 +20,10 @@ describe('Index', () => {
     store = new Vuex.Store(fakeStore)
     wrapper = mount(Index, { localVue, store })
     b = new Helpers(wrapper, expect)
+  })
+
+  it('run test on test env', () => {
+    expect(process.env.NODE_ENV).toBe('test')
   })
 
   it('is a Vue instance', () => {
@@ -46,12 +52,14 @@ describe('Index', () => {
     it('show all products', () => {
       const $products = wrapper.findAll(ITEM_CLASS_NAME).length
       const products = wrapper.vm.$store.getters['product/products'].length
+      const productsInState = wrapper.vm.$store.state.product.products.length
       const allProducts = wrapper.vm.$store.getters['product/allProducts'].length
 
       b.domHas(ITEM_CLASS_NAME)
 
       expect($products).toBe(products)
       expect($products).toBe(allProducts)
+      expect(productsInState).toBe(allProducts)
     })
 
     it('don t show .cartcount by default', () => {

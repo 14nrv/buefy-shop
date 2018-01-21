@@ -1,8 +1,10 @@
 import Vuex from 'vuex'
 import Helpers from 'mwangaben-vthelpers'
-import { shallow, createLocalVue } from 'vue-test-utils'
-import { fakeStore } from '@/store/__mocks__/fakeStore'
-import Cart from './cart'
+import { mount, createLocalVue } from 'vue-test-utils'
+import fakeStore from '@/__tests__/__mocks__/fakeStore'
+import Cart from '@/pages/cart'
+
+jest.mock('@/plugins/firebase', () => jest.fn())
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -46,7 +48,7 @@ cartModule.state.total =
 describe('Cart', () => {
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
-    wrapper = shallow(Cart, { localVue, store })
+    wrapper = mount(Cart, { localVue, store })
     b = new Helpers(wrapper, expect)
   })
 
@@ -71,13 +73,25 @@ describe('Cart', () => {
   })
 
   it('can remove product', () => {
-    b.domHas('.box:first-of-type .removeItem')
+    const firstBoxRemoveItemBtn = '.box:first-of-type .removeItem'
 
-    b.click('.box:first-of-type .removeItem')
+    const getDomProducts = () => wrapper.findAll('.box')
+    const getProductsInCartStore = () => Object.values(fakeStore.modules.cart.state.cart)
 
-    const productsInCartStore = Object.values(fakeStore.modules.cart.state.cart)
-    const $upProducts = wrapper.findAll('.box')
-    expect($upProducts.length).toBe(productsInCartStore.length)
+    const beforeClick = {
+      domProducts: getDomProducts(),
+      productsInCartStore: getProductsInCartStore()
+    }
+    expect(beforeClick.domProducts.length).toBe(beforeClick.productsInCartStore.length)
+    b.click(firstBoxRemoveItemBtn)
+
+    const afterClick = {
+      domProducts: getDomProducts(),
+      productsInCartStore: getProductsInCartStore()
+    }
+    expect(afterClick.domProducts.length).toBe(afterClick.productsInCartStore.length)
+    expect(beforeClick.domProducts.length).not.toBe(afterClick.productsInCartStore.length)
+    expect(afterClick.domProducts.length).toBe(beforeClick.productsInCartStore.length - 1)
 
     const amount = calculateAmount(Object.values(cartModule.state.cart))
     b.see(`Total: $${amount}`, '.total')
