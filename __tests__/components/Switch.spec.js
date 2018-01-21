@@ -1,8 +1,10 @@
 import Vuex from 'vuex'
 import Helpers from 'mwangaben-vthelpers'
 import { shallow, createLocalVue } from 'vue-test-utils'
-import { fakeStore } from '@/store/__mocks__/fakeStore'
-import Switch from './Switch'
+import fakeStore from '@/__tests__/__mocks__/fakeStore'
+import Switch from '@/components/Switch'
+
+jest.mock('@/plugins/firebase', () => jest.fn())
 
 const localVue = createLocalVue()
 localVue.use(Vuex)

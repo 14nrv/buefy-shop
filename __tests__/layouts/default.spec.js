@@ -1,6 +1,6 @@
 import Helpers from 'mwangaben-vthelpers'
 import { shallow } from 'vue-test-utils'
-import Default from './default'
+import Default from '@/layouts/default'
 
 let wrapper, b
 
