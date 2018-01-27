@@ -1,7 +1,8 @@
 {
   "presets": [
     [ "env", {"modules": false}],
-    "stage-2"
+    "babel-preset-es2015",
+    "babel-preset-stage-2"
   ],
   "env": {
     "test": {

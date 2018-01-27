@@ -13,7 +13,7 @@ module.exports = {
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
-    '\\.(css|less)$': 'identity-obj-proxy'
+    '\\.(css|styl)$': 'identity-obj-proxy'
   },
   mapCoverage: true,
   testResultsProcessor: process.env.CI ? 'jest-junit' : undefined,
