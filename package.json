@@ -14,8 +14,8 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint-staged": "lint-staged",
     "test": "NODE_ENV=test jest",
-    "test:tdd": "NODE_ENV=test yarn run test --watchAll --coverage",
-    "test:coverage": "NODE_ENV=test yarn run test --coverage"
+    "test:tdd": "NODE_ENV=test yarn test --watchAll --coverage",
+    "test:coverage": "NODE_ENV=test yarn test --coverage"
   },
   "pre-commit": "lint-staged, test",
   "lint-staged": {
@@ -30,7 +30,7 @@
     "bulma-switch": "^0.1.2",
     "firebase": "^4.8.2",
     "font-awesome": "^4.7.0",
-    "nuxt": "^1.1.1",
+    "nuxt": "^1.2.1",
     "pug": "^2.0.0-rc.4",
     "stylus": "^0.54.5",
     "vue-server-renderer": "2.5.13",
@@ -38,8 +38,8 @@
     "vuexfire": "^2.3.0"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.0.0-beta.38",
     "babel-eslint": "^8.2.1",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "css-loader": "^0.28.9",
@@ -47,7 +47,7 @@
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-junit": "^1.0.1",
     "eslint-loader": "^1.6.1",
-    "eslint-plugin-html": "^4.0.1",
+    "eslint-plugin-html": "^4.0.2",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jest": "^21.7.0",
     "eslint-plugin-node": "^5.2.1",
@@ -56,11 +56,11 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.1.4",
     "jest-junit": "^3.4.1",
-    "lint-staged": "^6.0.1",
+    "lint-staged": "^6.1.0",
     "mwangaben-vthelpers": "^1.1.3",
     "pre-commit": "^1.2.2",
     "stylus-loader": "^3.0.1",
-    "vue-jest": "^1.4.0",
+    "vue-jest": "^2.0.0",
     "vue-test-utils": "^1.0.0-beta.11"
   },
   "jest-junit": {

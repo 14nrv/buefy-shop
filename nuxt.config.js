@@ -1,4 +1,8 @@
-const dotenv = process.env.NODE_ENV !== 'production' && '@nuxtjs/dotenv'
+const modules = [
+  '@nuxtjs/pwa'
+]
+const isNotProdEnv = process.env.NODE_ENV !== 'production'
+isNotProdEnv && modules.push('@nuxtjs/dotenv')
 
 module.exports = {
   /*
@@ -36,10 +40,7 @@ module.exports = {
   /*
   ** Modules
   */
-  modules: [
-    '@nuxtjs/pwa',
-    dotenv
-  ],
+  modules,
   plugins: [
     '~plugins/buefy',
     '~plugins/firebase'
