@@ -46,11 +46,11 @@ module.exports = {
     '~plugins/firebase'
   ],
   env: {
-    FB_DATABASE_URL: process.env.FB_DATABASE_URL,
-    FB_PROJECT_ID: process.env.FB_PROJECT_ID,
-    FB_API_KEY: process.env.FB_API_KEY,
-    FB_AUTH_DOMAIN: process.env.FB_AUTH_DOMAIN,
-    FB_STORAGE_BUCKET: process.env.FB_STORAGE_BUCKET,
-    FB_MESSAGE_SENDER_ID: process.env.FB_MESSAGE_SENDER_ID
+    databaseURL: process.env.FB_DATABASE_URL,
+    projectId: process.env.FB_PROJECT_ID,
+    apiKey: process.env.FB_API_KEY,
+    authDomain: process.env.FB_AUTH_DOMAIN,
+    storageBucket: process.env.FB_STORAGE_BUCKET,
+    messagingSenderId: process.env.FB_MESSAGE_SENDER_ID
   }
 }
