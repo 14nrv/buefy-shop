@@ -52,7 +52,7 @@ jobs:
           name: Deploy if tests pass and branch is Master
           command: |
             export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
-            now -t ${NOW_TOKEN} alias buefy-shop
+             now --force --no-clipboard --public --token ${NOW_TOKEN} && now alias buefy-shop --token ${NOW_TOKEN} --force
 
   deploy-dev:
     docker:
@@ -67,7 +67,7 @@ jobs:
           name: Deploy if tests pass and branch start with dev-
           command: |
             export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
-            now -t ${NOW_TOKEN} alias buefy-shop-dev
+            now --force --no-clipboard --public --token ${NOW_TOKEN} && now alias buefy-shop-dev --token ${NOW_TOKEN} --force
 
 workflows:
   version: 2
