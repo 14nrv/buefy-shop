@@ -1,7 +1,18 @@
+const {
+  NODE_ENV,
+  ANALYZE,
+  FB_DATABASE_URL,
+  FB_PROJECT_ID,
+  FB_API_KEY,
+  FB_AUTH_DOMAIN,
+  FB_STORAGE_BUCKET,
+  FB_MESSAGE_SENDER_ID
+} = process.env
+
 const modules = [
   '@nuxtjs/pwa'
 ]
-const isNotProdEnv = process.env.NODE_ENV !== 'production'
+const isNotProdEnv = NODE_ENV !== 'production'
 isNotProdEnv && modules.push('@nuxtjs/dotenv')
 
 module.exports = {
@@ -16,7 +27,7 @@ module.exports = {
         }
       })
     ],
-    analyze: process.env.ANALYZE,
+    analyze: ANALYZE,
     vendor: [
       'buefy',
       'firebase'
@@ -46,11 +57,11 @@ module.exports = {
     '~plugins/firebase'
   ],
   env: {
-    databaseURL: process.env.FB_DATABASE_URL,
-    projectId: process.env.FB_PROJECT_ID,
-    apiKey: process.env.FB_API_KEY,
-    authDomain: process.env.FB_AUTH_DOMAIN,
-    storageBucket: process.env.FB_STORAGE_BUCKET,
-    messagingSenderId: process.env.FB_MESSAGE_SENDER_ID
+    FB_DATABASE_URL,
+    FB_PROJECT_ID,
+    FB_API_KEY,
+    FB_AUTH_DOMAIN,
+    FB_STORAGE_BUCKET,
+    FB_MESSAGE_SENDER_ID
   }
 }
