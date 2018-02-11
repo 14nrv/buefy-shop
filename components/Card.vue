@@ -2,8 +2,8 @@
   .card.is-radius
     .card-image
       picture.image
-        source(:srcset="`products/${item.img}`.webp", type="image/webp")
-        img(:src="`products/${item.img}`.png", alt="`Image of ${item.name}`")
+        source(:srcset="`products/${item.img}.webp`", type="image/webp")
+        img(:src="`products/${item.img}.png`", :alt="`Image of ${item.name}`")
     .card-content
       .media
         .media-content

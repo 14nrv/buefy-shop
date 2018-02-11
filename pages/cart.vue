@@ -10,8 +10,9 @@
             .box(v-for="item in cart" :key="item.name")
               article.media
                 .media-left
-                  figure.image.is-64x64
-                    img(:src="`/products/${item.img}`" :alt="`Image of ${item.name}`")
+                  picture.image.is-64x64
+                    source(:srcset="`products/${item.img}.webp`", type="image/webp")
+                    img(:src="`products/${item.img}.png`", :alt="`Image of ${item.name}`")
                 .media-content
                   .content
                     p
