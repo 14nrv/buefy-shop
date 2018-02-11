@@ -5,7 +5,7 @@
     "category": "women",
     "sale": true,
     "article": "shoe",
-    "img": "shoe1.png"
+    "img": "shoe1"
   },
   {
     "name": "Camo Fang Backpack Jungle",
@@ -13,7 +13,7 @@
     "category": "women",
     "sale": false,
     "article": "jacket",
-    "img": "jacket1.png"
+    "img": "jacket1"
   },
   {
     "name": "Parka and Quilted Liner Jacket",
@@ -21,7 +21,7 @@
     "category": "men",
     "sale": true,
     "article": "jacket",
-    "img": "jacket2.png"
+    "img": "jacket2"
   },
   {
     "name": "Cotton Black Cap",
@@ -29,7 +29,7 @@
     "category": "men",
     "sale": true,
     "article": "hats",
-    "img": "hat1.png"
+    "img": "hat1"
   },
   {
     "name": "Knit Sweater with Zips",
@@ -37,7 +37,7 @@
     "category": "women",
     "sale": false,
     "article": "sweater",
-    "img": "sweater1.png"
+    "img": "sweater1"
   },
   {
     "name": "Long Linen-blend Shirt",
@@ -45,7 +45,7 @@
     "category": "men",
     "sale": false,
     "article": "shirt",
-    "img": "shirt1.png"
+    "img": "shirt1"
   },
   {
     "name": "Knit Orange Sweater",
@@ -53,7 +53,7 @@
     "category": "men",
     "sale": false,
     "article": "sweater",
-    "img": "sweater2.png"
+    "img": "sweater2"
   },
   {
     "name": "Cotton Band-collar Blouse",
@@ -61,7 +61,7 @@
     "category": "men",
     "sale": false,
     "article": "shirt",
-    "img": "shirt2.png"
+    "img": "shirt2"
   },
   {
     "name": "Camo Fang Backpack Jungle",
@@ -69,7 +69,7 @@
     "category": "women",
     "sale": true,
     "article": "jacket",
-    "img": "jacket3.png"
+    "img": "jacket3"
   },
   {
     "name": "Golden Pilot Jacket",
@@ -77,7 +77,7 @@
     "category": "women",
     "sale": false,
     "article": "jacket",
-    "img": "jacket4.png"
+    "img": "jacket4"
   },
   {
     "name": "Spotted Patterned Sweater",
@@ -85,7 +85,7 @@
     "category": "women",
     "sale": false,
     "article": "jacket",
-    "img": "sweater4.png"
+    "img": "sweater3"
   },
   {
     "name": "Double Knit Sweater",
@@ -93,6 +93,6 @@
     "category": "men",
     "sale": true,
     "article": "jacket",
-    "img": "sweater5.png"
+    "img": "sweater4"
   }
 ]
