@@ -38,6 +38,7 @@
     "vuexfire": "^2.3.0"
   },
   "devDependencies": {
+    "@babel/polyfill": "^7.0.0-beta.40",
     "babel-eslint": "^8.2.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
