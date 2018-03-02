@@ -30,11 +30,6 @@ export default {
         icon: 'fa-shopping-cart'
       },
       {
-        title: 'User Information',
-        text: 'This is the second step. You get here once you have completed the first step.',
-        icon: 'fa-user'
-      },
-      {
         title: 'Payment',
         text: 'This is the third step. One more last before the end.',
         icon: 'fa-usd'
