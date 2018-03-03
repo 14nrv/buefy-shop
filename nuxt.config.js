@@ -29,7 +29,6 @@ module.exports = {
     ],
     analyze: ANALYZE,
     vendor: [
-      'buefy',
       'firebase'
     ]
   },
@@ -53,7 +52,6 @@ module.exports = {
   */
   modules,
   plugins: [
-    '~plugins/buefy',
     '~plugins/firebase'
   ],
   env: {
