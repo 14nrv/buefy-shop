@@ -1585,9 +1585,9 @@ bulma-steps@^0.1.9:
   version "0.1.9"
   resolved "https://registry.yarnpkg.com/bulma-steps/-/bulma-steps-0.1.9.tgz#6e59f974300f07dbd5f6665341bee002673e56fd"
 
-bulma-switch@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/bulma-switch/-/bulma-switch-0.1.2.tgz#8fe1699990e3c9006a518ff0673383c26d8cb0cf"
+bulma-switch@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/bulma-switch/-/bulma-switch-1.0.1.tgz#447bf2e45ea5ed8e83919ae22b586e6ebc17a4ce"
 
 bulma@^0.6.1:
   version "0.6.1"

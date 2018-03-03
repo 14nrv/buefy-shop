@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import 'bulma-switch/bulma-switch.min.css'
+import 'bulma-switch/dist/bulma-switch.min.css'
 
 export default {
   computed: {
