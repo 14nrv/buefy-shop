@@ -16,9 +16,9 @@
               h3.total.is-pulled-left Total: {{ amount | usdollar }}
               button.button.is-success.is-pulled-right(@click="actualStep=1") > Next
 
-          .is-clearfix
-            h3.total.is-pulled-left Total: {{ amount | usdollar }}
-            button.button.is-success.is-pulled-right  > Next
+          div(v-if="actualStep === 1")
+            Checkout(:total="amount",
+                     @successSubmit="success = true, actualStep=2")
 
         .empty(v-else-if="total === 0 && success === false")
           h3 Your cart is empty.
@@ -34,12 +34,18 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
+import Checkout from '@/components/Checkout'
 import CartStep from '@/components/CartStep.vue'
 import CartBox from '@/components/CartBox.vue'
 
 const { mapGetters } = createNamespacedHelpers('cart')
 
 export default {
+  head: {
+    script: [
+      { src: 'https://js.stripe.com/v3/' }
+    ]
+  },
   data() {
     return {
       success: false,
@@ -48,7 +54,8 @@ export default {
   },
   components: {
     CartStep,
-    CartBox
+    CartBox,
+    Checkout
   },
   computed: {
     ...mapGetters(['cart', 'total', 'amount'])

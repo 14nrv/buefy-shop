@@ -25,6 +25,7 @@
   "dependencies": {
     "@nuxtjs/dotenv": "^1.1.0",
     "@nuxtjs/pwa": "^2.0.5",
+    "axios": "^0.18.0",
     "bulma": "^0.6.2",
     "bulma-steps": "^0.1.9",
     "bulma-switch": "^1.0.1",
@@ -34,6 +35,7 @@
     "pug": "^2.0.0-rc.4",
     "stylus": "^0.54.5",
     "vue-server-renderer": "2.5.13",
+    "vue-stripe-elements-plus": "^0.2.8",
     "vue-template-compiler": "2.5.13",
     "vuexfire": "^2.3.0"
   },
