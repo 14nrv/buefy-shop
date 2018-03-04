@@ -11,12 +11,6 @@ localVue.use(Vuex)
 
 let wrapper, b, store
 
-const isActive = '.is-active'
-const navbarBurger = '.navbar-burger'
-const navbarBurgerIsActive = `${navbarBurger}${isActive}`
-const navbarMenu = '.navbar-menu'
-const navbarMenuIsActive = `${navbarMenu}${isActive}`
-
 describe('Header', () => {
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
@@ -33,30 +27,16 @@ describe('Header', () => {
     expect(wrapper.vm['$options'].head().htmlAttrs.class).toBe('has-navbar-fixed-top')
   })
 
-  describe('> burger menu', () => {
-    it('is inactive by default', () => {
-      b.domHas(navbarBurger)
-      b.domHasNot(navbarBurgerIsActive)
-      b.domHasNot(navbarMenuIsActive)
+  it('show cartcount if item in cart', () => {
+    const itemInCart = 2
+
+    b.domHasNot('.cartcount')
+
+    wrapper.setComputed({
+      'total': itemInCart
     })
 
-    it('toggle class is-active when isBurgerMenuActive is true', () => {
-      b.domHasNot(navbarBurgerIsActive)
-
-      wrapper.setData({ isBurgerMenuActive: true })
-
-      b.domHas(navbarBurgerIsActive)
-      b.domHas(navbarMenuIsActive)
-    })
-
-    it('toggle class is-active when click on it', () => {
-      b.domHasNot(navbarBurgerIsActive)
-      b.domHasNot(navbarMenuIsActive)
-
-      b.click(navbarBurger)
-
-      b.domHas(navbarBurgerIsActive)
-      b.domHas(navbarMenuIsActive)
-    })
+    b.domHas('.cartcount')
+    b.see(itemInCart, '.cartcount')
   })
 })

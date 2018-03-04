@@ -31,11 +31,6 @@ const { mapGetters } = createNamespacedHelpers('cart')
 
 export default {
   name: 'Header',
-  data() {
-    return {
-      isBurgerMenuActive: false
-    }
-  },
   head () {
     return {
       htmlAttrs: {
