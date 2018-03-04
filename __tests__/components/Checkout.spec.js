@@ -1,5 +1,6 @@
 import Vuex from 'vuex'
 import axios from 'axios'
+import VeeValidate from 'vee-validate'
 import Helpers from 'mwangaben-vthelpers'
 import { mount, createLocalVue } from 'vue-test-utils'
 import fakeStore from '@/__tests__/__mocks__/fakeStore'
@@ -13,6 +14,7 @@ jest
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VeeValidate)
 
 const TOTAL = 100
 const INPUT_TYPE_EMAIL_VALUE = 'test@aol.fr'
@@ -74,6 +76,20 @@ describe('Checkout', () => {
 
     expect(successSubmitStub).toBeCalled()
     expect(wrapper.vm.$store.state.cart.total).toBe(0)
+    expect(wrapper.vm.$store.state.cart.amount).toBe(0)
+  })
+
+  it('put status to failure if form is not valid', async () => {
+    wrapper.setData({ 'complete': true })
+
+    b.type('false@email', 'input[type=email]')
+
+    await wrapper.vm.pay()
+
+    expect(axios.post).not.toBeCalled()
+
+    expect(wrapper.vm.status).toBe('failure')
+    b.domHas('.statussubmit button')
   })
 
   it('put status to failure if axios reject', async () => {

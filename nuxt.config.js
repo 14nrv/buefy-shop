@@ -52,7 +52,8 @@ module.exports = {
   */
   modules,
   plugins: [
-    '~plugins/firebase'
+    '~plugins/firebase',
+    '~plugins/veeValidate'
   ],
   env: {
     FB_DATABASE_URL,

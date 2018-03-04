@@ -2,14 +2,24 @@
   .content
     transition(name="fade")
 
-      .payment(v-if="status !== 'failure'")
+      form.payment(v-if="status !== 'failure'", @submit.prevent='pay')
         h3 Please enter your payment details:
 
         .field
           label.label(for="email") Email
-          input.input#email(type="email",
-                            v-model="stripeEmail",
-                            placeholder="name@example.com")
+          .control.has-icons-left.has-icons-right
+            input.input#email(type="email",
+                              required,
+                              v-model="stripeEmail",
+                              placeholder="name@example.com",
+                              name='email',
+                              v-validate="'required|email'",
+                              :class="{ 'is-danger': errors.has('email') }")
+            span.icon.is-small.is-left
+              i.fa.fa-envelope
+            span.icon.is-small.is-right(v-if="errors.has('email')")
+              i.fa.fa-exclamation-triangle
+            p.help.is-danger(v-if="errors.has('email')") {{ errors.first('email') }}
 
         .field
           label.label(for="card") Credit Card
@@ -25,8 +35,7 @@
                                 @change='complete = $event.complete')
 
         .field
-          button.button.is-success.pay-with-stripe(@click='pay',
-                                                   :disabled='!complete || !stripeEmail',
+          button.button.is-success.pay-with-stripe(:disabled='!complete || errors.any()',
                                                    :class="{ 'is-loading': isLoading }")
             | Pay with credit card
 
@@ -81,6 +90,12 @@ export default {
     ...mapActions(['clearCount', 'clearContents']),
 
     async pay() {
+      const isAllFieldsValid = await this.$validator.validateAll()
+      if( !isAllFieldsValid ) {
+        this.status = 'failure'
+        return
+      }
+
       this.isLoading = true
 
       // eslint-disable-next-line

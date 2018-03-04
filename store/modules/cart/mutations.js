@@ -23,5 +23,8 @@ export default {
     state.amount = calculateAmount(state.cart)
   },
   CLEAR_CONTENTS: state => state.cart = {},
-  CLEAR_COUNT: state => state.total = 0
+  CLEAR_COUNT: state => {
+    state.total = 0
+    state.amount = 0
+  }
 }
