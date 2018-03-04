@@ -53,7 +53,7 @@ module.exports = {
   modules,
   plugins: [
     '~plugins/firebase',
-    '~plugins/veeValidate'
+    { src: '~plugins/veeValidate', ssr: false }
   ],
   env: {
     FB_DATABASE_URL,
