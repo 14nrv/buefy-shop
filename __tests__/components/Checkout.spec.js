@@ -67,7 +67,7 @@ describe('Checkout', () => {
     const postSecondArgument = {
       stripeEmail: INPUT_TYPE_EMAIL_VALUE,
       stripeToken: 'tok_visa',
-      stripeAmt: TOTAL
+      stripeAmt: TOTAL * 100
     }
 
     expect(axios.post.mock.calls[0][1]).toMatchObject(postSecondArgument)

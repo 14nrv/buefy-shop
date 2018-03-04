@@ -6,7 +6,9 @@ const {
   FB_API_KEY,
   FB_AUTH_DOMAIN,
   FB_STORAGE_BUCKET,
-  FB_MESSAGE_SENDER_ID
+  FB_MESSAGE_SENDER_ID,
+  STRIPE_PUBLISHABLE_KEY,
+  STRIPE_URL
 } = process.env
 
 const modules = [
@@ -61,6 +63,8 @@ module.exports = {
     FB_API_KEY,
     FB_AUTH_DOMAIN,
     FB_STORAGE_BUCKET,
-    FB_MESSAGE_SENDER_ID
+    FB_MESSAGE_SENDER_ID,
+    STRIPE_PUBLISHABLE_KEY,
+    STRIPE_URL
   }
 }

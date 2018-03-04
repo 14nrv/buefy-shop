@@ -30,7 +30,7 @@
 
         .field
           card.stripe-card.input#card(:class='{ complete }',
-                                stripe='pk_test_5ThYi0UvX3xwoNdgxxxTxxrG',
+                                :stripe='stripePublishableKey',
                                 :options='stripeOptions',
                                 @change='complete = $event.complete')
 
@@ -42,7 +42,7 @@
       .statussubmit(v-if="status === 'failure'")
         h3 Oh No!
         p Something went wrong!
-        button(@click="clearCart") Please try again
+        button.button(@click="clearCart") Please try again
 
 </template>
 
@@ -52,7 +52,7 @@ import { Card, createToken } from 'vue-stripe-elements-plus'
 import { createNamespacedHelpers } from 'vuex'
 
 const { mapActions } = createNamespacedHelpers('cart')
-const STRIPE_URL = 'https://sdras-stripe.azurewebsites.net/api/charge?code=zWwbn6LLqMxuyvwbWpTFXdRxFd7a27KCRCEseL7zEqbM9ijAgj1c1w=='
+const STRIPE_URL = process.env.STRIPE_URL
 
 export default {
   components: {
@@ -83,7 +83,8 @@ export default {
         // you can configure that cc element. I liked the default, but you can
         // see https://stripe.com/docs/stripe.js#element-options for details
       },
-      stripeEmail: ''
+      stripeEmail: '',
+      stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY
     }
   },
   methods: {
@@ -108,7 +109,7 @@ export default {
           {
             stripeEmail: this.stripeEmail,
             stripeToken: 'tok_visa',
-            stripeAmt: this.total
+            stripeAmt: this.total * 100 // must be in cent
           },
           {
             headers: {
