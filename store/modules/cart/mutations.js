@@ -21,5 +21,10 @@ export default {
     state.total = state.total - item.count
     delete state.cart[item.name]
     state.amount = calculateAmount(state.cart)
+  },
+  CLEAR_CONTENTS: state => state.cart = {},
+  CLEAR_COUNT: state => {
+    state.total = 0
+    state.amount = 0
   }
 }

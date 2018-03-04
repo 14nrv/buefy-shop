@@ -30,11 +30,6 @@ export default {
         icon: 'fa-shopping-cart'
       },
       {
-        title: 'User Information',
-        text: 'This is the second step. You get here once you have completed the first step.',
-        icon: 'fa-user'
-      },
-      {
         title: 'Payment',
         text: 'This is the third step. One more last before the end.',
         icon: 'fa-usd'
@@ -49,25 +44,27 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-.steps.is-large
-    font-size inherit
-    margin-bottom 3rem
-    .step-item .step-details .step-title
-      font-size 1.2rem
+<style scoped lang="stylus">
+  $colorGreen = #00d1b2
 
-.steps .is-active::before,
-.steps .is-completed::before
-  background-position left bottom
+  .steps
+    &.is-large
+      font-size inherit
+      margin-bottom 3rem
 
-.steps .is-active .step-marker
-  background-color white !important
-  border-color #00d1b2 !important
-  color #00d1b2 !important
+      .step-item .step-details .step-title
+        font-size 1.2rem
 
-.steps .is-completed .step-marker
-  color white
-  background-color #00d1b2
+    .is-active::before,
+    .is-completed::before
+      background-position left bottom
 
+    .is-active .step-marker
+      background-color white !important
+      border-color $colorGreen !important
+      color $colorGreen !important
 
+    .is-completed .step-marker
+      color white
+      background-color $colorGreen
 </style>

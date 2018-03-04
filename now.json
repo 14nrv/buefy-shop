@@ -6,7 +6,9 @@
     "FB_API_KEY":"@fb_api_key",
     "FB_AUTH_DOMAIN":"@fb_auth_domain",
     "FB_STORAGE_BUCKET":"@fb_storage_bucket",
-    "FB_MESSAGE_SENDER_ID":"@fb_message_sender_id"
+    "FB_MESSAGE_SENDER_ID":"@fb_message_sender_id",
+    "STRIPE_PUBLISHABLE_KEY": "@stripe_publishable_key",
+    "STRIPE_URL": "@stripe_url"
   },
   "forwardNpm": true,
   "public": true,
