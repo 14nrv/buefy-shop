@@ -18,8 +18,9 @@
           .navbar-item
             .field.is-grouped
               p.control
-                a.button.is-light(target="_blank"
-                                      href="https://github.com/")
+                a.button.is-light(target="_blank",
+                                  href="https://github.com/14nrv/buefy-shop",
+                                  rel="noopener")
                   span.icon
                     i.fa.fa-github
                   span Fork
