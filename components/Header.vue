@@ -14,16 +14,6 @@
           span
 
       div#navbarExampleTransparentExample.navbar-menu(:class="{'is-active': isBurgerMenuActive}")
-        .navbar-start
-          .navbar-item.has-dropdown.is-hoverable
-            a.navbar-link(href="/documentation/overview/start/") Products
-            div.navbar-dropdown.is-boxed.is-inverted.is-light
-              a.navbar-item(href="/documentation/overview/start/") Women
-              a.navbar-item(href="https://bulma.io/documentation/modifiers/syntax/") Men
-              hr.navbar-divider
-              a.navbar-item(href="https://bulma.io/documentation/columns/basics/") Sale
-          nuxt-link.navbar-item(exact, :to="{name: 'contact'}") Contact
-
         .navbar-end
           .navbar-item
             .field.is-grouped
@@ -33,11 +23,6 @@
                   span.icon
                     i.fa.fa-github
                   span Fork
-              p.control
-                nuxt-link.button.is-light(exact, :to="{name: 'login'}")
-                  span.icon
-                    i.fa.fa-sign-in
-                  span Login / Sign in
               p.control
                 nuxt-link.button.is-light(exact, :to="{name: 'cart'}")
                   span.icon.cartitem
