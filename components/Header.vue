@@ -1,49 +1,27 @@
 <template lang="pug">
   header.navbar.is-fixed-top.is-light(role="navigation"
                 aria-label="main navigation")
-    .container
+    .container.is-flex-touch
       .navbar-brand
         nuxt-link.navbar-item(exact, :to="{name: 'index'}")
           strong
             i PlusGrosLeLogo
-        div.navbar-burger.burger(data-target="navbarExampleTransparentExample"
-                                :class="{'is-active': isBurgerMenuActive}"
-                                @click="isBurgerMenuActive= !isBurgerMenuActive")
-          span
-          span
-          span
-
-      div#navbarExampleTransparentExample.navbar-menu(:class="{'is-active': isBurgerMenuActive}")
-        .navbar-start
-          .navbar-item.has-dropdown.is-hoverable
-            a.navbar-link(href="/documentation/overview/start/") Products
-            div.navbar-dropdown.is-boxed.is-inverted.is-light
-              a.navbar-item(href="/documentation/overview/start/") Women
-              a.navbar-item(href="https://bulma.io/documentation/modifiers/syntax/") Men
-              hr.navbar-divider
-              a.navbar-item(href="https://bulma.io/documentation/columns/basics/") Sale
-          nuxt-link.navbar-item(exact, :to="{name: 'contact'}") Contact
-
-        .navbar-end
-          .navbar-item
-            .field.is-grouped
-              p.control
-                a.button.is-light(target="_blank"
-                                      href="https://github.com/")
-                  span.icon
-                    i.fa.fa-github
-                  span Fork
-              p.control
-                nuxt-link.button.is-light(exact, :to="{name: 'login'}")
-                  span.icon
-                    i.fa.fa-sign-in
-                  span Login / Sign in
-              p.control
-                nuxt-link.button.is-light(exact, :to="{name: 'cart'}")
-                  span.icon.cartitem
-                    .cartcount(v-if="total > 0") {{ total }}
-                    i.fa.fa-shopping-cart
-                  span Cart
+      .navbar-end
+        .navbar-item
+          .field.is-grouped
+            p.control
+              a.button.is-light(target="_blank",
+                                href="https://github.com/14nrv/buefy-shop",
+                                rel="noopener")
+                span.icon
+                  i.fa.fa-github
+                span Fork
+            p.control
+              nuxt-link.button.is-light(exact, :to="{name: 'cart'}")
+                span.icon.cartitem
+                  .cartcount(v-if="total > 0") {{ total }}
+                  i.fa.fa-shopping-cart
+                span Cart
 </template>
 
 <script>
@@ -53,11 +31,6 @@ const { mapGetters } = createNamespacedHelpers('cart')
 
 export default {
   name: 'Header',
-  data() {
-    return {
-      isBurgerMenuActive: false
-    }
-  },
   head () {
     return {
       htmlAttrs: {
@@ -76,6 +49,10 @@ export default {
     .navbar
       &.is-light
         background-color #f5f5f5
+
+      > .container
+        flex-wrap: wrap
+        justify-content: space-between
 
   .cartitem
     position relative
