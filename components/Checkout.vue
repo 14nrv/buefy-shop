@@ -91,7 +91,7 @@ export default {
 
     async pay() {
       const isAllFieldsValid = await this.$validator.validateAll()
-      if( !isAllFieldsValid ) {
+      if (!isAllFieldsValid) {
         this.status = 'failure'
         return
       }
