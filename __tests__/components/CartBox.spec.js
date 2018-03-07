@@ -26,7 +26,7 @@ describe('CartBox', () => {
         item: {
           ...fakeProducts[0]
         },
-        index: 0
+        index: '0'
       }
     })
     b = new Helpers(wrapper, expect)

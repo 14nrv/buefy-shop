@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
   parserOptions: {
+    parser: 'babel-eslint',
     sourceType: 'module'
   },
   env: {
@@ -9,10 +9,15 @@ module.exports = {
     node: true,
     jest: true
   },
-  extends: 'standard',
+  extends: [
+    'standard',
+    'plugin:vue/recommended',
+    'plugin:jest/recommended'
+  ],
   // required to lint *.vue files
   plugins: [
     'html',
+    'vue',
     'jest'
   ],
   // add your custom rules here

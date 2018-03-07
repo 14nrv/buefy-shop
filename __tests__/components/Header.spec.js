@@ -4,8 +4,6 @@ import { shallow, createLocalVue } from 'vue-test-utils'
 import fakeStore from '@/__tests__/__mocks__/fakeStore'
 import Header from '@/components/Header.vue'
 
-jest.mock('@/plugins/firebase', () => jest.fn())
-
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
@@ -29,14 +27,15 @@ describe('Header', () => {
 
   it('show cartcount if item in cart', () => {
     const itemInCart = 2
+    const cartcountClassName = '.cartcount'
 
-    b.domHasNot('.cartcount')
+    b.domHasNot(cartcountClassName)
 
     wrapper.setComputed({
       'total': itemInCart
     })
 
-    b.domHas('.cartcount')
-    b.see(itemInCart, '.cartcount')
+    b.domHas(cartcountClassName)
+    b.see(itemInCart, cartcountClassName)
   })
 })

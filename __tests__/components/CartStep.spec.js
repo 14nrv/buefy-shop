@@ -29,7 +29,7 @@ describe('CartStep', () => {
     b.domHas(STEP_ITEM_CLASS)
 
     const stepItemLength = wrapper.findAll(STEP_ITEM_CLASS).length
-    expect(wrapper.vm.menu.length).toBe(stepItemLength)
+    expect(wrapper.vm.menu).toHaveLength(stepItemLength)
   })
 
   it('have first step active', () => {

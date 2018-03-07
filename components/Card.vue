@@ -23,6 +23,11 @@ const { mapActions } = createNamespacedHelpers('cart')
 
 export default {
   name: 'Card',
+  filters: {
+    usdollar: function(value) {
+      return `$${value}`
+    }
+  },
   props: {
     item: {
       type: Object,
@@ -31,11 +36,6 @@ export default {
     index: {
       type: Number,
       required: true
-    }
-  },
-  filters: {
-    usdollar: function(value) {
-      return `$${value}`
     }
   },
   methods: {
@@ -50,7 +50,6 @@ export default {
     flex-direction column
     justify-content center
     align-items center
-    //position relative
 
     &.is-radius
       .image
@@ -70,7 +69,4 @@ export default {
 
       &.icon
         cursor pointer
-
-      // .fa-circle
-      //   color #f5f5f5
 </style>
