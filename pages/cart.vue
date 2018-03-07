@@ -22,14 +22,12 @@
 
         .empty(v-else-if="total === 0 && success === false")
           h3 Your cart is empty.
-          br
           nuxt-link(exact to="/")
             button.button Fill er up!
 
         div(v-else)
           h2 Success!
           p Your order has been processed, it will be delivered shortly.
-          br
           nuxt-link(exact to="/")
             button.button Fill again your cart
 </template>
