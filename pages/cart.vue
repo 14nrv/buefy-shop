@@ -48,24 +48,24 @@ export default {
       { src: 'https://js.stripe.com/v3/' }
     ]
   },
+  components: {
+    CartStep,
+    CartBox,
+    Checkout
+  },
+  filters: {
+    usdollar: function(value) {
+      return `$${value}`
+    }
+  },
   data() {
     return {
       success: false,
       actualStep: 0
     }
   },
-  components: {
-    CartStep,
-    CartBox,
-    Checkout
-  },
   computed: {
     ...mapGetters(['cart', 'total', 'amount'])
-  },
-  filters: {
-    usdollar: function(value) {
-      return `$${value}`
-    }
   }
 }
 </script>

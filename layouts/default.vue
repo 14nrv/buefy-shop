@@ -19,8 +19,8 @@ export default {
 </script>
 
 <style lang="stylus">
-  @require '~bulma/css/bulma.css'
-  @require '~font-awesome/css/font-awesome.min.css'
+  @require '../node_modules/bulma/css/bulma.css'
+  @require '../node_modules/font-awesome/css/font-awesome.min.css'
   @require './css/_transition'
   @require './css/_slider'
 
@@ -33,7 +33,6 @@ export default {
   $card-radius = 5px
   .is-radius
     border-radius $card-radius
-
 
   @media (max-width: 600px)
     aside

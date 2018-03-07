@@ -12,26 +12,26 @@
 </template>
 
 <script>
-  import { createNamespacedHelpers } from 'vuex'
-  import Hero from '@/components/Hero.vue'
-  import Card from '@/components/Card.vue'
-  import Sidebar from '@/components/Sidebar.vue'
+import { createNamespacedHelpers } from 'vuex'
+import Hero from '@/components/Hero.vue'
+import Card from '@/components/Card.vue'
+import Sidebar from '@/components/Sidebar.vue'
 
-  const { mapGetters } = createNamespacedHelpers('product')
+const { mapGetters } = createNamespacedHelpers('product')
 
-  export default {
-    components: {
-      AppHero: Hero,
-      AppCard: Card,
-      AppSidebar: Sidebar
-    },
-    computed: {
-      ...mapGetters(['products', 'highprice'])
-    },
-    created () {
-      this.$store.dispatch('product/setProductsRef')
-    }
+export default {
+  components: {
+    AppHero: Hero,
+    AppCard: Card,
+    AppSidebar: Sidebar
+  },
+  computed: {
+    ...mapGetters(['products', 'highprice'])
+  },
+  created () {
+    this.$store.dispatch('product/setProductsRef')
   }
+}
 </script>
 
 <style lang="stylus" scoped>

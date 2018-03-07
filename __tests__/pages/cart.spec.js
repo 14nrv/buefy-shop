@@ -59,7 +59,7 @@ describe('Cart', () => {
 
   it('show products', () => {
     const $products = wrapper.findAll('.box')
-    expect($products.length).toBe(productsInCartState.length)
+    expect($products).toHaveLength(productsInCartState.length)
   })
 
   it('show amount', () => {
@@ -82,16 +82,16 @@ describe('Cart', () => {
       domProducts: getDomProducts(),
       productsInCartStore: getProductsInCartStore()
     }
-    expect(beforeClick.domProducts.length).toBe(beforeClick.productsInCartStore.length)
+    expect(beforeClick.domProducts).toHaveLength(beforeClick.productsInCartStore.length)
     b.click(firstBoxRemoveItemBtn)
 
     const afterClick = {
       domProducts: getDomProducts(),
       productsInCartStore: getProductsInCartStore()
     }
-    expect(afterClick.domProducts.length).toBe(afterClick.productsInCartStore.length)
-    expect(beforeClick.domProducts.length).not.toBe(afterClick.productsInCartStore.length)
-    expect(afterClick.domProducts.length).toBe(beforeClick.productsInCartStore.length - 1)
+    expect(afterClick.domProducts).toHaveLength(afterClick.productsInCartStore.length)
+    expect(beforeClick.domProducts).not.toHaveLength(afterClick.productsInCartStore.length)
+    expect(afterClick.domProducts).toHaveLength(beforeClick.productsInCartStore.length - 1)
 
     const amount = calculateAmount(Object.values(cartModule.state.cart))
     b.see(`Total: $${amount}`, '.total')

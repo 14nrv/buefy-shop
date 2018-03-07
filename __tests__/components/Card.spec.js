@@ -14,7 +14,7 @@ localVue.use(Vuex)
 
 let wrapper, store, b
 
-describe.only('Card', () => {
+describe('Card', () => {
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
     wrapper = shallow(Card, {
@@ -43,11 +43,6 @@ describe.only('Card', () => {
 
   it('show price of item', () => {
     b.see(`$${firstProduct.price}`, '.item-price')
-  })
-
-  it.skip('show sale', () => {
-    b.domHas('.salepill')
-    expect(wrapper.contains('.salepill')).toBe(true)
   })
 
   it('call addItem action when click on btn item', () => {

@@ -28,6 +28,9 @@ const { mapActions } = createNamespacedHelpers('product')
 
 export default {
   name: 'Sidebar',
+  components: {
+    AppSwitch: Switch
+  },
   props: {
     sale: {
       type: Boolean,
@@ -43,9 +46,6 @@ export default {
       min: 0,
       max: 400
     }
-  },
-  components: {
-    AppSwitch: Switch
   },
   methods: {
     ...mapActions(['updateHighprice'])

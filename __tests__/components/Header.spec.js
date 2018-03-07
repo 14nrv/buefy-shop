@@ -4,18 +4,10 @@ import { shallow, createLocalVue } from 'vue-test-utils'
 import fakeStore from '@/__tests__/__mocks__/fakeStore'
 import Header from '@/components/Header.vue'
 
-jest.mock('@/plugins/firebase', () => jest.fn())
-
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let wrapper, b, store
-
-const isActive = '.is-active'
-const navbarBurger = '.navbar-burger'
-const navbarBurgerIsActive = `${navbarBurger}${isActive}`
-const navbarMenu = '.navbar-menu'
-const navbarMenuIsActive = `${navbarMenu}${isActive}`
 
 describe('Header', () => {
   beforeEach(() => {
@@ -33,30 +25,17 @@ describe('Header', () => {
     expect(wrapper.vm['$options'].head().htmlAttrs.class).toBe('has-navbar-fixed-top')
   })
 
-  describe('> burger menu', () => {
-    it('is inactive by default', () => {
-      b.domHas(navbarBurger)
-      b.domHasNot(navbarBurgerIsActive)
-      b.domHasNot(navbarMenuIsActive)
+  it('show cartcount if item in cart', () => {
+    const itemInCart = 2
+    const cartcountClassName = '.cartcount'
+
+    b.domHasNot(cartcountClassName)
+
+    wrapper.setComputed({
+      'total': itemInCart
     })
 
-    it('toggle class is-active when isBurgerMenuActive is true', () => {
-      b.domHasNot(navbarBurgerIsActive)
-
-      wrapper.setData({ isBurgerMenuActive: true })
-
-      b.domHas(navbarBurgerIsActive)
-      b.domHas(navbarMenuIsActive)
-    })
-
-    it('toggle class is-active when click on it', () => {
-      b.domHasNot(navbarBurgerIsActive)
-      b.domHasNot(navbarMenuIsActive)
-
-      b.click(navbarBurger)
-
-      b.domHas(navbarBurgerIsActive)
-      b.domHas(navbarMenuIsActive)
-    })
+    b.domHas(cartcountClassName)
+    b.see(itemInCart, cartcountClassName)
   })
 })
