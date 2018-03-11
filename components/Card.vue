@@ -2,8 +2,8 @@
   .card.is-radius
     .card-image
       picture.image
-        source(:srcset="`products/${item.img}.webp`", type="image/webp")
-        img(:src="`products/${item.img}.png`", :alt="`Image of ${item.name}`")
+        source(:data-srcset="`products/${item.img}.webp`", type="image/webp")
+        img.lazyload(:data-srcset="`products/${item.img}.png`", :alt="`Image of ${item.name}`")
     .card-content
       .media
         .media-content
@@ -55,8 +55,6 @@ export default {
       .image
         img
           padding-top 1.5rem
-          border-top-left-radius $card-radius
-          border-top-right-radius $card-radius
 
     .title,
     .subtitle
@@ -69,4 +67,12 @@ export default {
 
       &.icon
         cursor pointer
+
+  .lazyload,
+  .lazyloading
+    opacity 0
+
+  .lazyloaded
+    opacity 1
+    transition opacity 150ms
 </style>
