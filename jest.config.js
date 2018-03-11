@@ -15,7 +15,6 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/$1',
     '\\.(css|styl)$': 'identity-obj-proxy'
   },
-  mapCoverage: true,
   testResultsProcessor: process.env.CI ? 'jest-junit' : undefined,
   testPathIgnorePatterns: ['<rootDir>/__tests__/__mocks__'],
   setupFiles: ['<rootDir>/jest.setup.js']

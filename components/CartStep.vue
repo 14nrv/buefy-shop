@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import 'bulma-steps/bulma-steps.css'
+import 'bulma-steps/dist/bulma-steps.min.css'
 
 export default {
   props: {
