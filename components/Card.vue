@@ -2,8 +2,8 @@
   .card.is-radius
     .card-image
       picture.image
-        source(:srcset="`products/${item.img}.webp`", type="image/webp")
-        img(:src="`products/${item.img}.png`", :alt="`Image of ${item.name}`")
+        source(:data-srcset="`products/${item.img}.webp`", type="image/webp")
+        img.lazyload(:data-srcset="`products/${item.img}.png`", :alt="`Image of ${item.name}`")
     .card-content
       .media
         .media-content
@@ -11,7 +11,7 @@
           p.item-price {{ item.price | usdollar }}
         .media-right
           p.field
-            button.button.icon.is-large.add(@click="addItem(item)")
+            button.button.icon.is-large.add(@click="addItem(item)", aria-label="Add to cart")
               span.fa-stack
                 i.fa.fa-circle.fa-stack-2x
                 i.fa.fa-cart-plus.fa-stack-1x.fa-inverse
@@ -55,8 +55,6 @@ export default {
       .image
         img
           padding-top 1.5rem
-          border-top-left-radius $card-radius
-          border-top-right-radius $card-radius
 
     .title,
     .subtitle
@@ -69,4 +67,12 @@ export default {
 
       &.icon
         cursor pointer
+
+  .lazyload,
+  .lazyloading
+    opacity 0
+
+  .lazyloaded
+    opacity 1
+    transition opacity 150ms
 </style>
