@@ -11,7 +11,7 @@
           p.item-price {{ item.price | usdollar }}
         .media-right
           p.field
-            button.button.icon.is-large.add(@click="addItem(item)")
+            button.button.icon.is-large.add(@click="addItem(item)", aria-label="Add to cart")
               span.fa-stack
                 i.fa.fa-circle.fa-stack-2x
                 i.fa.fa-cart-plus.fa-stack-1x.fa-inverse
