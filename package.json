@@ -31,7 +31,7 @@
     "bulma-switch": "^1.0.1",
     "firebase": "^4.9.1",
     "font-awesome": "^4.7.0",
-    "lazysizes": "^4.0.1",
+    "lazysizes": "^4.0.2",
     "nuxt": "^1.4.0",
     "pug": "^2.0.0-rc.4",
     "stylus": "^0.54.5",
@@ -74,5 +74,8 @@
   },
   "eslint-junit": {
     "output": "coverage/junit/js-eslint-results.xml"
+  },
+  "engines": {
+    "node": ">=8.3.0"
   }
 }
