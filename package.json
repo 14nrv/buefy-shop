@@ -74,5 +74,8 @@
   },
   "eslint-junit": {
     "output": "coverage/junit/js-eslint-results.xml"
+  },
+  "engines": {
+    "node": ">=8.3.0"
   }
 }
