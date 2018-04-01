@@ -51,10 +51,12 @@ export default {
     justify-content center
     align-items center
 
-    &.is-radius
-      .image
-        img
-          padding-top 1.5rem
+    .image
+      img
+        padding-top 1.5rem
+
+    .card-content
+      width 100%
 
     .title,
     .subtitle

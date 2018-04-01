@@ -1,13 +1,13 @@
 <template lang="pug">
-  div.container
+  .container
     .section
       app-hero
     .section.capsule
       app-sidebar(:pricerange.sync="highprice")
       transition-group.content(name="items" tag="div")
-        app-card(v-for="(item, index) in products"
-          :key="index"
-          :item="item"
+        app-card(v-for="(item, index) in products",
+          :key="index",
+          :item="item",
           :index="index")
 </template>
 
@@ -42,6 +42,6 @@ export default {
     /* grid */
     display grid
     grid-template-columns repeat(3, 1fr)
-    grid-gap 10px
-    padding 0 !important
+    grid-gap 1rem
+    padding 0
 </style>
