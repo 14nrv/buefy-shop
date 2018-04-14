@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style lang="stylus">
-  @require '../node_modules/bulma/css/bulma.css'
+  @require '../node_modules/bulma/css/bulma.min.css'
   @require '../node_modules/font-awesome/css/font-awesome.min.css'
   @require './css/_transition'
   @require './css/_slider'
