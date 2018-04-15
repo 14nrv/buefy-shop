@@ -26,7 +26,7 @@
     "@nuxtjs/dotenv": "^1.1.0",
     "@nuxtjs/pwa": "^2.0.5",
     "axios": "^0.18.0",
-    "bulma": "^0.6.2",
+    "bulma": "^0.7.0",
     "bulma-steps": "^1.0.1",
     "bulma-switch": "^1.0.1",
     "firebase": "^4.9.1",
