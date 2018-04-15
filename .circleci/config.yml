@@ -47,7 +47,7 @@ jobs:
       - checkout
       - run:
           name: Install now globally with yarn
-          command: yarn global add now
+          command: yarn global add now@10.2.2
       - run:
           name: Deploy if tests pass and branch is Master
           command: |
@@ -62,7 +62,7 @@ jobs:
       - checkout
       - run:
           name: Install now globally with yarn
-          command: yarn global add now
+          command: yarn global add now@10.2.2
       - run:
           name: Deploy if tests pass and branch start with dev-
           command: |
