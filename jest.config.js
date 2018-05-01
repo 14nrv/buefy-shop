@@ -9,7 +9,7 @@ module.exports = {
     '.*\\.(vue)$': '<rootDir>/node_modules/vue-jest'
   },
   transformIgnorePatterns: [
-    '<roodDir>/node_modules/(?!@swish)'
+    '<rootDir>/node_modules/(?!@swish)'
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
