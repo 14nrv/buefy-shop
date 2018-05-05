@@ -13,8 +13,16 @@
       span.max ${{ max }}
     app-switch(v-if="!sale")
     .sidearea
-        h4.subtitle.is-5 Special Sale!
-        p Shop now because half our items are greatly reduced
+      label.subtitle.is-5(for="category") Categories
+      .select
+        select#category(@input="setCategory($event.target.value)")
+          option(v-for="category in categories",
+            :key="category",
+            :selected="category === categorySelected",
+            :value="category") {{ category }}
+    .sidearea
+      h4.subtitle.is-5 Special Sale!
+      p Shop now because half our items are greatly reduced
     .sidearea
       h4.subtitle.is-5 Contact Us
       p Questions? Call us at 1-888-555-SHOP, we're happy to be of service.
@@ -24,7 +32,7 @@
 import { createNamespacedHelpers } from 'vuex'
 import Switch from './Switch.vue'
 
-const { mapActions } = createNamespacedHelpers('product')
+const { mapActions, mapGetters } = createNamespacedHelpers('product')
 
 export default {
   name: 'Sidebar',
@@ -48,7 +56,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['updateHighprice'])
+    ...mapActions(['updateHighprice', 'setCategory'])
+  },
+  computed: {
+    ...mapGetters(['categories', 'categorySelected'])
   }
 }
 </script>
@@ -75,6 +86,7 @@ export default {
     .subtitle
       padding-bottom 10px
       margin-bottom 0
+      display block
 
   span
     font-family 'Barlow', sans-serif
@@ -89,5 +101,4 @@ export default {
 
   .min
     float left
-
 </style>

@@ -12,6 +12,8 @@ localVue.use(Vuex)
 let wrapper, store, b
 
 describe('Sidebar', () => {
+  const wGetters = getterName => wrapper.vm.$store.getters[getterName]
+
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
     wrapper = shallow(Sidebar, { localVue, store })
@@ -24,11 +26,25 @@ describe('Sidebar', () => {
   })
 
   it('show an input #pricerange', () => {
-    b.domHas('#pricerange')
+    b.domHas('input#pricerange')
   })
 
   it('call updateHighPrice when change value of price range', () => {
+    const highPriceInStore = () => wGetters('product/highprice')
+    expect(highPriceInStore()).toBe(300)
+
     const highPrice = 20
     b.type(highPrice, '#pricerange')
+
+    expect(highPriceInStore()).toBe(`${highPrice}`)
+  })
+
+  it('show an select #category', () => {
+    b.domHas('select#category')
+  })
+
+  it('have all category selected', () => {
+    const categorySelected = wGetters('product/categorySelected')
+    expect(categorySelected).toBe('all')
   })
 })
