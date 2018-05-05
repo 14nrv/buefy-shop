@@ -64,7 +64,7 @@ jobs:
           name: Install now globally with yarn
           command: yarn global add now
       - run:
-          name: Deploy if tests pass and branch start with dev-
+          name: Deploy if tests pass and branch start with dev
           command: |
             export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
             now --force --no-clipboard --public --token ${NOW_TOKEN} && now alias buefy-shop-dev --token ${NOW_TOKEN}
@@ -85,4 +85,4 @@ workflows:
             - test
           filters:
             branches:
-              only: /^dev-.*/
+              only: /^dev.*/
