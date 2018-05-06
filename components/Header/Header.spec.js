@@ -23,7 +23,7 @@ describe('Header', () => {
     expect(wrapper.isVueInstance()).toBeTruthy()
   })
 
-  it.skip('put a class on html tag', () => {
+  it('put a class on html tag', () => {
     expect(wrapper.vm['$options'].head().htmlAttrs.class).toBe('has-navbar-fixed-top')
   })
 

@@ -34,7 +34,7 @@ export default {
   head () {
     return {
       htmlAttrs: {
-        class: this.$route.name === 'index' ? 'has-navbar-fixed-top' : ''
+        class: 'has-navbar-fixed-top'
       }
     }
   },
