@@ -3,7 +3,7 @@ import Helpers from 'mwangaben-vthelpers'
 import { shallow, createLocalVue } from 'vue-test-utils'
 import fakeStore from '@/__tests__/__mocks__/fakeStore'
 import products from '@/__tests__/__mocks__/products.json'
-import Card from '@/components/Card'
+import ProductListItem from './ProductListItem'
 
 jest.mock('@/plugins/firebase', () => jest.fn())
 
@@ -14,15 +14,14 @@ localVue.use(Vuex)
 
 let wrapper, store, b
 
-describe('Card', () => {
+describe('ProductListItem', () => {
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
-    wrapper = shallow(Card, {
+    wrapper = shallow(ProductListItem, {
       localVue,
       store,
       propsData: {
-        item: firstProduct,
-        index: 0
+        item: firstProduct
       }
     })
     b = new Helpers(wrapper, expect)
@@ -47,9 +46,12 @@ describe('Card', () => {
 
   it('call addItem action when click on btn item', () => {
     const getCartTotalInStore = () => wrapper.vm.$store.getters['cart/total']
+    const getCartAmountInStore = () => wrapper.vm.$store.getters['cart/amount']
     expect(getCartTotalInStore()).toBe(0)
+    expect(getCartAmountInStore()).toBeFalsy()
 
     b.click('.add')
     expect(getCartTotalInStore()).toBe(1)
+    expect(getCartAmountInStore()).toBeTruthy()
   })
 })

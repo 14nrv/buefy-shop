@@ -4,7 +4,7 @@ import { mount, createLocalVue } from 'vue-test-utils'
 import fakeStore from '@/__tests__/__mocks__/fakeStore'
 import pkg from '@/package.json'
 import Index from '@/pages/index'
-import Card from '@/components/Card'
+import ProductListItem from '@/components/ProductListItem'
 import Sidebar from '@/components/Sidebar'
 
 jest.mock('@/plugins/firebase', () => jest.fn())
@@ -85,9 +85,9 @@ describe('Index', () => {
     })
   })
 
-  describe('> card', () => {
-    it('have a card component', () => {
-      b.domHas(Card)
+  describe('> ProductListItem', () => {
+    it('have a ProductListItem component', () => {
+      b.domHas(ProductListItem)
     })
 
     it('show all products', () => {

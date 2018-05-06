@@ -31,7 +31,6 @@
         .field
           card.stripe-card.input#card(:class='{ complete }',
                                 :stripe='stripePublishableKey',
-                                :options='stripeOptions',
                                 @change='complete = $event.complete')
 
         .field
@@ -39,7 +38,7 @@
                                                    :class="{ 'is-loading': isLoading }")
             | Pay with credit card
 
-      .statussubmit(v-if="status === 'failure'")
+      .statusFailure(v-if="status === 'failure'")
         h3 Oh No!
         p Something went wrong!
         button.button(@click="clearCart") Please try again
@@ -55,6 +54,7 @@ const { mapActions } = createNamespacedHelpers('cart')
 const STRIPE_URL = process.env.STRIPE_URL
 
 export default {
+  name: 'Checkout',
   components: {
     Card
   },
@@ -79,11 +79,7 @@ export default {
       status: undefined,
       response: undefined,
       isLoading: false,
-      stripeOptions: {
-        // you can configure that cc element. I liked the default, but you can
-        // see https://stripe.com/docs/stripe.js#element-options for details
-      },
-      stripeEmail: '',
+      stripeEmail: undefined,
       stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY
     }
   },
@@ -99,7 +95,6 @@ export default {
 
       this.isLoading = true
 
-      // eslint-disable-next-line
       const { token } = await createToken()
       this.submitted = true
 
@@ -150,7 +145,7 @@ export default {
   flex-direction column
   margin 0 auto
 
-.statussubmit
+.statusFailure
   text-align center
 
 .stripe-card

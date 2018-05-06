@@ -9,8 +9,8 @@
                               :max="max"
                               step="1"
                               @input="updateHighprice($event.target.value)")
-      span.min ${{ min }}
-      span.max ${{ max }}
+      span.min.is-pulled-left ${{ min }}
+      span.max.is-pulled-right ${{ max }}
     app-switch(v-if="!sale")
     .sidearea
       label.subtitle.is-5(for="category") Categories
@@ -30,7 +30,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-import Switch from './Switch.vue'
+import Switch from '@/components/Switch'
 
 const { mapActions, mapGetters } = createNamespacedHelpers('product')
 
@@ -95,10 +95,4 @@ export default {
   .max
     font-size 12px
     color #565656
-
-  .max
-    float right
-
-  .min
-    float left
 </style>

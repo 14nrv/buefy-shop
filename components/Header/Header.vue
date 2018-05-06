@@ -30,11 +30,11 @@ import { createNamespacedHelpers } from 'vuex'
 const { mapGetters } = createNamespacedHelpers('cart')
 
 export default {
-  name: 'Header',
+  name: 'AppHeader',
   head () {
     return {
       htmlAttrs: {
-        class: 'has-navbar-fixed-top'
+        class: this.$route.name === 'index' ? 'has-navbar-fixed-top' : ''
       }
     }
   },

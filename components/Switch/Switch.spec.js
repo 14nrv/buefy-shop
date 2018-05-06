@@ -2,7 +2,7 @@ import Vuex from 'vuex'
 import Helpers from 'mwangaben-vthelpers'
 import { shallow, createLocalVue } from 'vue-test-utils'
 import fakeStore from '@/__tests__/__mocks__/fakeStore'
-import Switch from '@/components/Switch'
+import Switch from './Switch'
 
 jest.mock('@/plugins/firebase', () => jest.fn())
 
@@ -10,6 +10,8 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 let wrapper, store, b
+
+const $canToggleInput = '.can-toggle input'
 
 describe('Switch', () => {
   beforeEach(() => {
@@ -29,13 +31,13 @@ describe('Switch', () => {
   })
 
   it('show a input with a class of .can-toggle', () => {
-    b.domHas('.can-toggle input')
+    b.domHas($canToggleInput)
   })
 
   it('call switchSale actions when trigger .can-toggle input', () => {
     expect(fakeStore.modules.product.state.sale).toBeFalsy()
 
-    b.click('.can-toggle input')
+    b.click($canToggleInput)
 
     expect(fakeStore.modules.product.state.sale).toBeTruthy()
     expect(wrapper.vm.$store.getters['product/showSale']).toBeTruthy()

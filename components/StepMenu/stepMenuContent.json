@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Shopping Cart",
+    "icon": "fa-shopping-cart"
+  },
+  {
+    "title": "Payment",
+    "icon": "fa-usd"
+  },
+  {
+    "title": "Confirmation",
+    "icon": "fa-flag"
+  }
+]
