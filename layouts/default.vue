@@ -1,5 +1,5 @@
 <template lang="pug">
-  section.hero.is-fullheight
+  section.hero
     .hero-head
       app-header
     .hero-body
@@ -25,7 +25,17 @@ export default {
   @require './css/_slider'
 
   .section
-    padding 3rem 0
+    padding 3rem 0 1.5rem
+
+  .hero
+    min-height 100vh
+
+    .hero-body
+      flex 1
+
+    .hero-footer
+      margin-bottom 0.5rem
+
   .is-light
     background-color #f5f5f5
     color #363636
