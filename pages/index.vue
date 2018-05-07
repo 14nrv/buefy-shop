@@ -4,10 +4,10 @@
       app-hero
     .section.capsule
       app-sidebar(:pricerange.sync="highprice")
-      transition-group.content(name="items", tag="div")
+      transition-group.content.is-pulled-right(name="items", tag="div")
         app-product-list-item(v-for="product in products",
-          :key="product['.key']",
-          :item="product")
+                              :key="product['.key']",
+                              :item="product")
 </template>
 
 <script>
@@ -36,7 +36,6 @@ export default {
 <style lang="stylus" scoped>
   .content
     /*no grid support*/
-    float right
     width 79.7872%
     /* grid */
     display grid
