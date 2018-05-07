@@ -44,9 +44,9 @@ export default {
       background-position left bottom
 
     .is-active .step-marker
-      background-color white !important
-      border-color $colorGreen !important
-      color $colorGreen !important
+      background-color white
+      border-color $colorGreen
+      color $colorGreen
 
     .is-completed .step-marker
       color white
