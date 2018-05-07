@@ -34,7 +34,7 @@ export default {
   .steps
     &.is-large
       font-size inherit
-      margin-bottom 3rem
+      margin-bottom 4rem
 
       .step-item .step-details .step-title
         font-size 1.2rem
