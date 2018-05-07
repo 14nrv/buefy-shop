@@ -85,4 +85,4 @@ workflows:
             - test
           filters:
             branches:
-              only: /^dev.*/
+              ignore: master
