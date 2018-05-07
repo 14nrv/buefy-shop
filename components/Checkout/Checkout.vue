@@ -38,7 +38,7 @@
                                                    :class="{ 'is-loading': isLoading }")
             | Pay with credit card
 
-      .statusFailure(v-if="status === 'failure'")
+      .statusFailure.has-text-centered(v-if="status === 'failure'")
         h3 Oh No!
         p Something went wrong!
         button.button(@click="clearCart") Please try again
@@ -144,9 +144,6 @@ export default {
   display flex
   flex-direction column
   margin 0 auto
-
-.statusFailure
-  text-align center
 
 .stripe-card
   margin-bottom 10px
