@@ -30,7 +30,7 @@ import { createNamespacedHelpers } from 'vuex'
 const { mapGetters } = createNamespacedHelpers('cart')
 
 export default {
-  name: 'Header',
+  name: 'AppHeader',
   head () {
     return {
       htmlAttrs: {

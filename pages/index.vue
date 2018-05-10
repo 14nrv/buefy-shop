@@ -4,25 +4,24 @@
       app-hero
     .section.capsule
       app-sidebar(:pricerange.sync="highprice")
-      transition-group.content(name="items" tag="div")
-        app-card(v-for="(item, index) in products",
-          :key="index",
-          :item="item",
-          :index="index")
+      transition-group.content.is-pulled-right(name="items", tag="div")
+        app-product-list-item(v-for="product in products",
+                              :key="product['.key']",
+                              :item="product")
 </template>
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-import Hero from '@/components/Hero.vue'
-import Card from '@/components/Card.vue'
-import Sidebar from '@/components/Sidebar.vue'
+import Hero from '@/components/Hero'
+import ProductListItem from '@/components/ProductListItem'
+import Sidebar from '@/components/Sidebar'
 
 const { mapGetters } = createNamespacedHelpers('product')
 
 export default {
   components: {
     AppHero: Hero,
-    AppCard: Card,
+    AppProductListItem: ProductListItem,
     AppSidebar: Sidebar
   },
   computed: {
@@ -37,7 +36,6 @@ export default {
 <style lang="stylus" scoped>
   .content
     /*no grid support*/
-    float right
     width 79.7872%
     /* grid */
     display grid

@@ -2,15 +2,14 @@
   .container
     .section
       .capsule.cart.content
-        CartStep(:actualStep="actualStep")
+        StepMenu(:actualStep="actualStep", :menu="stepMenuContent")
 
         div(v-if="total > 0")
           div(v-if="actualStep === 0")
-            transition-group.content(name="items" tag="div")
-              CartBox(v-for="(item, index) in cart",
-                      :key="index",
-                      :item="item",
-                      :index="index")
+            transition-group.content(name="items", tag="div")
+              CartProductListItem(v-for="item in cart",
+                                  :key="item.name",
+                                  :item="item")
 
             .is-clearfix
               h3.total.is-pulled-left Total: {{ amount | usdollar }}
@@ -20,12 +19,12 @@
             Checkout(:total="amount",
                      @successSubmit="success = true, actualStep=2")
 
-        .empty(v-else-if="total === 0 && success === false")
+        .empty.has-text-centered(v-else-if="total === 0 && success === false")
           h3 Your cart is empty.
           nuxt-link(exact to="/")
             button.button Fill er up!
 
-        div(v-else)
+        .has-text-centered(v-else)
           h2 Success!
           p Your order has been processed, it will be delivered shortly.
           nuxt-link(exact to="/")
@@ -35,8 +34,9 @@
 <script>
 import { createNamespacedHelpers } from 'vuex'
 import Checkout from '@/components/Checkout'
-import CartStep from '@/components/CartStep.vue'
-import CartBox from '@/components/CartBox.vue'
+import CartProductListItem from '@/components/CartProductListItem'
+import StepMenu from '@/components/StepMenu'
+import stepMenuContent from '@/components/StepMenu/stepMenuContent.json'
 
 const { mapGetters } = createNamespacedHelpers('cart')
 
@@ -47,21 +47,18 @@ export default {
     ]
   },
   components: {
-    CartStep,
-    CartBox,
+    StepMenu,
+    CartProductListItem,
     Checkout
   },
   filters: {
-    usdollar: function(value) {
-      return `$${value}`
-    }
+    usdollar: value => `$${value}`
   },
-  data() {
-    return {
-      success: false,
-      actualStep: 0
-    }
-  },
+  data:() => ({
+    success: false,
+    actualStep: 0,
+    stepMenuContent
+  }),
   computed: {
     ...mapGetters(['cart', 'total', 'amount'])
   }

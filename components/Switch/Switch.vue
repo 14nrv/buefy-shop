@@ -1,14 +1,13 @@
 <template lang="pug">
   .sidearea
     .can-toggle.demo-rebrand-2.field
-      input#e.switch.is-rtl(type="checkbox" name="e" v-model="trigger")
+      input#e.switch.is-rtl(type="checkbox", name="e", v-model="trigger")
       label(for="e") Only Sale
 </template>
 
 <script>
-import 'bulma-switch/dist/bulma-switch.min.css'
-
 export default {
+  name: 'AppSwitch',
   computed: {
     trigger: {
       get() { return this.$store.state.product.sale },
@@ -17,3 +16,8 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+  @require '../../node_modules/bulma-switch/dist/bulma-switch.min.css'
+</style>
+

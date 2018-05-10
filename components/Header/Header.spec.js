@@ -2,7 +2,9 @@ import Vuex from 'vuex'
 import Helpers from 'mwangaben-vthelpers'
 import { shallow, createLocalVue } from 'vue-test-utils'
 import fakeStore from '@/__tests__/__mocks__/fakeStore'
-import Header from '@/components/Header.vue'
+import Header from './Header'
+
+jest.mock('@/plugins/firebase', () => jest.fn())
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -30,6 +32,9 @@ describe('Header', () => {
     const cartcountClassName = '.cartcount'
 
     b.domHasNot(cartcountClassName)
+
+    const cartTotalInStore = wrapper.vm.$store.state.cart.total
+    expect(cartTotalInStore).toBeFalsy()
 
     wrapper.setComputed({
       'total': itemInCart

@@ -4,7 +4,7 @@ import VeeValidate from 'vee-validate'
 import Helpers from 'mwangaben-vthelpers'
 import { mount, createLocalVue } from 'vue-test-utils'
 import fakeStore from '@/__tests__/__mocks__/fakeStore'
-import Checkout from '@/components/Checkout'
+import Checkout from './Checkout'
 
 jest
   .mock('vue-stripe-elements-plus', () => ({
@@ -18,6 +18,11 @@ localVue.use(VeeValidate)
 
 const TOTAL = 100
 const INPUT_TYPE_EMAIL_VALUE = 'test@aol.fr'
+
+const $inputEmail = 'input[type=email]'
+const $statusFailure = '.statusFailure'
+const $statusFailureButton = '.statusFailure button'
+const $payWithStripe = '.pay-with-stripe'
 
 let wrapper, store, b
 
@@ -43,22 +48,28 @@ describe('Checkout', () => {
   })
 
   it('show a btn pay disabled by default', () => {
-    b.domHas('.pay-with-stripe[disabled=disabled]')
+    const btnPay = b.find($payWithStripe)
+    expect(btnPay.attributes().disabled).toBe('disabled')
   })
 
   it('is not submitted, complete and success by default', () => {
-    expect(wrapper.vm.submitted).toBeFalsy()
-    expect(wrapper.vm.complete).toBeFalsy()
-    expect(wrapper.vm.success).toBeFalsy()
+    const { submitted, complete, success } = wrapper.vm
+    expect(submitted).toBeFalsy()
+    expect(complete).toBeFalsy()
+    expect(success).toBeFalsy()
   })
 
   it('can pay', async () => {
+    const btnPay = b.find($payWithStripe)
+
     const successSubmitStub = jest.fn()
     wrapper.vm.$on('successSubmit', successSubmitStub)
 
     wrapper.setData({ 'complete': true })
-    b.type(INPUT_TYPE_EMAIL_VALUE, 'input[type=email]')
-    b.domHasNot('.pay-with-stripe[disabled=disabled]')
+
+    b.type(INPUT_TYPE_EMAIL_VALUE, $inputEmail)
+
+    expect(btnPay.attributes().disabled).toBeFalsy()
 
     await wrapper.vm.pay()
 
@@ -75,37 +86,39 @@ describe('Checkout', () => {
     expect(wrapper.vm.status).toBe('success')
 
     expect(successSubmitStub).toBeCalled()
-    expect(wrapper.vm.$store.state.cart.total).toBe(0)
-    expect(wrapper.vm.$store.state.cart.amount).toBe(0)
+
+    const { total, amount } = wrapper.vm.$store.state.cart
+    expect(total).toBe(0)
+    expect(amount).toBe(0)
   })
 
   it('put status to failure if form is not valid', async () => {
     wrapper.setData({ 'complete': true })
 
-    b.type('false@email', 'input[type=email]')
+    b.type('false@email', $inputEmail)
 
     await wrapper.vm.pay()
 
     expect(axios.post).not.toBeCalled()
 
     expect(wrapper.vm.status).toBe('failure')
-    b.domHas('.statussubmit button')
+    b.domHas($statusFailureButton)
   })
 
   it('put status to failure if axios reject', async () => {
     wrapper.setData({ 'complete': true })
     wrapper.setProps({ 'stripeUrl': 'fail' })
 
-    b.type(INPUT_TYPE_EMAIL_VALUE, 'input[type=email]')
+    b.type(INPUT_TYPE_EMAIL_VALUE, $inputEmail)
 
     await wrapper.vm.pay()
 
     expect(wrapper.vm.status).toBe('failure')
-    b.domHas('.statussubmit button')
+    b.domHas($statusFailureButton)
   })
 
   it('can reset if failure', () => {
-    b.domHasNot('.statussubmit')
+    b.domHasNot($statusFailure)
 
     wrapper.setData({
       'submitted': true,
@@ -114,9 +127,9 @@ describe('Checkout', () => {
 
     b.domHasNot('.loadcontain')
     b.domHasNot('.payment')
-    b.domHas('.statussubmit')
+    b.domHas($statusFailure)
 
-    b.click('.statussubmit button')
+    b.click($statusFailureButton)
     expect(wrapper.vm.submitted).toBeFalsy()
     expect(wrapper.vm.status).toBe('')
   })

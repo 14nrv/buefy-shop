@@ -2,8 +2,8 @@
   .card.is-radius
     .card-image
       picture.image
-        source(:data-srcset="`products/${item.img}.webp`", type="image/webp")
-        img.lazyload(:data-srcset="`products/${item.img}.png`", :alt="`Image of ${item.name}`")
+        source(:data-srcset="`./../../products/${item.img}.webp`", type="image/webp")
+        img.lazyload(:data-srcset="`./../../products/${item.img}.png`", :alt="`Image of ${item.name}`")
     .card-content
       .media
         .media-content
@@ -24,17 +24,11 @@ const { mapActions } = createNamespacedHelpers('cart')
 export default {
   name: 'Card',
   filters: {
-    usdollar: function(value) {
-      return `$${value}`
-    }
+    usdollar: value => `$${value}`
   },
   props: {
     item: {
       type: Object,
-      required: true
-    },
-    index: {
-      type: Number,
       required: true
     }
   },
@@ -66,6 +60,13 @@ export default {
     .button
       border 0
       padding 0
+
+      .fa-circle
+        transition color .5s
+
+      &:hover
+        .fa-circle
+          color #209cee
 
       &.icon
         cursor pointer

@@ -9,7 +9,7 @@
         .content
           p
             strong {{ item.name }}
-            <br>
+            br
             span.itemCount {{ item.count }}
             |  x {{ item.price | usdollar }} = ${{ item.count * item.price }}
         nav.level.is-mobile
@@ -31,6 +31,7 @@ import { createNamespacedHelpers } from 'vuex'
 const { mapActions } = createNamespacedHelpers('cart')
 
 export default {
+  name:'CartProductListItem',
   filters: {
     usdollar: function(value) {
       return `$${value}`
@@ -39,10 +40,6 @@ export default {
   props: {
     item: {
       type: Object,
-      required: true
-    },
-    index: {
-      type: String,
       required: true
     }
   },

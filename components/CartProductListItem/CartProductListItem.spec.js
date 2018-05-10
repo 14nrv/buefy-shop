@@ -3,7 +3,7 @@ import Helpers from 'mwangaben-vthelpers'
 import { shallow, createLocalVue } from 'vue-test-utils'
 import fakeStore from '@/__tests__/__mocks__/fakeStore'
 import fakeProducts from '@/__tests__/__mocks__/products.json'
-import CartBox from '@/components/CartBox'
+import CartProductListItem from './CartProductListItem'
 
 jest.mock('@/plugins/firebase', () => jest.fn())
 
@@ -16,17 +16,18 @@ fakeStore.modules.cart.actions = {
 
 let wrapper, b, store
 
-describe('CartBox', () => {
+const firstBoxRemoveItemBtn = '.box .removeItem'
+
+describe('CartProductListItem', () => {
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
-    wrapper = shallow(CartBox, {
+    wrapper = shallow(CartProductListItem, {
       localVue,
       store,
       propsData: {
         item: {
           ...fakeProducts[0]
-        },
-        index: '0'
+        }
       }
     })
     b = new Helpers(wrapper, expect)
@@ -38,12 +39,11 @@ describe('CartBox', () => {
   })
 
   it('have a btn remove', () => {
-    const firstBoxRemoveItemBtn = '.box .removeItem'
     b.domHas(firstBoxRemoveItemBtn)
   })
 
   it('call remove item action when click on btn .removeItem', () => {
-    b.click('.box .removeItem')
+    b.click(firstBoxRemoveItemBtn)
     expect(fakeStore.modules.cart.actions.removeItem).toHaveBeenCalled()
   })
 })
