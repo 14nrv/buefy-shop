@@ -29,7 +29,7 @@
     "bulma": "^0.7.0",
     "bulma-steps": "^1.0.1",
     "bulma-switch": "^1.0.1",
-    "firebase": "^4.9.1",
+    "firebase": "^5.0.4",
     "font-awesome": "^4.7.0",
     "lazysizes": "^4.0.2",
     "nuxt": "^1.4.0",
