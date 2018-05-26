@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 import Helpers from 'mwangaben-vthelpers'
-import { mount, createLocalVue } from 'vue-test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import fakeStore from '@/__tests__/__mocks__/fakeStore'
 import pkg from '@/package.json'
 import Index from '@/pages/index'

@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 import Helpers from 'mwangaben-vthelpers'
-import { shallow, createLocalVue } from 'vue-test-utils'
+import { shallow, createLocalVue } from '@vue/test-utils'
 import fakeStore from '@/__tests__/__mocks__/fakeStore'
 import fakeProducts from '@/__tests__/__mocks__/products.json'
 import CartProductListItem from './CartProductListItem'
