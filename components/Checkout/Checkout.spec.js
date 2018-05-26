@@ -27,6 +27,8 @@ const $payWithStripe = '.pay-with-stripe'
 let wrapper, store, b
 
 describe('Checkout', () => {
+  const wGetters = getterName => wrapper.vm.$store.getters[getterName]
+
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
     wrapper = mount(Checkout, {
@@ -53,27 +55,25 @@ describe('Checkout', () => {
   })
 
   it('is not submitted, complete and success by default', () => {
-    const { submitted, complete, success } = wrapper.vm
-    expect(submitted).toBeFalsy()
-    expect(complete).toBeFalsy()
-    expect(success).toBeFalsy()
+    const { isStripeCardCompleted, status, isLoading } = wrapper.vm
+    expect(isStripeCardCompleted).toBe(false)
+    expect(status).toBe(undefined)
+    expect(isLoading).toBe(false)
   })
 
   it('can pay', async () => {
     const btnPay = b.find($payWithStripe)
 
-    const successSubmitStub = jest.fn()
-    wrapper.vm.$on('successSubmit', successSubmitStub)
-
-    wrapper.setData({ 'complete': true })
+    await store.dispatch('checkout/setIsStripeCardCompleted', true)
 
     b.type(INPUT_TYPE_EMAIL_VALUE, $inputEmail)
 
     expect(btnPay.attributes().disabled).toBeFalsy()
 
-    await wrapper.vm.pay()
+    await wrapper.vm.beforePay()
 
-    expect(wrapper.vm.submitted).toBeTruthy()
+    const isSubmittedInStore = wGetters('checkout/isSubmitted')
+    expect(isSubmittedInStore).toBeTruthy()
 
     const postSecondArgument = {
       stripeEmail: INPUT_TYPE_EMAIL_VALUE,
@@ -85,45 +85,51 @@ describe('Checkout', () => {
 
     expect(wrapper.vm.status).toBe('success')
 
-    expect(successSubmitStub).toBeCalled()
+    const actualStepInStore = wGetters('cart/actualStep')
+    expect(actualStepInStore).toBe(2)
 
     const { total, amount } = wrapper.vm.$store.state.cart
     expect(total).toBe(0)
     expect(amount).toBe(0)
   })
 
-  it('put status to failure if form is not valid', async () => {
-    wrapper.setData({ 'complete': true })
+  it('put status to failure if form is not valid', async (done) => {
+    await store.dispatch('checkout/setIsStripeCardCompleted', true)
+    wrapper.setData({ userEmail: 'false@email' })
 
-    b.type('false@email', $inputEmail)
-
-    await wrapper.vm.pay()
+    await wrapper.vm.beforePay()
 
     expect(axios.post).not.toBeCalled()
-
     expect(wrapper.vm.status).toBe('failure')
-    b.domHas($statusFailureButton)
+
+    wrapper.vm.$nextTick(() => {
+      b.domHas($statusFailureButton)
+      done()
+    })
   })
 
   it('put status to failure if axios reject', async () => {
-    wrapper.setData({ 'complete': true })
+    await store.dispatch('checkout/setStatus', undefined) // reset
+
+    await store.dispatch('checkout/setIsStripeCardCompleted', true)
     wrapper.setProps({ 'stripeUrl': 'fail' })
 
     b.type(INPUT_TYPE_EMAIL_VALUE, $inputEmail)
+    await wrapper.vm.beforePay()
 
-    await wrapper.vm.pay()
+    const response = wGetters('checkout/response')
+    expect(response).toBeTruthy()
 
     expect(wrapper.vm.status).toBe('failure')
     b.domHas($statusFailureButton)
   })
 
-  it('can reset if failure', () => {
+  it('can reset if failure', async () => {
+    await store.dispatch('checkout/setStatus', undefined) // reset
+
     b.domHasNot($statusFailure)
 
-    wrapper.setData({
-      'submitted': true,
-      'status': 'failure'
-    })
+    await store.dispatch('checkout/setStatus', 'failure')
 
     b.domHasNot('.loadcontain')
     b.domHasNot('.payment')

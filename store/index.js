@@ -2,6 +2,7 @@ import Vuex from 'vuex'
 import { firebaseMutations } from 'vuexfire'
 import pkg from '@/store/modules/package'
 import cart from '@/store/modules/cart'
+import checkout from '@/store/modules/checkout'
 import product from '@/store/modules/product'
 
 const store = () => {
@@ -9,6 +10,7 @@ const store = () => {
     strict: process.env.NODE_ENV !== 'production',
     modules: {
       cart,
+      checkout,
       product,
       pkg
     },
