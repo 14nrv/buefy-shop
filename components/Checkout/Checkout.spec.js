@@ -8,7 +8,7 @@ import Checkout from './Checkout'
 
 jest
   .mock('vue-stripe-elements-plus', () => ({
-    createToken: jest.fn(() => Promise.resolve({ token: 'myAwesomeToken' }))
+    createToken: jest.fn(() => Promise.resolve({ token: { id: 'myAwesomeToken' } }))
   }))
   .mock('@/plugins/firebase', () => jest.fn())
 
@@ -77,7 +77,7 @@ describe('Checkout', () => {
 
     const postSecondArgument = {
       stripeEmail: INPUT_TYPE_EMAIL_VALUE,
-      stripeToken: 'tok_visa',
+      stripeToken: 'myAwesomeToken',
       stripeAmt: TOTAL * 100
     }
 

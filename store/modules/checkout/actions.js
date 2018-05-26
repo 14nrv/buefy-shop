@@ -19,7 +19,7 @@ export default {
         url,
         {
           stripeEmail: userEmail,
-          stripeToken: 'tok_visa', // token.id,
+          stripeToken: token.id,
           stripeAmt: total * 100 // must be in cent
         },
         {
