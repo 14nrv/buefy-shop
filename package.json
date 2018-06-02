@@ -23,6 +23,7 @@
     "*.vue": "eslint --ext .vue"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.1.0-4",
     "@nuxtjs/dotenv": "^1.1.0",
     "@nuxtjs/pwa": "^2.0.5",
     "axios": "^0.18.0",
@@ -30,7 +31,6 @@
     "bulma-steps": "^1.0.1",
     "bulma-switch": "^1.0.1",
     "firebase": "^5.0.4",
-    "font-awesome": "^4.7.0",
     "lazysizes": "^4.0.2",
     "nuxt": "^1.4.0",
     "pug": "^2.0.0-rc.4",

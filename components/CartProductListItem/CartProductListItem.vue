@@ -16,7 +16,7 @@
           .level-left
             a.level-item.removeItem(@click="removeItem(item)", title="Remove")
               span.icon.is-small
-                i.fa.fa-trash
+                i.fa.fa-trash-alt
             a.level-item
               span.icon.is-small
                 i.fa.fa-retweet

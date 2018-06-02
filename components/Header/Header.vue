@@ -14,7 +14,7 @@
                                 href="https://github.com/14nrv/buefy-shop",
                                 rel="noopener")
                 span.icon
-                  i.fa.fa-github
+                  i.fab.fa-github
                 span Fork
             p.control
               nuxt-link.button.is-light(exact, :to="{name: 'cart'}")

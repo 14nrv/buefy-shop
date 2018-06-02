@@ -64,6 +64,9 @@ export default {
       .fa-circle
         transition color .5s
 
+      .fa-cart-plus
+        font-size 1.4rem
+
       &:hover
         .fa-circle
           color #209cee
