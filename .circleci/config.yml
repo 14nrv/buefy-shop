@@ -30,7 +30,7 @@ jobs:
           name: Unit tests with coverage
           command: |
             ./cc-test-reporter before-build
-            yarn test --coverage --ci --testResultsProcessor="./node_modules/jest-junit"
+            yarn test --coverage
             ./cc-test-reporter after-build --exit-code $?
           environment:
             JEST_JUNIT_OUTPUT: "coverage/junit/js-test-results.xml"
