@@ -3,7 +3,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: circleci/node:latest-browsers
+      - image: circleci/node:8.11.1-browsers
     working_directory: ~/repo
     steps:
       - checkout
@@ -30,7 +30,7 @@ jobs:
           name: Unit tests with coverage
           command: |
             ./cc-test-reporter before-build
-            yarn test --coverage --ci --testResultsProcessor="./node_modules/jest-junit"
+            yarn test --coverage
             ./cc-test-reporter after-build --exit-code $?
           environment:
             JEST_JUNIT_OUTPUT: "coverage/junit/js-test-results.xml"
@@ -41,7 +41,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/node:latest-browsers
+      - image: circleci/node:8.11.1-browsers
     working_directory: ~/repo
     steps:
       - checkout
@@ -56,7 +56,7 @@ jobs:
 
   deploy-dev:
     docker:
-      - image: circleci/node:latest-browsers
+      - image: circleci/node:8.11.1-browsers
     working_directory: ~/repo
     steps:
       - checkout

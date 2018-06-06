@@ -1,5 +1,3 @@
-/* eslint-disable no-return-assign */
-
 const calculateAmount = obj =>
   Object.values(obj)
     .reduce((acc, { count, price }) => acc + (count * price), 0)
@@ -22,9 +20,11 @@ export default {
     delete state.cart[item.name]
     state.amount = calculateAmount(state.cart)
   },
-  CLEAR_CONTENTS: state => state.cart = {},
+  CLEAR_CONTENTS: state => { state.cart = {} },
   CLEAR_COUNT: state => {
     state.total = 0
     state.amount = 0
-  }
+  },
+  SET_ACTUAL_STEP: (state, step) => { state.actualStep = step },
+  SET_SUCCESS: (state, value) => { state.success = value }
 }

@@ -1,5 +1,5 @@
 import Helpers from 'mwangaben-vthelpers'
-import { shallow } from 'vue-test-utils'
+import { shallow } from '@vue/test-utils'
 import StepMenu from './StepMenu'
 import stepMenuContent from './stepMenuContent.json'
 

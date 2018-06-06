@@ -13,11 +13,10 @@
 
             .is-clearfix
               h3.total.is-pulled-left Total: {{ amount | usdollar }}
-              button.button.is-success.is-pulled-right(@click="actualStep=1") > Next
+              button.button.is-success.is-pulled-right(@click="setActualStep(1)") > Next
 
           div(v-if="actualStep === 1")
-            Checkout(:total="amount",
-                     @successSubmit="success = true, actualStep=2")
+            Checkout(:total="amount")
 
         .empty.has-text-centered(v-else-if="total === 0 && success === false")
           h3 Your cart is empty.
@@ -38,7 +37,7 @@ import CartProductListItem from '@/components/CartProductListItem'
 import StepMenu from '@/components/StepMenu'
 import stepMenuContent from '@/components/StepMenu/stepMenuContent.json'
 
-const { mapGetters } = createNamespacedHelpers('cart')
+const { mapGetters, mapActions } = createNamespacedHelpers('cart')
 
 export default {
   head: {
@@ -55,12 +54,13 @@ export default {
     usdollar: value => `$${value}`
   },
   data:() => ({
-    success: false,
-    actualStep: 0,
     stepMenuContent
   }),
   computed: {
-    ...mapGetters(['cart', 'total', 'amount'])
+    ...mapGetters(['cart', 'total', 'amount', 'success', 'actualStep'])
+  },
+  methods: {
+    ...mapActions(['setSuccess', 'setActualStep'])
   }
 }
 </script>

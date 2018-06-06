@@ -26,18 +26,19 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus">
+<style lang="stylus">
   @require '../../node_modules/bulma-steps/dist/bulma-steps.min.css'
 
   $colorGreen = #00d1b2
-
   .steps
     &.is-large
       font-size inherit
       margin-bottom 4rem
 
-      .step-item .step-details .step-title
-        font-size 1.2rem
+      .step-item
+        .step-marker .icon *,
+        .step-details .step-title
+          font-size 1.2rem
 
     .is-active::before,
     .is-completed::before

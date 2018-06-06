@@ -31,7 +31,8 @@ module.exports = {
     ],
     analyze: ANALYZE,
     vendor: [
-      'firebase'
+      'firebase/app',
+      'firebase/database'
     ]
   },
   /*

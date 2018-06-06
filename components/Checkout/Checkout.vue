@@ -2,7 +2,7 @@
   .content
     transition(name="fade")
 
-      form.payment(v-if="status !== 'failure'", @submit.prevent='pay')
+      form.payment(v-if="status !== 'failure'", @submit.prevent="beforePay")
         h3 Please enter your payment details:
 
         .field
@@ -10,9 +10,9 @@
           .control.has-icons-left.has-icons-right
             input.input#email(type="email",
                               required,
-                              v-model="stripeEmail",
+                              v-model="userEmail",
                               placeholder="name@example.com",
-                              name='email',
+                              name="email",
                               v-validate="'required|email'",
                               :class="{ 'is-danger': errors.has('email') }")
             span.icon.is-small.is-left
@@ -29,28 +29,27 @@
             | and enter any 5 digits for the zip code
 
         .field
-          card.stripe-card.input#card(:class='{ complete }',
-                                :stripe='stripePublishableKey',
-                                @change='complete = $event.complete')
+          card.stripe-card.input#card(:class="{ 'complete': isStripeCardCompleted }",
+                                      :stripe="stripePublishableKey",
+                                      @change="setIsStripeCardCompleted($event.complete)")
 
         .field
-          button.button.is-success.pay-with-stripe(:disabled='!complete || errors.any()',
+          button.button.is-success.pay-with-stripe(:disabled="!isStripeCardCompleted || errors.any()",
                                                    :class="{ 'is-loading': isLoading }")
             | Pay with credit card
 
       .statusFailure.has-text-centered(v-if="status === 'failure'")
         h3 Oh No!
         p Something went wrong!
-        button.button(@click="clearCart") Please try again
+        button.button(@click="clearCheckout") Please try again
 
 </template>
 
 <script>
-import axios from 'axios'
-import { Card, createToken } from 'vue-stripe-elements-plus'
+import { Card } from 'vue-stripe-elements-plus'
 import { createNamespacedHelpers } from 'vuex'
 
-const { mapActions } = createNamespacedHelpers('cart')
+const { mapActions, mapGetters } = createNamespacedHelpers('checkout')
 const STRIPE_URL = process.env.STRIPE_URL
 
 export default {
@@ -58,14 +57,13 @@ export default {
   components: {
     Card
   },
+  computed: {
+    ...mapGetters(['isStripeCardCompleted', 'status', 'isLoading'])
+  },
   props: {
     total: {
       type: [Number, String],
       required: true
-    },
-    success: {
-      type: Boolean,
-      default: false
     },
     stripeUrl: {
       type: String,
@@ -74,63 +72,30 @@ export default {
   },
   data() {
     return {
-      submitted: false,
-      complete: false,
-      status: undefined,
-      response: undefined,
-      isLoading: false,
-      stripeEmail: undefined,
+      userEmail: undefined,
       stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY
     }
   },
   methods: {
-    ...mapActions(['clearCount', 'clearContents']),
+    ...mapActions([
+      'clearCheckout',
+      'pay',
+      'setIsStripeCardCompleted',
+      'setStatus'
+    ]),
 
-    async pay() {
+    async beforePay() {
       const isAllFieldsValid = await this.$validator.validateAll()
       if (!isAllFieldsValid) {
-        this.status = 'failure'
+        this.setStatus('failure')
         return
       }
 
-      this.isLoading = true
-
-      const { token } = await createToken()
-      this.submitted = true
-
-      try {
-        const stripeRespone = await axios.post(
-          this.stripeUrl,
-          {
-            stripeEmail: this.stripeEmail,
-            stripeToken: 'tok_visa',
-            stripeAmt: this.total * 100 // must be in cent
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }
-        )
-
-        this.status = 'success'
-        this.$emit('successSubmit')
-
-        this.clearCount()
-        this.clearContents()
-
-        this.response = JSON.stringify(stripeRespone, null, 2)
-      } catch (err) {
-        this.status = 'failure'
-        this.response = `Error: ${JSON.stringify(err, null, 2)}`
-      }
-      this.isLoading = false
-    },
-    clearCart() {
-      this.submitted = false
-      this.complete = false
-      this.status = ''
-      this.response = ''
+      await this.pay({
+        userEmail: this.userEmail,
+        total: this.total,
+        url: this.stripeUrl
+      })
     }
   }
 }
