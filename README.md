@@ -6,6 +6,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/14nrv/buefy-shop/badge.svg?targetFile=package.json)](https://snyk.io/test/github/14nrv/buefy-shop?targetFile=package.json)
 
 # buefy-shop
+
 Demo [production](https://buefy-shop.now.sh) - [dev](https://buefy-shop-dev.now.sh)
 
 Inspired by [sample-vue-shop](https://github.com/sdras/sample-vue-shop)
@@ -18,14 +19,14 @@ $ yarn install
 
 # serve with hot reload at localhost:3000
 # service worker is disabled in dev
-$ yarn run dev
+$ yarn dev
 
 # build for production and launch server
-$ yarn run build
+$ yarn build
 $ yarn start
 
 # generate static project
-$ yarn run generate
+$ yarn generate
 ```
 
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
