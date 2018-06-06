@@ -8,7 +8,7 @@
 
       .column.is-6.is-offset-1
         h1.title.is-2 {{ item.name }}
-        h2.subtitle.is-4 Let this cover page describe a product or service.
+        h2.subtitle.is-4 Product description, lorem ipsum dolor sit amet...
         p.is-size-6 ${{ item.price }}
         br
         p.has-text-centered
