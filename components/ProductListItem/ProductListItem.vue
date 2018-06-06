@@ -1,17 +1,22 @@
 <template lang="pug">
   .card.is-radius
     .card-image
-      picture.image
-        source(:data-srcset="`./../../products/${item.img}.webp`", type="image/webp")
-        img.lazyload(:data-srcset="`./../../products/${item.img}.png`", :alt="`Image of ${item.name}`")
+      nuxt-link(exact, :to="{name: 'products-slug', params: { slug: `${slug}` } }")
+        picture.image
+          source(:data-srcset="`./../../products/${item.img}.webp`",
+                 type="image/webp")
+          img.lazyload(:data-srcset="`./../../products/${item.img}.png`",
+                       :alt="`Image of ${item.name}`")
     .card-content
       .media
         .media-content
-          p.title.is-5 {{ item.name }}
-          p.item-price {{ item.price | usdollar }}
+          nuxt-link(exact, :to="{name: 'products-slug', params: { slug: `${slug}` } }")
+            p.title.is-5 {{ item.name }}
+            p.item-price {{ item.price | usdollar }}
         .media-right
           p.field
-            button.button.icon.is-large.add(@click="addItem(item)", aria-label="Add to cart")
+            button.button.icon.is-large.add(@click="addItem(item)",
+                                            aria-label="Add to cart")
               span.fa-stack
                 i.fa.fa-circle.fa-stack-2x
                 i.fa.fa-cart-plus.fa-stack-1x.fa-inverse
@@ -19,6 +24,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
+import { slug } from '@/helpers'
 const { mapActions } = createNamespacedHelpers('cart')
 
 export default {
@@ -30,6 +36,11 @@ export default {
     item: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    slug() {
+      return slug(this.item.name)
     }
   },
   methods: {
@@ -73,6 +84,12 @@ export default {
 
       &.icon
         cursor pointer
+
+    a
+      color inherit
+
+      &:hover
+        color #3273dc
 
   .lazyload,
   .lazyloading
