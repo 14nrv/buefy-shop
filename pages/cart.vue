@@ -18,7 +18,7 @@
           div(v-if="actualStep === 1")
             Checkout(:total="amount")
 
-        .empty.has-text-centered(v-else-if="total === 0 && success === false")
+        .empty.has-text-centered(v-else-if="!total && !success")
           h3 Your cart is empty.
           nuxt-link(exact to="/")
             button.button Fill er up!
@@ -61,6 +61,10 @@ export default {
   },
   methods: {
     ...mapActions(['setSuccess', 'setActualStep'])
+  },
+  beforeDestroy() {
+    this.success && this.setSuccess(false)
+    this.setActualStep(0)
   }
 }
 </script>
