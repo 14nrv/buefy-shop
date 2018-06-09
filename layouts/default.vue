@@ -24,6 +24,9 @@ export default {
   @require './css/_transition'
   @require './css/_slider'
 
+  html
+    overflow-y auto
+
   .section
     padding 3rem 0 1.5rem
 
