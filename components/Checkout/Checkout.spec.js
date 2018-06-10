@@ -93,7 +93,7 @@ describe('Checkout', () => {
     expect(amount).toBe(0)
   })
 
-  it('put status to failure if form is not valid', async (done) => {
+  it('put status to failure if form is not valid', async () => {
     await store.dispatch('checkout/setIsStripeCardCompleted', true)
     wrapper.setData({ userEmail: 'false@email' })
 
@@ -102,10 +102,8 @@ describe('Checkout', () => {
     expect(axios.post).not.toBeCalled()
     expect(wrapper.vm.status).toBe('failure')
 
-    wrapper.vm.$nextTick(() => {
-      b.domHas($statusFailureButton)
-      done()
-    })
+    await wrapper.vm.$nextTick()
+    b.domHas($statusFailureButton)
   })
 
   it('put status to failure if axios reject', async () => {

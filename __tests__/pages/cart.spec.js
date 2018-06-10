@@ -9,7 +9,6 @@ jest.mock('@/plugins/firebase', () => jest.fn())
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-const cartModule = fakeStore.modules.cart
 let wrapper, b, store
 
 const calculateAmount = array =>
@@ -17,6 +16,7 @@ const calculateAmount = array =>
     .reduce((acc, { count, price }) => acc + (count * price), 0)
     .toFixed(2)
 
+const cartModule = fakeStore.modules.cart
 cartModule.state.cart = {
   'Khaki Suede Polish Work Boots': {
     article: 'shoe',
@@ -95,5 +95,41 @@ describe('Cart', () => {
 
     const amount = calculateAmount(Object.values(cartModule.state.cart))
     b.see(`Total: $${amount}`, '.total')
+  })
+
+  it('show a btn for adding product if no product in cart', async () => {
+    await store.dispatch('cart/setTotal', 0)
+    await wrapper.vm.$nextTick()
+
+    b.domHas('.empty nuxt-link button')
+    b.see('Fill er up!')
+  })
+
+  it('reset cart after leaving success section', async () => {
+    await wrapper.vm.setSuccess(true)
+    await wrapper.vm.setActualStep(2)
+
+    await store.dispatch('cart/setTotal', 0)
+    await wrapper.vm.$nextTick()
+
+    const $stepItemActive = '.step-item.is-active'
+    b.see('Confirmation', $stepItemActive)
+
+    b.domHas('nuxt-link button')
+    b.see('Success')
+
+    wrapper.destroy()
+
+    const { success, actualStep } = wrapper.vm
+    expect(success).toBeFalsy()
+    expect(actualStep).toBe(0)
+  })
+
+  it('change actualStep on destroy', async () => {
+    await wrapper.vm.setActualStep(1)
+
+    wrapper.destroy()
+
+    expect(wrapper.vm.actualStep).toBe(0)
   })
 })

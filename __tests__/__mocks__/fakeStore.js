@@ -1,5 +1,3 @@
-/* eslint-disable key-spacing */
-
 import pkg from '@/store/modules/package'
 import cart from '@/store/modules/cart'
 import checkout from '@/store/modules/checkout'

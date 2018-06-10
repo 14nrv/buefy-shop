@@ -2,7 +2,7 @@
   .container
     .section
       app-hero
-    .section.capsule
+    .section.capsule.is-clearfix
       app-sidebar(:pricerange.sync="highprice")
       transition-group.content.is-pulled-right(name="items", tag="div")
         app-product-list-item(v-for="product in products",

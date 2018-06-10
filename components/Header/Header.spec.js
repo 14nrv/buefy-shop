@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 import Helpers from 'mwangaben-vthelpers'
-import { shallow, createLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import fakeStore from '@/__tests__/__mocks__/fakeStore'
 import Header from './Header'
 
@@ -11,10 +11,21 @@ localVue.use(Vuex)
 
 let wrapper, b, store
 
+const $route = {
+  path: '/',
+  name: 'index'
+}
+
 describe('Header', () => {
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
-    wrapper = shallow(Header, { localVue, store })
+    wrapper = mount(Header, {
+      localVue,
+      store,
+      mocks: {
+        $route
+      }
+    })
     b = new Helpers(wrapper, expect)
   })
 
@@ -24,11 +35,10 @@ describe('Header', () => {
   })
 
   it('put a class on html tag', () => {
-    expect(wrapper.vm['$options'].head().htmlAttrs.class).toBe('has-navbar-fixed-top')
+    expect(wrapper.vm['$options'].head().htmlAttrs).toHaveProperty('class')
   })
 
-  it('show cartcount if item in cart', () => {
-    const itemInCart = 2
+  it('show cartcount if item in cart', async () => {
     const cartcountClassName = '.cartcount'
 
     b.domHasNot(cartcountClassName)
@@ -36,11 +46,11 @@ describe('Header', () => {
     const cartTotalInStore = wrapper.vm.$store.state.cart.total
     expect(cartTotalInStore).toBeFalsy()
 
-    wrapper.setComputed({
-      'total': itemInCart
-    })
+    await store.dispatch('cart/addItem', '')
+    await store.dispatch('cart/addItem', '')
 
     b.domHas(cartcountClassName)
+    const itemInCart = 2
     b.see(itemInCart, cartcountClassName)
   })
 })
