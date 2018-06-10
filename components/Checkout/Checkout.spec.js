@@ -3,7 +3,7 @@ import axios from 'axios'
 import VeeValidate from 'vee-validate'
 import Helpers from 'mwangaben-vthelpers'
 import { mount, createLocalVue } from '@vue/test-utils'
-import fakeStore from '@/__tests__/__mocks__/fakeStore'
+import fakeStore from '@/__mocks__/fakeStore'
 import Checkout from './Checkout'
 
 jest
