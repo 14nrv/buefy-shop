@@ -1614,15 +1614,15 @@ builtin-status-codes@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/builtin-status-codes/-/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
 
-bulma-steps@^1.0.1:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/bulma-steps/-/bulma-steps-1.0.3.tgz#95664682a711837e822ab657dbf4d567cd0627f2"
+bulma-steps@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/bulma-steps/-/bulma-steps-2.2.1.tgz#39cc353ae049701c60aa7c74a27bf56b8463cb1a"
 
-bulma-switch@^1.0.1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/bulma-switch/-/bulma-switch-1.0.2.tgz#23c9727c0b96d619a52912601b027232faed9fc1"
+bulma-switch@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/bulma-switch/-/bulma-switch-2.0.0.tgz#7a187cd1bb8073e9a542478d936b89315f1ffcd8"
 
-bulma@^0.7.0:
+bulma@^0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.7.1.tgz#73c2e3b2930c90cc272029cbd19918b493fca486"
 

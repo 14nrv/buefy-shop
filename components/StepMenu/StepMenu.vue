@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style lang="stylus">
-  @require '../../node_modules/bulma-steps/dist/bulma-steps.min.css'
+  @require '../../node_modules/bulma-steps/dist/css/bulma-steps.min.css'
 
   $colorGreen = #00d1b2
   .steps
