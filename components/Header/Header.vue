@@ -81,13 +81,15 @@ export default {
     @media (max-width: 600px)
       .button
         padding-left 0.2rem
-        padding-right @paddingLeft
+        padding-right @padding-left
 
         .icon
-          margin-left 0
-          margin-right 0
+          &:first-child
+            &:not(:last-child)
+              margin-left 0
+              margin-right 0
 
       .navbar-item
         padding-left .5rem
-        padding-right @paddingLeft
+        padding-right @padding-left
 </style>

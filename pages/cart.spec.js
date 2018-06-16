@@ -1,7 +1,7 @@
 import Vuex from 'vuex'
 import Helpers from 'mwangaben-vthelpers'
 import { mount, createLocalVue } from '@vue/test-utils'
-import fakeStore from '@/__tests__/__mocks__/fakeStore'
+import fakeStore from '@/__mocks__/fakeStore'
 import Cart from '@/pages/cart'
 
 jest.mock('@/plugins/firebase', () => jest.fn())

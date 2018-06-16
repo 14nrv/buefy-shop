@@ -1,8 +1,8 @@
 import Vuex from 'vuex'
 import Helpers from 'mwangaben-vthelpers'
 import { shallow, createLocalVue } from '@vue/test-utils'
-import fakeStore from '@/__tests__/__mocks__/fakeStore'
-import products from '@/__tests__/__mocks__/products.json'
+import fakeStore from '@/__mocks__/fakeStore'
+import products from '@/__mocks__/products.json'
 import ProductListItem from './ProductListItem'
 
 jest.mock('@/plugins/firebase', () => jest.fn())

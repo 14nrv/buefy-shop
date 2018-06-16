@@ -8,14 +8,19 @@ const {
   FB_STORAGE_BUCKET,
   FB_MESSAGE_SENDER_ID,
   STRIPE_PUBLISHABLE_KEY,
-  STRIPE_URL
+  STRIPE_URL,
+  GA_ID
 } = process.env
 
 const modules = [
   '@nuxtjs/pwa'
 ]
 const isNotProdEnv = NODE_ENV !== 'production'
-isNotProdEnv && modules.push('@nuxtjs/dotenv')
+modules.push(
+  isNotProdEnv
+    ? '@nuxtjs/dotenv'
+    : ['@nuxtjs/google-analytics', { id: GA_ID }]
+)
 
 module.exports = {
   /*
