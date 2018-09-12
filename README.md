@@ -1,4 +1,4 @@
-[![Build Status](https://img.shields.io/circleci/project/14nrv/buefy-shop/master.svg "Build Status")](https://circleci.com/gh/14nrv/buefy-shop/tree/master)
+[![Build Status](https://img.shields.io/circleci/project/github/14nrv/buefy-shop/master.svg "Build Status")](https://circleci.com/gh/14nrv/buefy-shop/tree/master)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/7b17e6d369ffa56c3c46/test_coverage)](https://codeclimate.com/github/14nrv/buefy-shop/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/7b17e6d369ffa56c3c46/maintainability)](https://codeclimate.com/github/14nrv/buefy-shop/maintainability)
 [![dependencies Status](https://david-dm.org/14nrv/buefy-shop/status.svg)](https://david-dm.org/14nrv/buefy-shop)
