@@ -10,7 +10,6 @@
     "build": "NODE_ENV=production nuxt build",
     "analyze": "ANALYZE=true nuxt build",
     "start": "NODE_ENV=production nuxt start",
-    "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint-staged": "lint-staged",
     "test": "NODE_ENV=test jest",
