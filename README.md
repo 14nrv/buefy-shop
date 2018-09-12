@@ -11,6 +11,8 @@ Demo [production](https://buefy-shop.now.sh) - [dev](https://buefy-shop-dev.now.
 
 Inspired by [sample-vue-shop](https://github.com/sdras/sample-vue-shop)
 
+[Serverless lambda function used for stripe](https://github.com/14nrv/serverless-lambda-stripe)
+
 ## Build Setup
 
 ``` bash
