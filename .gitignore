@@ -24,3 +24,4 @@ static/workbox-sw*.js
 
 coverage
 .env
+.vercel

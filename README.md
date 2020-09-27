@@ -7,7 +7,7 @@
 
 # buefy-shop
 
-Demo [production](https://buefy-shop.now.sh) - [dev](https://buefy-shop-dev.now.sh)
+Demo [production](https://buefy-shop-pi.vercel.app) - [dev](https://buefy-shop-pi-dev.vercel.app)
 
 Inspired by [sample-vue-shop](https://github.com/sdras/sample-vue-shop)
 
