@@ -31,7 +31,7 @@
     "bulma-steps": "^2.2.1",
     "bulma-switch": "^2.0.0",
     "firebase": "^7.21.0",
-    "lazysizes": "^4.0.2",
+    "lazysizes": "^5.2.1",
     "nuxt": "^2.14.5",
     "pug": "^2.0.0-rc.4",
     "pug-plain-loader": "^1.0.0",
