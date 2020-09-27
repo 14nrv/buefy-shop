@@ -27,13 +27,13 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    postcss: [// will fix bulma warning about column
-      require('postcss-cssnext')({
+    postcss: {// will fix bulma warning about column
+      preset: {
         features: {
-          customProperties: false
+          'custom-properties': false
         }
-      })
-    ],
+      }
+    },
     analyze: ANALYZE,
     vendor: [
       'firebase/app',
