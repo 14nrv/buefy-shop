@@ -30,7 +30,7 @@
     "bulma": "^0.9.1",
     "bulma-steps": "^2.2.1",
     "bulma-switch": "^2.0.0",
-    "firebase": "^7.21.0",
+    "firebase": "^8.0.1",
     "lazysizes": "^5.2.2",
     "nuxt": "^2.14.5",
     "pug": "^2.0.0-rc.4",
