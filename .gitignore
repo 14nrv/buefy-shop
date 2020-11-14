@@ -16,6 +16,7 @@ dist
 
 # VSCode
 .vscode
+.history
 
 # Generated files
 static/manifest*.json

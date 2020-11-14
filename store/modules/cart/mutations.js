@@ -27,5 +27,6 @@ export default {
   },
   SET_ACTUAL_STEP: (state, step) => { state.actualStep = step },
   SET_SUCCESS: (state, value) => { state.success = value },
-  SET_TOTAL: (state, value) => { state.total = value }
+  SET_TOTAL: (state, value) => { state.total = value },
+  SET_SHIPPING_INFORMATION: (state, payload) => { state.shippingInformation = payload }
 }

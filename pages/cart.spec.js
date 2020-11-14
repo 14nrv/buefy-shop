@@ -105,9 +105,16 @@ describe('Cart', () => {
     b.see('Fill er up!')
   })
 
+  it('can move from step 1 to step 2', async () => {
+    await wrapper.vm.setActualStep(1)
+    wrapper.vm.$root.$emit('formSubmitted', { values: {} })
+
+    expect(wrapper.vm.actualStep).toBe(2)
+  })
+
   it('reset cart after leaving success section', async () => {
     await wrapper.vm.setSuccess(true)
-    await wrapper.vm.setActualStep(2)
+    await wrapper.vm.setActualStep(3)
 
     await store.dispatch('cart/setTotal', 0)
     await wrapper.vm.$nextTick()
