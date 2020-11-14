@@ -1,4 +1,13 @@
 import Vue from 'vue'
-import VeeValidate from 'vee-validate'
+import { extend, ValidationProvider } from 'vee-validate'
+import * as rules from 'vee-validate/dist/rules'
+import { messages } from 'vee-validate/dist/locale/en.json'
 
-Vue.use(VeeValidate)
+Vue.component('ValidationProvider', ValidationProvider)
+
+Object.keys(rules).forEach(rule => {
+  extend(rule, {
+    ...rules[rule],
+    message: messages[rule]
+  })
+})

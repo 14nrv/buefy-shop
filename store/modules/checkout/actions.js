@@ -2,12 +2,13 @@ import axios from 'axios'
 import { createToken } from 'vue-stripe-elements-plus'
 
 export default {
-  setIsStripeCardCompleted: ({ commit }, val) =>
-    commit('SET_IS_STRIPE_CARD_COMPLETED', val),
-  setStatus: ({ commit }, val) =>
-    commit('SET_STATUS', val),
+  setIsStripeCardCompleted: ({ commit }, payload) =>
+    commit('SET_IS_STRIPE_CARD_COMPLETED', payload),
 
-  pay: async ({ commit, dispatch }, {userEmail, total, url}) => {
+  setStatus: ({ commit }, payload) =>
+    commit('SET_STATUS', payload),
+
+  pay: async ({ commit, dispatch }, { userData, total, url }) => {
     commit('SET_IS_LOADING', true)
 
     const { token } = await createToken()
@@ -18,7 +19,7 @@ export default {
       const { data: stripeResponse } = await axios.post(
         url,
         {
-          stripeEmail: userEmail,
+          userData,
           stripeToken: token.id,
           stripeAmt: total * 100 // must be in cent
         },
@@ -32,7 +33,7 @@ export default {
       dispatch('cart/clearCount', null, { root: true })
       dispatch('cart/clearContents', null, { root: true })
       dispatch('cart/setSuccess', true, { root: true })
-      dispatch('cart/setActualStep', 2, { root: true })
+      dispatch('cart/setActualStep', 3, { root: true })
 
       const { message: stripeResponseMessage } = stripeResponse
       commit('SET_RESPONSE', stripeResponseMessage)

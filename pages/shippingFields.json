@@ -1,0 +1,45 @@
+[
+  [
+    {
+      "label": "First Name"
+    },
+    {
+      "label": "Last Name"
+    }
+  ],
+  [
+    {
+      "label": "Email",
+      "type": "email",
+      "placeholder": "name@example.com",
+      "rules": {
+        "email": true
+      }
+    },
+    {
+      "label": "Phone Number",
+      "type": "tel",
+      "isRequired": false,
+      "help": "with prefix (+X)"
+    }
+  ],
+  {
+    "label": "Address"
+  },
+  [
+    {
+      "label": "Zip"
+    },
+    {
+      "label": "City"
+    }
+  ],
+  {
+    "label": "Country"
+  },
+  {
+    "label": "Message",
+    "type": "textarea",
+    "isRequired": false
+  }
+]

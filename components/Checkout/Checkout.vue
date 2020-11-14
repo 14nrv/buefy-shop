@@ -6,22 +6,6 @@
         h3 Please enter your payment details:
 
         .field
-          label.label(for="email") Email
-          .control.has-icons-left.has-icons-right
-            input.input#email(type="email",
-                              required,
-                              v-model="userEmail",
-                              placeholder="name@example.com",
-                              name="email",
-                              v-validate="'required|email'",
-                              :class="{ 'is-danger': errors.has('email') }")
-            span.icon.is-small.is-left
-              i.fa.fa-envelope
-            span.icon.is-small.is-right(v-if="errors.has('email')")
-              i.fa.fa-exclamation-triangle
-            p.help.is-danger(v-if="errors.has('email')") {{ errors.first('email') }}
-
-        .field
           label.label(for="card") Credit Card
           p.help
             | Test using this credit card:&nbsp;
@@ -34,7 +18,7 @@
                                       @change="setIsStripeCardCompleted($event.complete)")
 
         .field
-          button.button.is-success.pay-with-stripe(:disabled="!isStripeCardCompleted || errors.any()",
+          button.button.is-success.pay-with-stripe(:disabled="!isStripeCardCompleted",
                                                    :class="{ 'is-loading': isLoading }")
             | Pay with credit card
 
@@ -50,51 +34,37 @@ import { Card } from 'vue-stripe-elements-plus'
 import { createNamespacedHelpers } from 'vuex'
 
 const { mapActions, mapGetters } = createNamespacedHelpers('checkout')
+const { mapGetters: mapGettersCart } = createNamespacedHelpers('cart')
 const STRIPE_URL = process.env.STRIPE_URL
 
 export default {
   name: 'Checkout',
   components: {
-    Card
+    Card,
   },
   computed: {
-    ...mapGetters(['isStripeCardCompleted', 'status', 'isLoading'])
+    ...mapGetters(['isStripeCardCompleted', 'status', 'isLoading']),
+    ...mapGettersCart(['shippingInformation']),
+    stripePublishableKey: () => process.env.STRIPE_PUBLISHABLE_KEY
   },
   props: {
     total: {
       type: [Number, String],
       required: true
     },
-    stripeUrl: {
-      type: String,
-      default: STRIPE_URL
-    }
-  },
-  data() {
-    return {
-      userEmail: undefined,
-      stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY
-    }
   },
   methods: {
     ...mapActions([
       'clearCheckout',
       'pay',
       'setIsStripeCardCompleted',
-      'setStatus'
     ]),
 
     async beforePay() {
-      const isAllFieldsValid = await this.$validator.validateAll()
-      if (!isAllFieldsValid) {
-        this.setStatus('failure')
-        return
-      }
-
       await this.pay({
-        userEmail: this.userEmail,
+        url: STRIPE_URL,
+        userData: this.shippingInformation,
         total: this.total,
-        url: this.stripeUrl
       })
     }
   }
@@ -103,15 +73,15 @@ export default {
 
 <style scoped lang="stylus">
 .payment
-  border 1px solid #ccc
-  max-width 500px
-  padding 50px
+  border 0.1rem solid #ccc
+  max-width 50rem
+  padding 5rem
   display flex
   flex-direction column
   margin 0 auto
 
 .stripe-card
-  margin-bottom 10px
+  margin-bottom 1rem
 
   &.input
     display block
