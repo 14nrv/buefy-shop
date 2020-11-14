@@ -118,6 +118,8 @@ describe('Index', () => {
       expect(getProductsInStore()).toBe(productsInDomBefore)
 
       b.click('.can-toggle input')
+      store.dispatch('product/switchSale', true)
+
       const highPrice = 20
       b.type(highPrice, '#pricerange')
 

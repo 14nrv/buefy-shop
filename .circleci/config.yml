@@ -52,7 +52,7 @@ jobs:
           name: Deploy if tests pass and branch is Master
           command: |
             export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
-             vercel --force --no-clipboard --public --token ${NOW_TOKEN} && vercel alias buefy-shop-pi --token ${NOW_TOKEN}
+             vercel --confirm --force --no-clipboard --public --token ${NOW_TOKEN} && vercel alias buefy-shop-pi --token ${NOW_TOKEN}
 
   deploy-dev:
     docker:

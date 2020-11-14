@@ -3,5 +3,6 @@ export default {
   total: ({ total }) => total,
   amount: ({ amount }) => amount,
   actualStep: ({ actualStep }) => actualStep,
-  success: ({ success }) => success
+  success: ({ success }) => success,
+  shippingInformation: ({ shippingInformation }) => shippingInformation
 }

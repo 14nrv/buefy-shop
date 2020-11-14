@@ -16,6 +16,13 @@
               button.button.is-success.is-pulled-right(@click="setActualStep(1)") > Next
 
           div(v-if="actualStep === 1")
+            FormJson.container.shippingForm(:formFields="shippingFields",
+                               :camelizePayloadKeys="true",
+                               formName="shippingData",
+                               :btnSubmit="{value: 'Submit'}",
+                               :btnReset="{value: 'Reset'}")
+
+          div(v-if="actualStep === 2")
             Checkout(:total="amount")
 
         .empty.has-text-centered(v-else-if="!total && !success")
@@ -32,10 +39,13 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
+import FormJson from 'vue-form-json'
 import Checkout from '@/components/Checkout'
 import CartProductListItem from '@/components/CartProductListItem'
 import StepMenu from '@/components/StepMenu'
 import stepMenuContent from '@/components/StepMenu/stepMenuContent.json'
+import shippingFields from './shippingFields'
+import 'vue-form-json/dist/vue-form-json.css'
 
 const { mapGetters, mapActions } = createNamespacedHelpers('cart')
 
@@ -46,21 +56,60 @@ export default {
     ]
   },
   components: {
-    StepMenu,
     CartProductListItem,
-    Checkout
+    Checkout,
+    FormJson,
+    StepMenu
   },
   filters: {
     usdollar: value => `$${value}`
   },
   data:() => ({
-    stepMenuContent
+    shippingFields
   }),
   computed: {
-    ...mapGetters(['cart', 'total', 'amount', 'success', 'actualStep'])
+    ...mapGetters(['cart', 'total', 'amount', 'success', 'actualStep']),
+    stepMenuContent: () => stepMenuContent
+  },
+  mounted() {
+    this.$root.$on('formSubmitted', ({ values }) => {
+      const {
+        address: line1,
+        city,
+        country: state,
+        email,
+        firstName,
+        lastName,
+        message: shipping,
+        phoneNumber: phone,
+        zip: postal_code,
+      } = values
+
+      const address = {
+        line1,
+        city,
+        state,
+        postal_code
+      }
+
+      const name = `${firstName} ${lastName}`
+
+      this.setShippingInformation({
+        address,
+        email,
+        name,
+        phone,
+        shipping: {
+          address,
+          name,
+          phone
+        }
+      })
+      this.setActualStep(2)
+    })
   },
   methods: {
-    ...mapActions(['setSuccess', 'setActualStep'])
+    ...mapActions(['setSuccess', 'setActualStep', 'setShippingInformation'])
   },
   beforeDestroy() {
     this.success && this.setSuccess(false)
@@ -68,3 +117,8 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+  .shippingForm.shippingForm
+    max-width 28rem
+</style>

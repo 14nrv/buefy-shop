@@ -38,6 +38,7 @@ describe('Switch', () => {
     expect(fakeStore.modules.product.state.sale).toBeFalsy()
 
     b.click($canToggleInput)
+    store.dispatch('product/switchSale', true)
 
     expect(fakeStore.modules.product.state.sale).toBeTruthy()
     expect(wrapper.vm.$store.getters['product/showSale']).toBeTruthy()
