@@ -26,7 +26,7 @@
     "@nuxtjs/dotenv": "^1.1.0",
     "@nuxtjs/google-analytics": "^2.0.2",
     "@nuxtjs/pwa": "^3.0.2",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bulma": "^0.9.1",
     "bulma-steps": "^2.2.1",
     "bulma-switch": "^2.0.0",
