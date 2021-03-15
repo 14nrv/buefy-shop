@@ -1,7 +1,7 @@
 {
   "name": "buefy-shop",
   "version": "0.0.1",
-  "description": "Nuxt.js project",
+  "description": "A sample shop",
   "author": "14nrv",
   "private": true,
   "license": "MIT",
@@ -24,7 +24,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@nuxtjs/google-analytics": "^2.0.2",
-    "@nuxtjs/pwa": "^3.0.2",
+    "@nuxtjs/pwa": "^3.3.5",
     "axios": "^0.21.1",
     "bulma": "^0.9.1",
     "bulma-steps": "^2.2.1",

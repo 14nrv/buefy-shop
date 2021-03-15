@@ -12,9 +12,7 @@ const {
   GA_ID
 } = process.env
 
-const modules = [
-  '@nuxtjs/pwa'
-]
+const modules = []
 const isNotProdEnv = NODE_ENV !== 'production'
 modules.push(
   isNotProdEnv
@@ -58,6 +56,9 @@ module.exports = {
   /*
   ** Modules
   */
+  buildModules: [
+    '@nuxtjs/pwa'
+  ],
   modules,
   plugins: [
     '~plugins/firebase',
