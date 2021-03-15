@@ -37,7 +37,9 @@ export default {
   head () {
     return {
       htmlAttrs: {
-        class: this.isIndexRoute && 'has-navbar-fixed-top'
+        class: this.isIndexRoute
+          ? 'has-navbar-fixed-top'
+          : undefined
       }
     }
   },

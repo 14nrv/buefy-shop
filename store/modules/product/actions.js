@@ -2,8 +2,8 @@ import { firebaseAction } from 'vuexfire'
 import { db } from '@/plugins/firebase'
 
 export default {
-  switchSale: ({ commit }) =>
-    commit('SWITCH_SALE'),
+  switchSale: ({ commit }, value) =>
+    commit('SWITCH_SALE', value),
   updateHighprice: ({ commit }, value) =>
     commit('UPDATE_HIGH_PRICE', value),
   setCategory: ({ commit }, value) =>

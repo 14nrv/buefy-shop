@@ -40,31 +40,31 @@ const STRIPE_URL = process.env.STRIPE_URL
 export default {
   name: 'Checkout',
   components: {
-    Card,
+    Card
+  },
+  props: {
+    total: {
+      type: [Number, String],
+      required: true
+    }
   },
   computed: {
     ...mapGetters(['isStripeCardCompleted', 'status', 'isLoading']),
     ...mapGettersCart(['shippingInformation']),
     stripePublishableKey: () => process.env.STRIPE_PUBLISHABLE_KEY
   },
-  props: {
-    total: {
-      type: [Number, String],
-      required: true
-    },
-  },
   methods: {
     ...mapActions([
       'clearCheckout',
       'pay',
-      'setIsStripeCardCompleted',
+      'setIsStripeCardCompleted'
     ]),
 
     async beforePay() {
       await this.pay({
         url: STRIPE_URL,
         userData: this.shippingInformation,
-        total: this.total,
+        total: this.total
       })
     }
   }

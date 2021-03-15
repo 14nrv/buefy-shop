@@ -17,6 +17,7 @@ export default {
   props: {
     actualStep: {
       type: Number,
+      default: 0
     },
     menu: {
       type: Array,

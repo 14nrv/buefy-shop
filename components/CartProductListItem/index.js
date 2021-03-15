@@ -1,3 +1,1 @@
-import CartProductListItem from './CartProductListItem'
-
-export default CartProductListItem
+export { default } from './CartProductListItem'

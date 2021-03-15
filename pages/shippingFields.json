@@ -36,10 +36,5 @@
   ],
   {
     "label": "Country"
-  },
-  {
-    "label": "Message",
-    "type": "textarea",
-    "isRequired": false
   }
 ]

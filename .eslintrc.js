@@ -23,7 +23,10 @@ module.exports = {
   // add your custom rules here
   rules: {
     'space-before-function-paren': 'off',
-    'no-console': 'warn'
+    'block-spacing': 'off',
+    'array-bracket-spacing': 'off',
+    'no-console': 'warn',
+    'jest/no-mocks-import': 'off'
   },
   globals: {}
 }

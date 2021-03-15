@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
-import Helpers from 'mwangaben-vthelpers'
-import { mount, createLocalVue } from '@vue/test-utils'
+import matchers from 'jest-vue-matcher'
+import { mount, createLocalVue, RouterLinkStub } from '@vue/test-utils'
 import fakeStore from '@/__mocks__/fakeStore'
 import Header from './Header'
 
@@ -9,39 +9,43 @@ jest.mock('@/plugins/firebase', () => jest.fn())
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-let wrapper, b, store
+let wrapper, store
 
-const $route = {
+const route = {
   path: '/',
   name: 'index'
 }
 
+const setup = ({ $route = route } = {}) => {
+  store = new Vuex.Store(fakeStore)
+  wrapper = mount(Header, {
+    localVue,
+    store,
+    mocks: {
+      $route
+    },
+    stubs: {
+      NuxtLink: RouterLinkStub
+    }
+  })
+  expect.extend(matchers(wrapper))
+}
+
 describe('Header', () => {
-  beforeEach(() => {
-    store = new Vuex.Store(fakeStore)
-    wrapper = mount(Header, {
-      localVue,
-      store,
-      mocks: {
-        $route
-      }
-    })
-    b = new Helpers(wrapper, expect)
-  })
-
   it('is a Vue instance', () => {
+    setup()
     expect(wrapper.exists()).toBeTruthy()
-    expect(wrapper.isVueInstance()).toBeTruthy()
   })
 
-  it('put a class on html tag', () => {
-    expect(wrapper.vm['$options'].head().htmlAttrs).toHaveProperty('class')
+  it('can put a class on html tag', () => {
+    expect(wrapper.vm.$options.head().htmlAttrs).toHaveProperty('class')
   })
 
   it('show cartcount if item in cart', async () => {
+    setup()
     const cartcountClassName = '.cartcount'
 
-    b.domHasNot(cartcountClassName)
+    expect(cartcountClassName).not.toBeADomElement()
 
     const cartTotalInStore = wrapper.vm.$store.state.cart.total
     expect(cartTotalInStore).toBeFalsy()
@@ -49,8 +53,8 @@ describe('Header', () => {
     await store.dispatch('cart/addItem', '')
     await store.dispatch('cart/addItem', '')
 
-    b.domHas(cartcountClassName)
     const itemInCart = 2
-    b.see(itemInCart, cartcountClassName)
+    expect(cartcountClassName).toBeADomElement()
+    expect(cartcountClassName).toHaveText(itemInCart)
   })
 })

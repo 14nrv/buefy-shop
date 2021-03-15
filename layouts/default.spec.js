@@ -1,26 +1,29 @@
-import Helpers from 'mwangaben-vthelpers'
-import { shallow } from '@vue/test-utils'
+import matchers from 'jest-vue-matcher'
+import { shallowMount } from '@vue/test-utils'
 import Default from '@/layouts/default'
 
-let wrapper, b
+let wrapper
 
 describe('Default', () => {
   beforeEach(() => {
-    wrapper = shallow(Default)
-    b = new Helpers(wrapper, expect)
+    wrapper = shallowMount(Default, {
+      stubs: {
+        nuxt: true
+      }
+    })
+    expect.extend(matchers(wrapper))
   })
 
   it('is a Vue instance', () => {
     expect(wrapper.exists()).toBeTruthy()
-    expect(wrapper.isVueInstance()).toBeTruthy()
   })
 
   it('have a hero style', () => {
     const $hero = '.hero'
 
-    b.domHas($hero)
-    b.domHas(`${$hero}-head`)
-    b.domHas(`${$hero}-body`)
-    b.domHas(`${$hero}-footer`)
+    expect($hero).toBeADomElement()
+    expect(`${$hero}-head`).toBeADomElement()
+    expect(`${$hero}-body`).toBeADomElement()
+    expect(`${$hero}-footer`).toBeADomElement()
   })
 })

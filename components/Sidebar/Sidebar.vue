@@ -49,17 +49,15 @@ export default {
       default: 300
     }
   },
-  data() {
-    return {
-      min: 0,
-      max: 400
-    }
+  data: () => ({
+    min: 0,
+    max: 400
+  }),
+  computed: {
+    ...mapGetters(['categories', 'categorySelected'])
   },
   methods: {
     ...mapActions(['updateHighprice', 'setCategory'])
-  },
-  computed: {
-    ...mapGetters(['categories', 'categorySelected'])
   }
 }
 </script>
@@ -73,18 +71,18 @@ export default {
 
   .sidearea
     border-bottom 1px solid #ccc
-    padding 20px 0
+    padding 2rem 0
 
     &:first-of-type
       padding-top 0
-      padding-bottom 40px
+      padding-bottom 4rem
 
     &:last-of-type
       border none
       padding-bottom 0
 
     .subtitle
-      padding-bottom 10px
+      padding-bottom 1rem
       margin-bottom 0
       display block
 

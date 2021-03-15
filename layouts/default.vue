@@ -12,6 +12,8 @@
 
 <script>
 import Header from '@/components/Header'
+import 'bulma/css/bulma.min.css'
+import '@fortawesome/fontawesome-free/css/all.css'
 
 export default {
   components: { AppHeader: Header }
@@ -19,11 +21,8 @@ export default {
 </script>
 
 <style lang="stylus">
-  @require '../node_modules/bulma/css/bulma.min.css'
-  @require '../node_modules/@fortawesome/fontawesome-free/css/all.css'
-  @require './css/_transition'
-  @require './css/_slider'
-
+  @require './css/_transition.styl'
+  @require './css/_slider.styl'
   html
     overflow-y auto
 

@@ -27,7 +27,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    postcss: {// will fix bulma warning about column
+    postcss: { // will fix bulma warning about column
       preset: {
         features: {
           'custom-properties': false

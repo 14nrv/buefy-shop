@@ -1,5 +1,5 @@
 import Vuex from 'vuex'
-import { firebaseMutations } from 'vuexfire'
+import { vuexfireMutations } from 'vuexfire'
 import pkg from '@/store/modules/package'
 import cart from '@/store/modules/cart'
 import checkout from '@/store/modules/checkout'
@@ -15,7 +15,12 @@ const store = () => {
       pkg
     },
     mutations: {
-      ...firebaseMutations
+      ...vuexfireMutations
+    },
+    actions: {
+      async nuxtServerInit({ dispatch }) {
+        await dispatch('product/setProductsRef')
+      }
     }
   })
 }

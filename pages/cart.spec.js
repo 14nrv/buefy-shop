@@ -1,89 +1,94 @@
 import Vuex from 'vuex'
-import Helpers from 'mwangaben-vthelpers'
-import { mount, createLocalVue } from '@vue/test-utils'
+import matchers from 'jest-vue-matcher'
+import { mount, createLocalVue, RouterLinkStub } from '@vue/test-utils'
+import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import fakeStore from '@/__mocks__/fakeStore'
 import Cart from '@/pages/cart'
 
 jest.mock('@/plugins/firebase', () => jest.fn())
 
 const localVue = createLocalVue()
+localVue.component('ValidationProvider', ValidationProvider)
+localVue.component('ValidationObserver', ValidationObserver)
 localVue.use(Vuex)
 
-let wrapper, b, store
+let wrapper, store
 
 const calculateAmount = array =>
   array
     .reduce((acc, { count, price }) => acc + (count * price), 0)
     .toFixed(2)
 
-const cartModule = fakeStore.modules.cart
-cartModule.state.cart = {
-  'Khaki Suede Polish Work Boots': {
-    article: 'shoe',
-    category: 'women',
-    count: 2,
-    img: 'shoe1.png',
-    name: 'Khaki Suede Polish Work Boots',
-    price: 149.99,
-    sale: true
-  },
-  'Camo Fang Backpack Jungle': {
-    article: 'jacket',
-    category: 'women',
-    count: 1,
-    img: 'jacket1.png',
-    name: 'Camo Fang Backpack Jungle',
-    price: 39.99,
-    sale: false
-  }
+const firstProduct = {
+  article: 'shoe',
+  category: 'women',
+  count: 1,
+  img: 'shoe1.png',
+  name: 'Khaki Suede Polish Work Boots',
+  price: 149.99,
+  sale: true
 }
-
-const productsInCartState = Object.values(cartModule.state.cart)
-
-cartModule.state.amount = calculateAmount(productsInCartState)
-cartModule.state.total =
-  productsInCartState
-    .reduce((acc, { count }) => acc + count, 0)
+const secondProduct = {
+  article: 'jacket',
+  category: 'women',
+  count: 1,
+  img: 'jacket1.png',
+  name: 'Camo Fang Backpack Jungle',
+  price: 39.99,
+  sale: false
+}
 
 describe('Cart', () => {
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
-    wrapper = mount(Cart, { localVue, store })
-    b = new Helpers(wrapper, expect)
+    wrapper = mount(Cart, {
+      localVue,
+      store,
+      stubs: {
+        NuxtLink: RouterLinkStub,
+        card: true
+      }
+    })
+    expect.extend(matchers(wrapper))
+
+    store.dispatch('cart/addItem', firstProduct)
+    store.dispatch('cart/addItem', firstProduct)
+    store.dispatch('cart/addItem', secondProduct)
   })
 
   it('is a Vue instance', () => {
     expect(wrapper.exists()).toBeTruthy()
-    expect(wrapper.isVueInstance()).toBeTruthy()
   })
 
   it('show products', () => {
     const $products = wrapper.findAll('.box')
-    expect($products).toHaveLength(productsInCartState.length)
+    expect($products).toHaveLength(2)
   })
 
   it('show amount', () => {
-    const amount = calculateAmount(productsInCartState)
-    b.see(`Total: $${amount}`, '.total')
+    const amount = calculateAmount([firstProduct, firstProduct, secondProduct])
+    expect('.total').toHaveText(`Total: $${amount}`)
   })
 
   it('show good count of product', () => {
-    const countInStore = productsInCartState[0].count
-    b.see(`${countInStore}`, '.box:first-of-type .itemCount')
+    const firstProductInCartCount = Object.values(store.getters['cart/cart'])[0].count
+    expect('.box:first-of-type .itemCount').toHaveText(firstProductInCartCount)
   })
 
-  it('can remove product', () => {
+  it('can remove product', async () => {
     const firstBoxRemoveItemBtn = '.box:first-of-type .removeItem'
 
     const getDomProducts = () => wrapper.findAll('.box')
-    const getProductsInCartStore = () => Object.values(fakeStore.modules.cart.state.cart)
+    const getProductsInCartStore = () => Object.values(store.getters['cart/cart'])
 
     const beforeClick = {
       domProducts: getDomProducts(),
       productsInCartStore: getProductsInCartStore()
     }
     expect(beforeClick.domProducts).toHaveLength(beforeClick.productsInCartStore.length)
-    b.click(firstBoxRemoveItemBtn)
+    wrapper.find(firstBoxRemoveItemBtn).trigger('click')
+
+    await wrapper.vm.$nextTick()
 
     const afterClick = {
       domProducts: getDomProducts(),
@@ -93,16 +98,15 @@ describe('Cart', () => {
     expect(beforeClick.domProducts).not.toHaveLength(afterClick.productsInCartStore.length)
     expect(afterClick.domProducts).toHaveLength(beforeClick.productsInCartStore.length - 1)
 
-    const amount = calculateAmount(Object.values(cartModule.state.cart))
-    b.see(`Total: $${amount}`, '.total')
+    const amount = calculateAmount(getProductsInCartStore())
+    expect('.total').toHaveText(`Total: $${amount}`)
   })
 
   it('show a btn for adding product if no product in cart', async () => {
     await store.dispatch('cart/setTotal', 0)
     await wrapper.vm.$nextTick()
-
-    b.domHas('.empty nuxt-link button')
-    b.see('Fill er up!')
+    expect('.empty a button').toBeADomElement()
+    expect('.button').toHaveText('Fill er up!')
   })
 
   it('can move from step 1 to step 2', async () => {
@@ -120,10 +124,10 @@ describe('Cart', () => {
     await wrapper.vm.$nextTick()
 
     const $stepItemActive = '.step-item.is-active'
-    b.see('Confirmation', $stepItemActive)
+    expect($stepItemActive).toHaveText('Confirmation')
 
-    b.domHas('nuxt-link button')
-    b.see('Success')
+    expect('a button').toBeADomElement()
+    expect('h2').toHaveText('Success')
 
     wrapper.destroy()
 
