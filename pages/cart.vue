@@ -72,7 +72,16 @@ export default {
     stepMenuContent: () => stepMenuContent
   },
   mounted() {
-    this.$root.$on('formSubmitted', ({ values }) => {
+    this.$root.$on('formSubmitted', this.handleFormSubmitted)
+  },
+  beforeDestroy() {
+    this.$root.$off('formSubmitted', this.handleFormSubmitted)
+    this.success && this.setSuccess(false)
+    this.setActualStep(0)
+  },
+  methods: {
+    ...mapActions(['setSuccess', 'setActualStep', 'setShippingInformation']),
+    handleFormSubmitted({ values }) {
       const {
         address: line1,
         city,
@@ -106,19 +115,12 @@ export default {
         }
       })
       this.setActualStep(2)
-    })
-  },
-  beforeDestroy() {
-    this.success && this.setSuccess(false)
-    this.setActualStep(0)
-  },
-  methods: {
-    ...mapActions(['setSuccess', 'setActualStep', 'setShippingInformation'])
+    }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-  .shippingForm.shippingForm
-    max-width 28rem
+.shippingForm.shippingForm
+  max-width 28rem
 </style>
