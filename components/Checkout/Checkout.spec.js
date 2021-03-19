@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 import axios from 'axios'
-import Helpers from 'mwangaben-vthelpers'
+import matchers from 'jest-vue-matcher'
 import { mount, createLocalVue } from '@vue/test-utils'
 import fakeStore from '@/__mocks__/fakeStore'
 import Checkout from './Checkout'
@@ -20,7 +20,7 @@ const $statusFailure = '.statusFailure'
 const $statusFailureButton = '.statusFailure button'
 const $payWithStripe = '.pay-with-stripe'
 
-let wrapper, store, b
+let wrapper, store
 
 describe('Checkout', () => {
   const wGetters = getterName => wrapper.vm.$store.getters[getterName]
@@ -28,6 +28,9 @@ describe('Checkout', () => {
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
     wrapper = mount(Checkout, {
+      stubs: {
+        card: true
+      },
       propsData: {
         total: TOTAL
       },
@@ -35,19 +38,18 @@ describe('Checkout', () => {
       store
     })
 
-    b = new Helpers(wrapper, expect)
+    expect.extend(matchers(wrapper))
 
     jest.resetModules()
     jest.clearAllMocks()
   })
 
   it('is a Vue instance', () => {
-    expect(wrapper.isVueInstance()).toBeTruthy()
+    expect(wrapper.exists()).toBeTruthy()
   })
 
   it('show a btn pay disabled by default', () => {
-    const btnPay = b.find($payWithStripe)
-    expect(btnPay.attributes().disabled).toBe('disabled')
+    expect($payWithStripe).toHaveAttribute('disabled', 'disabled')
   })
 
   it('is not submitted, complete and success by default', () => {
@@ -58,8 +60,6 @@ describe('Checkout', () => {
   })
 
   it('can pay', async () => {
-    const btnPay = b.find($payWithStripe)
-
     const SHIPPING_INFORMATION = {
       email: 'labas@aol.be'
     }
@@ -67,7 +67,7 @@ describe('Checkout', () => {
     await store.dispatch('checkout/setIsStripeCardCompleted', true)
     await store.dispatch('cart/setShippingInformation', SHIPPING_INFORMATION)
 
-    expect(btnPay.attributes().disabled).toBeFalsy()
+    expect($payWithStripe).toHaveAttribute('disabled', undefined)
 
     await wrapper.vm.beforePay()
 
@@ -102,21 +102,22 @@ describe('Checkout', () => {
     expect(response).toBeTruthy()
 
     expect(wrapper.vm.status).toBe('failure')
-    b.domHas($statusFailureButton)
+    expect($statusFailureButton).toBeADomElement()
   })
 
   it('can reset if failure', async () => {
     await store.dispatch('checkout/setStatus', undefined) // reset
 
-    b.domHasNot($statusFailure)
+    expect($statusFailure).not.toBeADomElement()
 
     await store.dispatch('checkout/setStatus', 'failure')
 
-    b.domHasNot('.loadcontain')
-    b.domHasNot('.payment')
-    b.domHas($statusFailure)
+    expect('.loadcontain').not.toBeADomElement()
+    expect('.payment').not.toBeADomElement()
 
-    b.click($statusFailureButton)
+    expect($statusFailure).toBeADomElement()
+
+    wrapper.find($statusFailureButton).trigger('click')
     expect(wrapper.vm.submitted).toBeFalsy()
     expect(wrapper.vm.status).toBe('')
   })

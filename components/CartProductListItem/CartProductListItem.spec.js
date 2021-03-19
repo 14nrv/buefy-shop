@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
-import Helpers from 'mwangaben-vthelpers'
-import { shallow, createLocalVue } from '@vue/test-utils'
+import matchers from 'jest-vue-matcher'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import fakeStore from '@/__mocks__/fakeStore'
 import fakeProducts from '@/__mocks__/products.json'
 import CartProductListItem from './CartProductListItem'
@@ -14,14 +14,14 @@ fakeStore.modules.cart.actions = {
   removeItem: jest.fn()
 }
 
-let wrapper, b, store
+let wrapper, store
 
 const firstBoxRemoveItemBtn = '.box .removeItem'
 
 describe('CartProductListItem', () => {
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
-    wrapper = shallow(CartProductListItem, {
+    wrapper = shallowMount(CartProductListItem, {
       localVue,
       store,
       propsData: {
@@ -30,20 +30,19 @@ describe('CartProductListItem', () => {
         }
       }
     })
-    b = new Helpers(wrapper, expect)
+    expect.extend(matchers(wrapper))
   })
 
   it('is a Vue instance', () => {
     expect(wrapper.exists()).toBeTruthy()
-    expect(wrapper.isVueInstance()).toBeTruthy()
   })
 
   it('have a btn remove', () => {
-    b.domHas(firstBoxRemoveItemBtn)
+    expect(firstBoxRemoveItemBtn).toBeADomElement()
   })
 
   it('call remove item action when click on btn .removeItem', () => {
-    b.click(firstBoxRemoveItemBtn)
+    wrapper.find(firstBoxRemoveItemBtn).trigger('click')
     expect(fakeStore.modules.cart.actions.removeItem).toHaveBeenCalled()
   })
 })

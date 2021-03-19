@@ -5,6 +5,11 @@ import product from '@/store/modules/product'
 import products from '@/__mocks__/products.json'
 
 const fakeStore = {
+  actions: {
+    async nuxtServerInit({ dispatch }) {
+      await dispatch('product/setProductsRef')
+    }
+  },
   modules: {
     pkg,
     cart,
@@ -13,10 +18,12 @@ const fakeStore = {
       ...product,
       actions: {
         ...product.actions,
-        setProductsRef: jest.fn(() => {
-          fakeStore.modules.product.state.products = products
-        })
-      }
+        setProductsRef: jest.fn()
+      },
+      state: () => ({
+        ...product.state(),
+        products
+      })
     }
   },
   strict: false

@@ -1,13 +1,16 @@
 {
   "presets": [
-    [ "env", {"modules": false}],
-    "babel-preset-es2015",
-    "babel-preset-stage-2"
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "entry"
+      }
+    ]
   ],
   "env": {
     "test": {
       "presets": [
-        [ "env", { "targets": { "node": "current" } } ]
+        [ "@babel/preset-env", { "targets": { "node": "current" } } ]
       ]
     }
   }

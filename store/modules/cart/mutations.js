@@ -9,7 +9,7 @@ export default {
     if (item.name in state.cart) {
       state.cart[item.name].count++
     } else {
-      let stateItem = { ...item }
+      const stateItem = { ...item }
       stateItem.count = 1
       state.cart[item.name] = stateItem
     }

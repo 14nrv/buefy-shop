@@ -1,7 +1,7 @@
 <template lang="pug">
   .card.is-radius
     .card-image
-      nuxt-link(exact, :to="{name: 'products-slug', params: { slug: `${slug}` } }")
+      nuxt-link(exact, :to="{name: 'products-slug', params: { slug } }")
         picture.image
           source(:data-srcset="`./../../products/${item.img}.webp`",
                  type="image/webp")
@@ -10,7 +10,7 @@
     .card-content
       .media
         .media-content
-          nuxt-link(exact, :to="{name: 'products-slug', params: { slug: `${slug}` } }")
+          nuxt-link(exact, :to="{name: 'products-slug', params: { slug } }")
             p.title.is-5 {{ item.name }}
             p.item-price {{ item.price | usdollar }}
         .media-right

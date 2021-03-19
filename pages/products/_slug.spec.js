@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
-import Helpers from 'mwangaben-vthelpers'
-import { shallow, createLocalVue } from '@vue/test-utils'
+import matchers from 'jest-vue-matcher'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import fakeStore from '@/__mocks__/fakeStore'
 import fakeProducts from '@/__mocks__/products.json'
 import pkg from '@/package.json'
@@ -18,7 +18,7 @@ const $route = {
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-let wrapper, store, b
+let wrapper, store
 
 const [ firstProduct ] = fakeProducts
 const fetchError = jest.fn()
@@ -28,7 +28,7 @@ describe('ProductDetail', () => {
 
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
-    wrapper = shallow(ProductDetail, {
+    wrapper = shallowMount(ProductDetail, {
       localVue,
       store,
       computed: {
@@ -38,13 +38,11 @@ describe('ProductDetail', () => {
         $route
       }
     })
-    b = new Helpers(wrapper, expect)
-    store.dispatch('product/setProductsRef')
+    expect.extend(matchers(wrapper))
   })
 
   it('is a Vue instance', () => {
     expect(wrapper.exists()).toBeTruthy()
-    expect(wrapper.isVueInstance()).toBeTruthy()
   })
 
   it('have pkg name in store', () => {
@@ -54,15 +52,15 @@ describe('ProductDetail', () => {
 
   it('show product details', () => {
     const { name, price } = firstProduct
-    b.see(name)
-    b.see(price)
+    expect('h1').toHaveText(name)
+    expect('p').toHaveText(price)
   })
 
   it('can add product to cart', () => {
     const getCartTotalInStore = () => wGetters('cart/total')
     expect(getCartTotalInStore()).toBe(0)
 
-    b.click('.button')
+    wrapper.find('.button').trigger('click')
     expect(getCartTotalInStore()).toBe(1)
   })
 

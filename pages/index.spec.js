@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
-import Helpers from 'mwangaben-vthelpers'
-import { mount, createLocalVue } from '@vue/test-utils'
+import matchers from 'jest-vue-matcher'
+import { mount, createLocalVue, RouterLinkStub } from '@vue/test-utils'
 import fakeStore from '@/__mocks__/fakeStore'
 import pkg from '@/package.json'
 import Index from '@/pages/index'
@@ -15,7 +15,7 @@ localVue.use(Vuex)
 const ITEM_CLASS_NAME = '.card'
 const $category = '#category'
 
-let wrapper, store, b
+let wrapper, store
 
 describe('Index', () => {
   const wGetters = getterName => wrapper.vm.$store.getters[getterName]
@@ -29,8 +29,14 @@ describe('Index', () => {
 
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
-    wrapper = mount(Index, { localVue, store })
-    b = new Helpers(wrapper, expect)
+    wrapper = mount(Index, {
+      localVue,
+      store,
+      stubs: {
+        NuxtLink: RouterLinkStub
+      }
+    })
+    expect.extend(matchers(wrapper))
   })
 
   it('run test on test env', () => {
@@ -39,7 +45,6 @@ describe('Index', () => {
 
   it('is a Vue instance', () => {
     expect(wrapper.exists()).toBeTruthy()
-    expect(wrapper.isVueInstance()).toBeTruthy()
   })
 
   it('have pkg version in store', () => {
@@ -47,16 +52,9 @@ describe('Index', () => {
     expect(pkgVersionInStore).toBe(pkg.version)
   })
 
-  it('call setProductsRef', () => {
-    expect(fakeStore.modules.product.actions.setProductsRef).toHaveBeenCalled()
-  })
-
   describe('> sidebar', () => {
     it('have a sidebar component', () => {
-      b.domHas(Sidebar)
-
-      const $Sidebar = wrapper.find(Sidebar)
-      expect($Sidebar.is(Sidebar)).toBe(true)
+      expect(wrapper.getComponent(Sidebar)).toBeTruthy()
     })
 
     it('bind select option to category in store', () => {
@@ -66,12 +64,13 @@ describe('Index', () => {
       expect($option).toHaveLength(categoriesInStore.length)
     })
 
-    it('update products when change category', () => {
+    it('update products when change category', async () => {
       const productsInDomBefore = getProductsInDom()
 
       const categorySelected = () => wGetters('product/categorySelected')
       wrapper.findAll(`${$category} option`).at(4).element.selected = true
       wrapper.find($category).trigger('input')
+      await wrapper.vm.$nextTick()
 
       expect(categorySelected()).toBe('shoe')
 
@@ -87,7 +86,7 @@ describe('Index', () => {
 
   describe('> ProductListItem', () => {
     it('have a ProductListItem component', () => {
-      b.domHas(ProductListItem)
+      expect(wrapper.getComponent(ProductListItem)).toBeTruthy()
     })
 
     it('show all products', () => {
@@ -96,7 +95,7 @@ describe('Index', () => {
       const products = wGetters('product/products').length
       const allProducts = wGetters('product/allProducts').length
 
-      b.domHas(ITEM_CLASS_NAME)
+      expect(ITEM_CLASS_NAME).toBeADomElement()
 
       expect($products).toHaveLength(products)
       expect($products).toHaveLength(allProducts)
@@ -107,21 +106,21 @@ describe('Index', () => {
       const getCartTotalInStore = () => wGetters('cart/total')
       expect(getCartTotalInStore()).toBeFalsy()
 
-      b.click(`${ITEM_CLASS_NAME}:first-of-type .add`)
-      b.click(`${ITEM_CLASS_NAME}:first-of-type .add`)
+      wrapper.find(`${ITEM_CLASS_NAME}:first-of-type .add`).trigger('click')
+      wrapper.find(`${ITEM_CLASS_NAME}:first-of-type .add`).trigger('click')
 
       expect(getCartTotalInStore()).toBe(2)
     })
 
-    it('update when is sale or not', () => {
+    it('update when is sale or not', async () => {
       const productsInDomBefore = getProductsInDom()
       expect(getProductsInStore()).toBe(productsInDomBefore)
 
-      b.click('.can-toggle input')
+      wrapper.find('.can-toggle input').trigger('click')
       store.dispatch('product/switchSale', true)
 
       const highPrice = 20
-      b.type(highPrice, '#pricerange')
+      await wrapper.find('#pricerange').setValue(highPrice)
 
       const productsInDomAfter = getProductsInDom()
       expect(productsInDomBefore).not.toBe(productsInDomAfter)

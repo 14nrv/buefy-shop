@@ -11,7 +11,7 @@ export default {
   computed: {
     trigger: {
       get() { return this.$store.state.product.sale },
-      set() { return this.$store.dispatch('product/switchSale') }
+      set() { return this.$store.dispatch('product/switchSale', !this.trigger) }
     }
   }
 }
@@ -20,4 +20,3 @@ export default {
 <style lang="stylus" scoped>
   @require '../../node_modules/bulma-switch/dist/css/bulma-switch.min.css'
 </style>
-

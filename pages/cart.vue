@@ -50,11 +50,6 @@ import 'vue-form-json/dist/vue-form-json.css'
 const { mapGetters, mapActions } = createNamespacedHelpers('cart')
 
 export default {
-  head: {
-    script: [
-      { src: 'https://js.stripe.com/v3/' }
-    ]
-  },
   components: {
     CartProductListItem,
     Checkout,
@@ -64,15 +59,29 @@ export default {
   filters: {
     usdollar: value => `$${value}`
   },
-  data:() => ({
+  data: () => ({
     shippingFields
   }),
+  head: {
+    script: [
+      { src: 'https://js.stripe.com/v3/' }
+    ]
+  },
   computed: {
     ...mapGetters(['cart', 'total', 'amount', 'success', 'actualStep']),
     stepMenuContent: () => stepMenuContent
   },
   mounted() {
-    this.$root.$on('formSubmitted', ({ values }) => {
+    this.$root.$on('formSubmitted', this.handleFormSubmitted)
+  },
+  beforeDestroy() {
+    this.$root.$off('formSubmitted', this.handleFormSubmitted)
+    this.success && this.setSuccess(false)
+    this.setActualStep(0)
+  },
+  methods: {
+    ...mapActions(['setSuccess', 'setActualStep', 'setShippingInformation']),
+    handleFormSubmitted({ values }) {
       const {
         address: line1,
         city,
@@ -80,9 +89,9 @@ export default {
         email,
         firstName,
         lastName,
-        message: shipping,
         phoneNumber: phone,
-        zip: postal_code,
+        // eslint-disable-next-line camelcase
+        zip: postal_code
       } = values
 
       const address = {
@@ -106,19 +115,12 @@ export default {
         }
       })
       this.setActualStep(2)
-    })
-  },
-  methods: {
-    ...mapActions(['setSuccess', 'setActualStep', 'setShippingInformation'])
-  },
-  beforeDestroy() {
-    this.success && this.setSuccess(false)
-    this.setActualStep(0)
+    }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-  .shippingForm.shippingForm
-    max-width 28rem
+.shippingForm.shippingForm
+  max-width 28rem
 </style>

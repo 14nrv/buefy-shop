@@ -31,7 +31,7 @@ import { createNamespacedHelpers } from 'vuex'
 const { mapActions } = createNamespacedHelpers('cart')
 
 export default {
-  name:'CartProductListItem',
+  name: 'CartProductListItem',
   filters: {
     usdollar: function(value) {
       return `$${value}`

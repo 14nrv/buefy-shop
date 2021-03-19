@@ -1,20 +1,20 @@
+import { description, name } from './package.json'
+
 const {
-  NODE_ENV,
   ANALYZE,
-  FB_DATABASE_URL,
-  FB_PROJECT_ID,
   FB_API_KEY,
   FB_AUTH_DOMAIN,
-  FB_STORAGE_BUCKET,
+  FB_DATABASE_URL,
   FB_MESSAGE_SENDER_ID,
+  FB_PROJECT_ID,
+  FB_STORAGE_BUCKET,
+  GA_ID,
+  NODE_ENV,
   STRIPE_PUBLISHABLE_KEY,
-  STRIPE_URL,
-  GA_ID
+  STRIPE_URL
 } = process.env
 
-const modules = [
-  '@nuxtjs/pwa'
-]
+const modules = []
 const isNotProdEnv = NODE_ENV !== 'production'
 modules.push(
   isNotProdEnv
@@ -27,7 +27,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    postcss: {// will fix bulma warning about column
+    postcss: { // will fix bulma warning about column
       preset: {
         features: {
           'custom-properties': false
@@ -44,7 +44,17 @@ module.exports = {
   ** Headers
   ** Common headers are already provided by @nuxtjs/pwa preset
   */
-  head: {},
+  pwa: {
+    meta: {
+      description,
+      name
+    },
+    manifest: {
+      description,
+      name,
+      short_name: name
+    }
+  },
   /*
   ** Customize the progress-bar color
   */
@@ -58,6 +68,9 @@ module.exports = {
   /*
   ** Modules
   */
+  buildModules: [
+    '@nuxtjs/pwa'
+  ],
   modules,
   plugins: [
     '~plugins/firebase',

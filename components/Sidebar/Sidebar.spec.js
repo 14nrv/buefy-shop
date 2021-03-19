@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
-import Helpers from 'mwangaben-vthelpers'
-import { shallow, createLocalVue } from '@vue/test-utils'
+import matchers from 'jest-vue-matcher'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import fakeStore from '@/__mocks__/fakeStore'
 import Sidebar from './Sidebar'
 
@@ -9,24 +9,23 @@ jest.mock('@/plugins/firebase', () => jest.fn())
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-let wrapper, store, b
+let wrapper, store
 
 describe('Sidebar', () => {
   const wGetters = getterName => wrapper.vm.$store.getters[getterName]
 
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
-    wrapper = shallow(Sidebar, { localVue, store })
-    b = new Helpers(wrapper, expect)
+    wrapper = shallowMount(Sidebar, { localVue, store })
+    expect.extend(matchers(wrapper))
   })
 
   it('is a Vue instance', () => {
     expect(wrapper.exists()).toBeTruthy()
-    expect(wrapper.isVueInstance()).toBeTruthy()
   })
 
   it('show an input #pricerange', () => {
-    b.domHas('input#pricerange')
+    expect('input#pricerange').toBeADomElement()
   })
 
   it('call updateHighPrice when change value of price range', () => {
@@ -34,13 +33,13 @@ describe('Sidebar', () => {
     expect(highPriceInStore()).toBe(300)
 
     const highPrice = 20
-    b.type(highPrice, '#pricerange')
+    wrapper.find('#pricerange').setValue(highPrice)
 
     expect(highPriceInStore()).toBe(`${highPrice}`)
   })
 
   it('show an select #category', () => {
-    b.domHas('select#category')
+    expect('select#category').toBeADomElement()
   })
 
   it('have all category selected', () => {

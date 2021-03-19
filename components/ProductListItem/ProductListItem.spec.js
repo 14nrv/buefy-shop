@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
-import Helpers from 'mwangaben-vthelpers'
-import { shallow, createLocalVue } from '@vue/test-utils'
+import matchers from 'jest-vue-matcher'
+import { shallowMount, createLocalVue, RouterLinkStub } from '@vue/test-utils'
 import fakeStore from '@/__mocks__/fakeStore'
 import products from '@/__mocks__/products.json'
 import ProductListItem from './ProductListItem'
@@ -12,36 +12,38 @@ const firstProduct = products[0]
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-let wrapper, store, b
+let wrapper, store
 
 describe('ProductListItem', () => {
   beforeEach(() => {
     store = new Vuex.Store(fakeStore)
-    wrapper = shallow(ProductListItem, {
+    wrapper = shallowMount(ProductListItem, {
       localVue,
       store,
       propsData: {
         item: firstProduct
+      },
+      stubs: {
+        NuxtLink: RouterLinkStub
       }
     })
-    b = new Helpers(wrapper, expect)
+    expect.extend(matchers(wrapper))
   })
 
   it('is a Vue instance', () => {
     expect(wrapper.exists()).toBeTruthy()
-    expect(wrapper.isVueInstance()).toBeTruthy()
   })
 
   it('have a btn .add', () => {
-    b.domHas('.add')
+    expect('.add').toBeADomElement()
   })
 
   it('show name of item', () => {
-    b.see(firstProduct.name, '.media-content p.title')
+    expect('.media-content p.title').toHaveText(firstProduct.name)
   })
 
   it('show price of item', () => {
-    b.see(`$${firstProduct.price}`, '.item-price')
+    expect('.item-price').toHaveText(`$${firstProduct.price}`)
   })
 
   it('call addItem action when click on btn item', () => {
@@ -50,7 +52,7 @@ describe('ProductListItem', () => {
     expect(getCartTotalInStore()).toBe(0)
     expect(getCartAmountInStore()).toBeFalsy()
 
-    b.click('.add')
+    wrapper.find('.add').trigger('click')
     expect(getCartTotalInStore()).toBe(1)
     expect(getCartAmountInStore()).toBeTruthy()
   })

@@ -21,17 +21,20 @@ import { slug } from '@/helpers'
 
 const { mapGetters } = createNamespacedHelpers('product')
 
-const getAllProducts = store => store.getters['product/allProducts']
-
-const isProductNameSameAsSlug = (store, params) =>
-  getAllProducts(store)
-    .some( ({ name }) => slug(name) === params.slug)
-
 export default {
   fetch({ store, error, params }) {
-    !store.state.products && store.dispatch('product/setProductsRef')
+    const allProducts = store.getters['product/allProducts']
+    const isProductNameSameAsSlug = param =>
+      allProducts.some(({ name }) => slug(name) === param.slug)
 
-    !isProductNameSameAsSlug(store, params) && error({ statusCode: 404, message: 'Product not found' })
+    !isProductNameSameAsSlug(params) && error({ statusCode: 404, message: 'Product not found' })
+  },
+  head() {
+    return this.item
+      ? {
+          title: `${this.item.name} | ${this.$store.getters['pkg/name']}`
+        }
+      : false
   },
   computed: {
     ...mapGetters(['productFromSlugParamRoute']),
@@ -40,14 +43,7 @@ export default {
     }
   },
   methods: {
-    addItem(item) {return this.$store.dispatch('cart/addItem', item)}
-  },
-  head() {
-    return this.item
-      ? {
-          title: `${this.item.name} | ${this.$store.getters['pkg/name']}`
-        }
-      : false
+    addItem(item) { return this.$store.dispatch('cart/addItem', item) }
   }
 }
 </script>

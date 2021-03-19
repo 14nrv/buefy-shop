@@ -6,7 +6,7 @@
       app-sidebar(:pricerange.sync="highprice")
       transition-group.content.is-pulled-right(name="items", tag="div")
         app-product-list-item(v-for="product in products",
-                              :key="product['.key']",
+                              :key="product.name",
                               :item="product")
 </template>
 
@@ -26,9 +26,6 @@ export default {
   },
   computed: {
     ...mapGetters(['products', 'highprice'])
-  },
-  created () {
-    this.$store.dispatch('product/setProductsRef')
   }
 }
 </script>
