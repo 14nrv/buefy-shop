@@ -1,15 +1,17 @@
+import { description, name } from './package.json'
+
 const {
-  NODE_ENV,
   ANALYZE,
-  FB_DATABASE_URL,
-  FB_PROJECT_ID,
   FB_API_KEY,
   FB_AUTH_DOMAIN,
-  FB_STORAGE_BUCKET,
+  FB_DATABASE_URL,
   FB_MESSAGE_SENDER_ID,
+  FB_PROJECT_ID,
+  FB_STORAGE_BUCKET,
+  GA_ID,
+  NODE_ENV,
   STRIPE_PUBLISHABLE_KEY,
-  STRIPE_URL,
-  GA_ID
+  STRIPE_URL
 } = process.env
 
 const modules = []
@@ -42,7 +44,17 @@ module.exports = {
   ** Headers
   ** Common headers are already provided by @nuxtjs/pwa preset
   */
-  head: {},
+  pwa: {
+    meta: {
+      description,
+      name
+    },
+    manifest: {
+      description,
+      name,
+      short_name: name
+    }
+  },
   /*
   ** Customize the progress-bar color
   */
