@@ -13,6 +13,7 @@
             p.control
               a.button.is-light.is-marginless-mobile(target="_blank",
                                 href="https://github.com/14nrv/buefy-shop",
+                                title="Fork"
                                 rel="noopener")
                 span.icon
                   i.fab.fa-github
@@ -20,7 +21,7 @@
         .navbar-item
           .field
             p.control
-              nuxt-link.button.is-light(exact, :to="{name: 'cart'}")
+              nuxt-link.button.is-light(exact, :to="{name: 'cart'}", title="Cart")
                 span.icon.cartitem
                   .cartcount(v-if="total > 0") {{ total }}
                   i.fa.fa-shopping-cart
