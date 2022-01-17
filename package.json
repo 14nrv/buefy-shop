@@ -25,7 +25,7 @@
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@nuxtjs/google-analytics": "^2.0.2",
     "@nuxtjs/pwa": "^3.3.5",
-    "axios": "^0.21.1",
+    "axios": "^0.21.3",
     "bulma": "^0.9.1",
     "bulma-steps": "^2.2.1",
     "bulma-switch": "^2.0.0",
